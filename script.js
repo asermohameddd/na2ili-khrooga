@@ -428,10 +428,6 @@ function applyLanguage(lang) {
 
   renderOutings();
   renderPackages();
-
-  if (activeKhroogaItem) {
-    openKhroogaModal(activeKhroogaItem);
-  }
 }
 
 function getPlacesForKhrooga(item) {
