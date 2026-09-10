@@ -450,7 +450,7 @@ const translations = {
     tagCurated: 'مختارة'
   },
   fr: {
-    navDiscover: 'Etkashef',
+    navDiscover: 'Ektashef',
     navPackages: 'El packages',
     navHow: 'Ezay beteshtaghal',
     heroEyebrow: 'CAIRO • BUDGETAK • MOODAK',
