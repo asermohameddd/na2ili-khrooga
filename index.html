@@ -1,10 +1,10 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Na2ili Khrooga — نقيلي خروجة</title>
-  <meta name="description" content="Na2ili Khrooga helps you discover fun Cairo outings and complete day packages that match your people count and budget." />
+  <meta name="description" content="Discover fun Cairo outings and complete day packages that match your people count and budget." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -12,12 +12,13 @@
 </head>
 <body>
   <div class="noise"></div>
-  <header class="nav">
+  <!-- HTML Structure -->
+<header class="nav">
     <a class="brand" href="#top">
-      <span class="brand-mark">ن</span>
-      <span>Na2ili <b>Khrooga</b></span>
+      <span class="brand-mark" data-i18n="brandMark">N</span>
+      <span data-i18n="brandName">Na2ili <b>Khrooga</b></span>
     </a>
-    <nav>
+    <nav class="nav-links">
       <a href="#discover" data-i18n="navDiscover">Discover</a>
       <a href="#packages" data-i18n="navPackages">Packages</a>
       <a href="#how" data-i18n="navHow">How it works</a>
@@ -40,8 +41,9 @@
       </div>
       <div class="hero-content">
         <div class="eyebrow" data-i18n="heroEyebrow">CAIRO • YOUR BUDGET • YOUR MOOD</div>
-        <h1>نقيلي <span>خروجة</span><br><small>Na2ili Khrooga</small></h1>
-        <p class="hero-copy" data-i18n="heroCopy">Tell us your group size, your average budget, and your exact total. We’ll find outing ideas and full-day plans that actually sit around your budget.</p>
+        <h1 data-i18n="heroH1">Na2ili <span>Khrooga</span></h1>
+        <small style="display:block; font-size:15px; letter-spacing:0.19em; text-transform:uppercase; opacity:0.55; margin-top:10px;" data-i18n="heroH1Small">Find Your Perfect Day</small>
+        <p class="hero-copy" data-i18n="heroCopy">Tell us your group size, your average budget, and your exact total. We’ll find outing ideas and full-day plans that actually fit your budget.</p>
 
         <form id="budgetForm" class="planner-card">
           <div class="field">
@@ -54,7 +56,7 @@
           <div class="field">
             <label for="perPerson" data-i18n="avgLabel">Average budget / person</label>
             <div class="input-wrap">
-              <span>ج.م</span>
+              <span data-i18n="currency">EGP</span>
               <input id="perPerson" type="number" min="0" max="1000000" value="500" step="1" inputmode="numeric" required />
             </div>
             <div class="field-error" id="perPersonError" aria-live="polite"></div>
@@ -62,21 +64,21 @@
           <div class="field">
             <label for="totalBudget" data-i18n="totalLabel">Exact total group budget</label>
             <div class="input-wrap">
-              <span>ج.م</span>
+              <span data-i18n="currency">EGP</span>
               <input id="totalBudget" type="number" min="0" max="100000000" value="1000" step="1" inputmode="numeric" required />
             </div>
             <div class="field-error" id="totalError" aria-live="polite"></div>
             <div class="field-hint" id="budgetHint" aria-live="polite"></div>
           </div>
-          <button class="primary-btn" type="submit" data-i18n="findBtn">Find my khrooga <span>→</span></button>
+          <button class="primary-btn" type="submit" data-i18n="findBtn">Find my outing <span>→</span></button>
         </form>
         <div class="trust-row">
           <span>✓ <span data-i18n="trustOutings">200+ outing ideas</span></span>
           <span>✓ <span data-i18n="trustPackages">70+ day packages</span></span>
-          <span>✓ <span data-i18n="trustRanges">Narrow EGP planning ranges</span></span>
+          <span>✓ <span data-i18n="trustRanges">Narrow planning ranges</span></span>
         </div>
       </div>
-      <div class="scroll-cue">SCROLL TO EXPLORE <span>↓</span></div>
+      <div class="scroll-cue" data-i18n="scrollCue">SCROLL TO EXPLORE <span>↓</span></div>
     </section>
 
     <section class="stats-strip" id="discover">
@@ -93,8 +95,8 @@
         <span data-i18n="statSuggestions">suggestions per reveal</span>
       </div>
       <div>
-        <strong>10 → 1M</strong>
-        <span data-i18n="statBudget">EGP budget range</span>
+        <strong>10 → 2k</strong>
+        <span data-i18n="statBudget">budget range</span>
       </div>
     </section>
 
@@ -102,7 +104,7 @@
       <div class="section-heading">
         <div>
           <span class="eyebrow" data-i18n="resultsEyebrow">YOUR RESULTS</span>
-          <h2 id="resultsTitle">Tell me your budget 👀</h2>
+          <h2 id="resultsTitle" data-i18n="resultsTitleDefault">Tell me your budget 👀</h2>
           <p id="resultsSub" data-i18n="resultsEmpty">Your matching ideas will appear here.</p>
         </div>
         <div class="result-controls">
@@ -124,7 +126,7 @@
         <div>
           <span class="eyebrow" data-i18n="packagesEyebrow">DAY PACKAGES</span>
           <h2 data-i18n="packagesTitle">Not just one place.<br><em>A whole day.</em></h2>
-          <p data-i18n="packagesCopy">Pick a vibe, then let the itinerary handle the hand-offs: activity → food → drinks → sunset.</p>
+          <p data-i18n="packagesCopy">Pick a mood, then let the itinerary handle the hand-offs: activity → food → drinks → sunset.</p>
         </div>
         <div class="package-badge">
           <span id="packageBadgeCount">80+</span><br>
@@ -132,7 +134,7 @@
         </div>
       </div>
       <div class="package-filter-row">
-        <button class="filter-chip active" data-pcat="all" data-i18n="allVibes">All vibes</button>
+        <button class="filter-chip active" data-pcat="all" data-i18n="allVibes">All options</button>
         <button class="filter-chip" data-pcat="date" data-i18n="vibeDate">Date</button>
         <button class="filter-chip" data-pcat="friends" data-i18n="vibeFriends">Friends</button>
         <button class="filter-chip" data-pcat="family" data-i18n="vibeFamily">Family</button>
@@ -148,8 +150,8 @@
     <section class="how-section" id="how">
       <div class="how-copy">
         <span class="eyebrow" data-i18n="howEyebrow">HOW IT WORKS</span>
-        <h2 data-i18n="howTitle">Budget in.<br><span>Khrooga out.</span></h2>
-        <p data-i18n="howCopy">No booking database. No giant form. Just a smart front-end planner that helps you decide what to do with the money you already have.</p>
+        <h2 data-i18n="howTitle">Budget in.<br><span>Outing out.</span></h2>
+        <p data-i18n="howCopy">No booking database. No giant form. Just a smart planner that helps you decide what to do with the money you already have.</p>
       </div>
       <div class="how-steps">
         <div class="step">
@@ -160,7 +162,7 @@
         <div class="step">
           <span>02</span>
           <h3 data-i18n="step2Title">Get budget-close results</h3>
-          <p data-i18n="step2Copy">Results are ranked by distance from your target, so a 500 EGP budget starts with roughly 450–550 EGP ideas instead of random cheap options.</p>
+          <p data-i18n="step2Copy">Results are ranked by distance from your target, so you get realistic options instead of random cheap ideas.</p>
         </div>
         <div class="step">
           <span>03</span>
@@ -175,16 +177,61 @@
         <div class="note-icon">₤</div>
         <div>
           <h3 data-i18n="priceNoteTitle">Price accuracy comes first</h3>
-          <p data-i18n="priceNoteCopy">Ranges are planning estimates for Cairo and Greater Cairo. Public prices can change by branch, ticket type, promotion, season and date, so the site uses narrow planning ranges and avoids pretending to be a live checkout.</p>
+          <p data-i18n="priceNoteCopy">Ranges are planning estimates for the city. Public prices can change by branch, promotion, season, and date, so the site uses narrow planning ranges and avoids pretending to be a live checkout.</p>
         </div>
         <span class="pulse-dot"></span>
       </div>
     </section>
   </main>
 
+  <div id="khroogaModal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="modalTitle">
+    <div class="modal-card">
+      <button class="modal-close" id="modalCloseBtn" aria-label="Close modal">&times;</button>
+      <div class="modal-header">
+        <span class="modal-emoji" id="modalEmoji">🌿</span>
+        <div>
+          <div class="modal-tags">
+            <span class="tag" id="modalCategory">Culture</span>
+            <span class="match-badge" id="modalPriceBadge">20 - 25 EGP</span>
+          </div>
+          <h2 id="modalTitle">Al Azhar Park walk</h2>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <section class="modal-section">
+          <h3 class="modal-subtitle" data-i18n="modalBriefTitle">What you will do</h3>
+          <p class="modal-desc" id="modalDesc">Calm garden + skyline view with photo opportunities.</p>
+        </section>
+
+        <section class="modal-section">
+          <div class="section-head-inline">
+            <h3 class="modal-subtitle" data-i18n="modalPlacesTitle">Top 6 Recommended Locations</h3>
+            <span class="modal-subtext" data-i18n="modalPlacesSub">Handpicked top places with average prices</span>
+          </div>
+          <div class="maps-grid" id="modalPlacesGrid"></div>
+        </section>
+
+        <section class="modal-section location-section">
+          <div class="location-header">
+            <div>
+              <h3 class="modal-subtitle" data-i18n="modalNearTitle">Places Near Your Location</h3>
+              <p class="modal-subtext" data-i18n="modalNearSub">Grant location permission to find the 6 closest top-reviewed places near you.</p>
+            </div>
+            <button class="location-btn" id="modalLocBtn">
+              <span>📍</span> <span data-i18n="searchByLocation">Search by your location</span>
+            </button>
+          </div>
+          <div id="locationStatus" class="location-status"></div>
+          <div class="maps-grid" id="modalNearPlacesGrid" style="display:none;"></div>
+        </section>
+      </div>
+    </div>
+  </div>
+
   <footer>
-    <div class="footer-brand">نقيلي خروجة</div>
-    <div data-i18n="footerLine">Made for people who say: “نخرج فين؟”</div>
+    <div class="footer-brand" data-i18n="brandName">Na2ili Khrooga</div>
+    <div data-i18n="footerLine">Made for people who say: “Where should we go?”</div>
     <div>© 2026 Na2ili Khrooga</div>
   </footer>
   <script src="script.js"></script>
