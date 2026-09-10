@@ -5,7 +5,7 @@
 The website allows users to enter the number of people and the average amount they want to spend per person and the total budget. The website provides a selection of suitable takeout suggestions.
 
 🌐 **Live Demo**  
-https://asermohameddd.github.io/na2ili-khrooga-_-/
+https://asermohameddd.github.io/na2ili-khrooga/
 
 
 ## Project Idea
@@ -155,4 +155,4 @@ This project helped me practice building a complete frontend website and integra
 ## Links
 
 - Github: https://github.com/asermohameddd  
-- 🌐 Live Demo: https://asermohameddd.github.io/na2ili-khrooga-_-/  
+- 🌐 Live Demo: https://asermohameddd.github.io/na2ili-khrooga/  
