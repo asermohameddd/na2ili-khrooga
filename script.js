@@ -764,7 +764,10 @@ document.getElementById('budgetForm')?.addEventListener('submit', e => {
   e.preventDefault();
   userPeopleCount = parseInt(document.getElementById('people').value, 10) || 1;
   
-  const exactTotal = parseInt(document.getElementById('perPerson').value, 10) || 1000;
+  // Read directly from the total budget input field (update 'totalBudget' if your HTML uses a different ID)
+  const exactTotal = parseInt(document.getElementById('totalBudget')?.value || document.getElementById('perPerson').value, 10) || 1000;
+  
+  // Calculate the average budget per person by dividing total budget by the number of people
   userTargetBudget = Math.round(exactTotal / userPeopleCount);
 
   visibleOutingsCount = 15;
@@ -778,7 +781,7 @@ document.getElementById('budgetForm')?.addEventListener('submit', e => {
 
   document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
 });
-
+  
   document.getElementById('moreBtn')?.addEventListener('click', () => {
     visibleOutingsCount += 15;
     renderOutings();
