@@ -1,341 +1,180 @@
+const O = (en, ar, fr) => ({ en, ar, fr });
+const R = (rating, reviews) => O(`${rating} ★ (${reviews} reviews)`, `${rating} ★ (${reviews} تقييم)`, `${rating} ★ (${reviews} taqyeem)`);
+
 const outings = [
-  ['Al Azhar Park walk', 'culture', '🌿', 20, 25, 'Calm garden + skyline'],
-  ['Al Andalus Park stroll', 'chill', '🌴', 10, 15, 'Cheap riverside Zamalek reset'],
-  ['Al Jazira Park hangout', 'chill', '🌳', 10, 15, 'Casual green-space break'],
-  ['Maadi Island visit', 'chill', '🌊', 25, 35, 'River island atmosphere'],
-  ['Aquarium Grotto Garden', 'culture', '🐠', 20, 30, 'Classic Zamalek mini-adventure'],
-  ['Cairo Tower area visit', 'culture', '🗼', 20, 40, 'Skyline stop + photos'],
-  ['Egyptian Museum visit', 'culture', '🏺', 450, 500, 'Tahrir museum day'],
-  ['Coptic Museum visit', 'culture', '⛪', 100, 120, 'Old Cairo history'],
-  ['Museum of Islamic Art', 'culture', '🕌', 100, 120, 'Architecture + art'],
-  ['National Museum of Egyptian Civilization', 'culture', '🏛️', 300, 350, 'Civilization galleries'],
-  ['Khan El Khalili walk', 'culture', '🧿', 0, 100, 'Souq wandering; spend optional'],
-  ['Al Moez Street evening', 'culture', '✨', 0, 80, 'Historic street + snacks'],
-  ['Muizz photo walk', 'chill', '📸', 0, 80, 'Golden-hour city textures'],
-  ['Zamalek photo walk', 'chill', '📷', 0, 80, 'Cafes + Nile streets'],
-  ['Downtown Cairo photo walk', 'culture', '🏙️', 0, 60, 'Architecture hunt'],
-  ['Garden City walk', 'chill', '🌇', 0, 60, 'Quiet old Cairo streets'],
-  ['Old Cairo walking loop', 'culture', '🧭', 20, 80, 'Churches + alleys'],
-  ['Manial Palace visit', 'culture', '👑', 80, 120, 'Royal-palace interiors'],
-  ['Kasr El Nil sunset walk', 'chill', '🌅', 0, 60, 'Nile at sunset'],
-  ['Qasr El Nil bridge photos', 'chill', '🌉', 0, 50, 'Fast scenic stop'],
-  ['Renaissance Downtown cinema', 'chill', '🎬', 90, 120, 'Standard movie ticket'],
-  ['Renaissance Al Rehab cinema', 'chill', '🍿', 90, 145, 'Morning/evening standard'],
-  ['Cinema City Stars', 'chill', '🎞️', 120, 180, 'Mall cinema outing'],
-  ['VOX cinema outing', 'chill', '🎥', 150, 220, 'Premium mall cinema plan'],
-  ['IMAX cinema outing', 'chill', '🪐', 180, 260, 'Big-screen movie'],
-  ['Drive-in movie concept', 'chill', '🚗', 180, 280, 'Car + outdoor movie style'],
-  ['Movie + popcorn combo', 'chill', '🍿', 220, 320, 'Ticket + snack buffer'],
-  ['Late-night cinema', 'chill', '🌙', 150, 250, 'Night show + drink'],
-  ['Movie marathon (2 films)', 'chill', '🎬', 300, 500, 'Two-ticket plan'],
-  ['Cinema date plan', 'date', '💗', 500, 900, '2 tickets + snack + coffee'],
-  ['Egyptian breakfast ful + taameya', 'food', '🥙', 50, 90, 'Local breakfast'],
-  ['Koshary bowl outing', 'food', '🍲', 50, 100, 'Classic Egyptian comfort'],
-  ['Shawerma meal', 'food', '🌯', 100, 170, 'Quick casual meal'],
-  ['Kofta sandwich meal', 'food', '🥙', 100, 180, 'Street-food style'],
-  ['Hawawshi meal', 'food', '🥩', 120, 190, 'Oven-baked Egyptian classic'],
-  ['Feteer session', 'food', '🥞', 120, 220, 'Sweet/savory sharing'],
-  ['Molokhia lunch', 'food', '🍚', 150, 240, 'Egyptian lunch plate'],
-  ['Grilled chicken meal', 'food', '🍗', 160, 260, 'Casual sit-down'],
-  ['Grilled mixed meat', 'food', '🥩', 220, 380, 'Heavier restaurant meal'],
-  ['Egyptian seafood meal', 'food', '🦐', 250, 450, 'Seafood main + sides'],
-  ['Pizza sharing meal', 'food', '🍕', 180, 320, 'Pizza + soft drink'],
-  ['Burger meal', 'food', '🍔', 180, 320, 'Burger + fries + drink'],
-  ['Chicken fast-food combo', 'food', '🍗', 180, 320, 'Chain-style combo'],
-  ['Big burger combo', 'food', '🍔', 250, 420, 'Larger burger meal'],
-  ['Family fast-food box', 'food', '🍗', 350, 650, 'Shareable group meal'],
-  ['Korean street-food meal', 'food', '🍜', 200, 350, 'Fun casual theme'],
-  ['Sushi meal', 'food', '🍣', 300, 550, 'Casual sushi order'],
-  ['Pasta restaurant meal', 'food', '🍝', 220, 380, 'Mid-range pasta'],
-  ['Steak meal', 'food', '🥩', 450, 750, 'Premium main'],
-  ['Breakfast cafe platter', 'food', '🍳', 180, 320, 'Cafe brunch'],
-  ['Sugarcane juice stop', 'food', '🧃', 15, 30, 'Fresh asab'],
-  ['Mango juice stop', 'food', '🥭', 25, 45, 'Fresh seasonal mango'],
-  ['Guava juice stop', 'food', '🍐', 20, 40, 'Fresh juice'],
-  ['Orange juice stop', 'food', '🍊', 20, 40, 'Fresh juice'],
-  ['Strawberry juice stop', 'food', '🍓', 30, 50, 'Fresh juice'],
-  ['Tea at ahwa', 'chill', '☕', 10, 25, 'Classic tea + sit'],
-  ['Turkish coffee', 'chill', '☕', 15, 35, 'Small coffee stop'],
-  ['Iced latte', 'chill', '🧊', 35, 70, 'Cafe cooling break'],
-  ['Spanish latte', 'chill', '🥛', 40, 80, 'Sweet coffee'],
-  ['Frappuccino-style drink', 'chill', '🥤', 45, 90, 'Cold blended drink'],
-  ['Fresh lemonade', 'chill', '🍋', 35, 70, 'Casual cafe drink'],
-  ['Mocktail cafe stop', 'chill', '🍹', 70, 140, 'Non-alcoholic drink'],
-  ['Dessert + coffee', 'food', '🍰', 100, 180, 'Sweet break'],
-  ['Waffle + drink', 'food', '🧇', 120, 220, 'Dessert cafe'],
-  ['Crepe + drink', 'food', '🥞', 100, 200, 'Casual dessert'],
-  ['Ice cream outing', 'food', '🍦', 50, 120, '2 scoops + topping'],
-  ['Bowling session', 'active', '🎳', 150, 220, 'One game + shoes buffer'],
-  ['Pool hall session', 'active', '🎱', 100, 180, 'Casual table time'],
-  ['Arcade session', 'active', '🕹️', 150, 300, 'Credits for games'],
-  ['VR gaming session', 'active', '🥽', 180, 300, 'Short VR experience'],
-  ['Escape room', 'active', '🔐', 250, 450, 'Shared puzzle room'],
-  ['Go-kart session', 'active', '🏎️', 300, 500, 'Short racing session'],
-  ['Trampoline park', 'active', '🤸', 250, 450, 'Timed jump session'],
-  ['Paintball session', 'active', '🎯', 350, 550, 'Game + basic gear'],
-  ['Laser tag', 'active', '🔫', 250, 450, 'Team battle session'],
-  ['Indoor climbing', 'active', '🧗', 250, 450, 'Beginner session'],
-  ['Roller skating', 'active', '🛼', 200, 350, 'Rink session'],
-  ['Ice skating', 'active', '⛸️', 250, 450, 'Skate session'],
-  ['Horse riding session', 'active', '🐎', 350, 650, 'Short riding experience'],
-  ['Cycling Nile route', 'active', '🚲', 100, 220, 'Bike rental + drink'],
-  ['Football turf booking', 'active', '⚽', 100, 180, 'Per-person group split'],
-  ['Padel session', 'active', '🎾', 250, 450, 'Shared court cost'],
-  ['Tennis court session', 'active', '🎾', 200, 350, 'Court + basic gear'],
-  ['Badminton session', 'active', '🏸', 150, 250, 'Court split'],
-  ['Billiards + drink', 'active', '🎱', 140, 250, 'Table + beverage'],
-  ['Karaoke room', 'active', '🎤', 250, 450, 'Shared private room'],
-  ['Nile felucca short ride', 'chill', '⛵', 100, 180, 'Short traditional sail'],
-  ['Nile felucca sunset', 'chill', '🌅', 180, 300, 'Sunset sailing'],
-  ['Motorboat Nile ride', 'active', '🚤', 250, 450, 'Shared motorboat time'],
-  ['Nile dinner cruise', 'food', '🛳️', 700, 1100, 'Dinner cruise planning range'],
-  ['Dinner + Nile view', 'food', '🌃', 500, 900, 'Dinner with river view'],
-  ['Rooftop Cairo sunset', 'chill', '🌆', 150, 300, 'Drink + view'],
-  ['Nile-side cafe', 'chill', '🌊', 120, 250, 'Drink + dessert'],
-  ['Picnic in a Cairo park', 'chill', '🧺', 120, 250, 'Snacks + mat + drinks'],
-  ['Sunset photo session', 'chill', '📸', 80, 180, 'Coffee + transport buffer'],
-  ['Night Cairo drive', 'chill', '🚗', 120, 250, 'Fuel/ride buffer + stop'],
-  ['Grand Egyptian Museum area day', 'culture', '🏺', 500, 650, 'Museum-centered plan'],
-  ['Giza pyramids viewing', 'culture', '🔺', 200, 350, 'Local ticket/transport buffer'],
-  ['Saqqara archaeological day', 'culture', '🏺', 250, 450, 'Site + local transport buffer'],
-  ['Dahshur pyramids trip', 'culture', '🐫', 220, 400, 'Site + transport buffer'],
-  ['Memphis museum trip', 'culture', '🗿', 180, 320, 'Short heritage trip'],
-  ['Baron Empain Palace', 'culture', '🏰', 100, 150, 'Historic palace visit'],
-  ['Abdeen Palace area', 'culture', '👑', 50, 120, 'Historic downtown stop'],
-  ['Nilometer visit', 'culture', '📏', 50, 100, 'Rhoda Island landmark'],
-  ['Pharaonic Village', 'culture', '⛵', 250, 400, 'Theme-history outing'],
-  ['Cairo Opera House area', 'culture', '🎭', 100, 250, 'Show/area planning'],
-  ['Mokattam sunset', 'chill', '🌇', 70, 150, 'View + drink'],
-  ['Muizz + dessert', 'culture', '🍮', 100, 220, 'Historic walk + sweet'],
-  ['Khan El Khalili + tea', 'culture', '🫖', 60, 150, 'Souq + ahwa'],
-  ['Zamalek cafes crawl', 'food', '☕', 250, 500, '2–3 drinks/snacks'],
-  ['Maadi cafes crawl', 'food', '☕', 220, 450, 'Relaxed cafe hop'],
-  ['New Cairo cafe hop', 'food', '🥤', 300, 600, 'Modern cafe crawl'],
-  ['City Stars shopping stroll', 'chill', '🛍️', 150, 300, 'Snack + drink + buffer'],
-  ['Mall of Egypt hangout', 'chill', '🛍️', 170, 350, 'Food + coffee buffer'],
-  ['Cairo Festival City hangout', 'chill', '✨', 180, 380, 'Food + drink buffer'],
-  ['Mall of Arabia hangout', 'chill', '🛍️', 150, 320, 'Walk + food buffer'],
-  ['Board-game cafe', 'active', '♟️', 150, 300, 'Games + drink'],
-  ['Bookstore + coffee', 'chill', '📚', 120, 250, 'Book browsing + drink'],
-  ['Art gallery hopping', 'culture', '🎨', 50, 180, '2–3 gallery entries/transit'],
-  ['Pottery workshop', 'active', '🏺', 300, 550, 'Hands-on workshop'],
-  ['Painting workshop', 'active', '🎨', 250, 500, 'Guided paint session'],
-  ['Perfume workshop', 'active', '🧴', 350, 650, 'Blend-your-own session'],
-  ['Cooking class', 'active', '🍳', 500, 900, 'Hands-on food class'],
-  ['Photography workshop', 'active', '📷', 350, 700, 'Short guided session'],
-  ['Dance class drop-in', 'active', '💃', 150, 300, 'Single class'],
-  ['Stand-up comedy night', 'chill', '🎙️', 150, 300, 'Ticket + drink buffer'],
-  ['Live music cafe', 'chill', '🎶', 150, 350, 'Show + drink'],
-  ['Jazz night', 'chill', '🎷', 180, 400, 'Ticket + drink'],
-  ['Theatre night', 'culture', '🎭', 200, 500, 'Ticket planning range'],
-  ['Concert night', 'culture', '🎤', 300, 900, 'Event ticket planning'],
-  ['Open-air cultural night', 'culture', '🏮', 100, 300, 'Entry + snack buffer'],
-  ['Poetry night', 'culture', '📝', 80, 220, 'Entry + drink'],
-  ['Cinema + rooftop', 'date', '🎬', 350, 650, 'Movie + rooftop drink'],
-  ['Bowling + burger', 'active', '🎳', 350, 600, 'Game + casual meal'],
-  ['Escape room + pizza', 'active', '🔐', 400, 700, 'Puzzle + shared meal'],
-  ['Arcade + dessert', 'active', '🕹️', 250, 500, 'Games + sweet'],
-  ['Park + street-food tour', 'budget', '🌳', 100, 220, 'Green space + local food'],
-  ['Koshary + movie', 'budget', '🍲', 170, 280, 'Cheap food + cinema'],
-  ['Ahwa + walk', 'budget', '☕', 40, 100, 'Very low budget hang'],
-  ['Juice + Nile walk', 'budget', '🧃', 40, 120, 'Simple summer plan'],
-  ['Cairo sunset on a budget', 'budget', '🌅', 60, 150, 'View + street drink'],
-  ['Museum + koshary', 'budget', '🏺', 520, 650, 'Culture + cheap lunch'],
-  ['Zamalek cheap date', 'date', '💗', 250, 450, 'Walk + dessert + coffee'],
-  ['Maadi casual date', 'date', '💗', 350, 650, 'Cafe + dinner buffer'],
-  ['Cinema + fast food', 'friends', '🎬', 300, 520, 'Ticket + combo'],
-  ['Bowling + drinks', 'friends', '🎳', 300, 520, 'Game + cafe stop'],
-  ['Luxury brunch', 'premium', '🥂', 700, 1200, 'Upscale brunch'],
-  ['Luxury dinner', 'premium', '🍽️', 900, 1600, 'Premium dinner plan'],
-  ['Premium cinema + dinner', 'premium', '🎞️', 900, 1600, 'Premium movie + dinner'],
-  ['Private Nile boat', 'premium', '🛥️', 1200, 2500, 'Private/shared premium ride'],
-  ['Nile cruise + dinner', 'premium', '🛳️', 1200, 2200, 'Higher-end river plan'],
-  ['Rooftop dinner', 'premium', '🌃', 800, 1400, 'View-focused dinner'],
-  ['Hotel afternoon tea', 'premium', '🫖', 700, 1200, 'Hotel lounge experience'],
-  ['Fine dining tasting', 'premium', '✨', 1200, 2200, 'Multi-course style'],
-  ['Spa + cafe day', 'premium', '🧖', 900, 1600, 'Relaxation + food'],
-  ['Premium date day', 'premium', '💎', 1600, 3000, 'Multiple upscale stops'],
-  ['Family park + lunch', 'family', '👨‍👩‍👧‍👦', 220, 420, 'Park + family meal'],
-  ['Dream Park-style amusement day', 'family', '🎢', 250, 450, 'Rides + food buffer'],
-  ['Kids indoor play + meal', 'family', '🧸', 250, 500, 'Play zone + lunch'],
-  ['Aquarium + park day', 'family', '🐟', 100, 250, 'Simple family combo'],
-  ['Museum + family lunch', 'family', '🏺', 450, 700, 'Museum + easy lunch'],
-  ['Mall kids zone + food', 'family', '🛍️', 350, 650, 'Indoor family plan'],
-  ['Bowling family outing', 'family', '🎳', 250, 450, 'Shared bowling + snacks'],
-  ['Movie family outing', 'family', '🍿', 250, 500, 'Cinema + snack'],
-  ['Picnic family day', 'family', '🧺', 150, 350, 'Park + packed food'],
-  ['Zoo-style family day', 'family', '🦁', 150, 350, 'Local family outing buffer'],
-  ['Felucca + street food', 'friends', '⛵', 180, 300, 'Sail then snack'],
-  ['Sunset rooftop mocktail', 'chill', '🌇', 120, 240, 'View + cold drink'],
-  ['Khan El Khalili photo challenge', 'culture', '🧿', 60, 160, 'Souq photo game'],
-  ['Nile Corniche snack walk', 'budget', '🌊', 50, 140, 'Walk + local bites'],
-  ['French toast cafe stop', 'food', '🍞', 100, 190, 'Dessert breakfast'],
-  ['Donut + coffee stop', 'food', '🍩', 90, 170, 'Quick sweet break'],
-  ['Shisha-free cafe hangout', 'chill', '☕', 100, 220, 'Coffee + dessert'],
-  ['Mini golf session', 'active', '⛳', 220, 400, 'Casual putting game'],
-  ['Darts bar-style game', 'active', '🎯', 150, 300, 'Darts + soft drink'],
-  ['Table tennis session', 'active', '🏓', 120, 240, 'Hourly play split'],
-  ['Football + pizza night', 'friends', '⚽', 250, 450, 'Turf + shared pizza'],
-  ['Basketball court session', 'active', '🏀', 120, 250, 'Court split'],
-  ['Roller bike park loop', 'active', '🚴', 100, 220, 'Outdoor ride'],
-  ['Sunrise Nile walk', 'chill', '🌤️', 20, 80, 'Quiet early outing'],
-  ['Breakfast by the Nile', 'food', '🥐', 180, 320, 'Breakfast + view'],
-  ['Cairo skyline cafe', 'chill', '🏙️', 180, 350, 'View + drink'],
-  ['Giza sunset + dinner', 'date', '🔺', 350, 650, 'Pyramids view + dinner'],
-  ['Pyramids photo + juice', 'budget', '📸', 120, 240, 'Photos + fresh juice'],
-  ['Heritage house visit', 'culture', '🏠', 80, 180, 'Historic architecture'],
-  ['Local dessert tasting', 'food', '🍮', 120, 260, 'Try several Egyptian sweets'],
-  ['El Sawy Culturewheel event', 'culture', '🎭', 100, 220, 'Cultural show or event entry estimate'],
-  ['Al Horreya Garden sit-down', 'chill', '🌳', 10, 30, 'Simple garden break'],
-  ['Japanese Garden photo stop', 'culture', '🌸', 10, 20, 'Quiet garden + photos'],
-  ['Manial garden picnic', 'chill', '🧺', 60, 140, 'Snacks + drinks + entry'],
-  ['Family Aquarium afternoon', 'family', '🐟', 20, 40, 'Garden + aquarium stroll'],
-  ['Downtown breakfast walk', 'food', '🥙', 70, 130, 'Breakfast + architecture walk'],
-  ['Feteer + tea outing', 'food', '🥞', 140, 260, 'Shared feteer + drinks'],
-  ['Falafel tasting walk', 'food', '🥙', 60, 120, 'Try 2–3 local stops'],
-  ['Egyptian dessert tasting', 'food', '🍮', 100, 220, 'Basbousa + konafa + drink'],
-  ['Fresh fruit cup stop', 'food', '🍉', 30, 60, 'Seasonal fruit snack'],
-  ['Nile bridge night photography', 'chill', '🌉', 20, 60, 'Photo walk + transport buffer'],
-  ['Cairo street-food sampler', 'food', '🌯', 180, 300, 'Several casual bites'],
-  ['Tea + board games', 'chill', '♟️', 120, 220, 'Cafe games + drinks'],
-  ['Mini golf outing', 'active', '⛳', 200, 350, 'Casual game session'],
-  ['Badminton doubles split', 'active', '🏸', 120, 200, 'Court split for doubles'],
-  ['Kids craft workshop', 'family', '🧩', 180, 320, 'Hands-on craft session'],
-  ['Family brunch + park', 'family', '🥞', 250, 450, 'Brunch + green space'],
-  ['Nile sunset sketch session', 'culture', '✏️', 80, 160, 'Sketching + drink'],
-  ['Local photography challenge', 'active', '📷', 60, 150, 'Self-guided photo prompts'],
-  ['Coffee & book hour', 'chill', '📚', 60, 120, 'Quiet cafe reading'],
-  ['Koshary + juice combo', 'food', '🍲', 75, 130, 'Classic Egyptian meal'],
-  ['Burger + arcade mini-night', 'friends', '🍔', 300, 500, 'Meal + short arcade session'],
-  ['Dessert date + photo walk', 'date', '💗', 220, 380, 'Sweet stop + photos'],
-  ['Morning museum + breakfast', 'culture', '🏺', 380, 500, 'Early museum + breakfast']
-].map((x, i) => ({
-  id: i + 1,
-  name: x[0],
-  cat: x[1],
-  emoji: x[2],
-  min: x[3],
-  max: x[4],
-  desc: x[5]
-}));
-
-document.getElementById('outingCount').textContent = `${outings.length}+`;
-
-const packageSeeds = [
-  ['Sunset Cinema + Nile Walk', 'date', [['4:00', 'Downtown cinema ticket', 120], ['6:30', 'Dessert + coffee', 140], ['8:15', 'Kasr El Nil sunset walk', 40]], 'date'],
-  ['Old Cairo Heritage Trail', 'culture', [['2:00', 'Old Cairo walking loop', 60], ['4:00', 'Coptic Museum visit', 110], ['6:30', 'Koshary dinner', 90], ['8:00', 'Tea at ahwa', 20]], 'culture'],
-  ['Bowling League Night', 'friends', [['4:00', 'Bowling session', 190], ['6:30', 'Burger meal', 260], ['8:30', 'Arcade credits', 180], ['10:00', 'Juice stop', 40]], 'friends'],
-  ['Zamalek Art + Sunset Dinner', 'friends', [['2:30', 'Art gallery hopping', 100], ['4:30', 'Cafe drink', 80], ['6:00', 'Nile sunset stop', 50], ['8:00', 'Dinner with Nile view', 300]], 'friends'],
-  ['Civilization Museum Deep Dive', 'culture', [['10:00', 'National Museum of Egyptian Civilization', 320], ['1:30', 'Egyptian lunch', 180], ['3:30', 'Old Cairo walk', 70], ['6:00', 'Tea break', 20]], 'culture'],
-  ['Budget Summer Escape', 'budget', [['4:00', 'Public garden entry', 15], ['5:30', 'Sugarcane juice', 25], ['7:00', 'Koshary bowl', 80], ['8:30', 'Nile walk', 20]], 'budget'],
-  ['Private Nile Celebration', 'premium', [['5:00', 'Rooftop sunset drink', 220], ['7:00', 'Private Nile boat share', 700], ['9:30', 'Premium dinner', 900]], 'premium'],
-  ['Family Park + Pizza Day', 'family', [['1:00', 'Family park visit', 20], ['3:00', 'Kids play zone', 250], ['5:30', 'Pizza sharing', 260], ['7:30', 'Ice cream', 80]], 'family'],
-  ['Cafe Hopping Scorecard', 'friends', [['2:00', 'Iced latte', 60], ['4:00', 'Dessert stop', 130], ['6:00', 'Mocktail', 100], ['8:00', 'Casual dinner', 250]], 'friends'],
-  ['Gallery Date After Dark', 'date', [['3:00', 'Gallery hopping', 110], ['5:00', 'Specialty coffee', 70], ['7:00', 'Date dinner', 450], ['9:00', 'Nile walk', 20]], 'date'],
-  ['Pyramids Golden Hour Run', 'friends', [['3:00', 'Giza pyramids viewing', 250], ['5:00', 'Sunset photo stop', 80], ['6:30', 'Koshary dinner', 90], ['8:00', 'Tea stop', 20]], 'friends'],
-  ['Maadi Chill & Brunch', 'chill', [['12:00', 'Cafe brunch platter', 250], ['2:30', 'Maadi Island entry', 25], ['4:00', 'Nile-side cafe', 120], ['6:00', 'Fresh lemonade', 60]], 'friends'],
-  ['Mokattam Sunset Picnic', 'budget', [['4:00', 'Mokattam viewpoint', 30], ['5:00', 'Park picnic snacks', 120], ['6:30', 'Mango juice', 35], ['8:00', 'Local dinner', 120]], 'budget'],
-  ['Khan El Khalili Night Market', 'culture', [['4:00', 'Khan El Khalili walk', 20], ['5:30', 'Tea at ahwa', 20], ['7:00', 'Street-food tasting', 120], ['9:00', 'Dessert', 80]], 'culture'],
-  ['Manial Palace + Garden Afternoon', 'culture', [['1:00', 'Manial Palace', 100], ['3:30', 'Manial garden walk', 10], ['5:00', 'Coffee + dessert', 140], ['7:00', 'Casual dinner', 250]], 'culture'],
-  ['Museum + Rooftop Philosophy Talk', 'culture', [['2:00', 'Museum of Islamic Art', 110], ['4:30', 'Downtown coffee', 70], ['6:30', 'Rooftop sunset', 220], ['9:00', 'Light dinner', 250]], 'culture'],
-  ['Retro Arcade Birthday Mission', 'friends', [['3:00', 'Arcade session', 250], ['5:00', 'Pizza sharing', 260], ['7:00', 'Dessert', 120], ['8:30', 'Photo booth buffer', 60]], 'friends'],
-  ['Escape Room + Pizza Decode', 'friends', [['4:00', 'Escape room', 350], ['6:00', 'Pizza meal', 220], ['8:00', 'Gelato stop', 80]], 'friends'],
-  ['Pottery + Cafe Creator Day', 'friends', [['2:00', 'Pottery workshop', 450], ['4:30', 'Iced coffee', 60], ['6:00', 'Dessert', 120], ['8:00', 'Dinner', 250]], 'friends'],
-  ['Perfume Blending Date', 'date', [['2:30', 'Perfume workshop', 550], ['5:00', 'Cafe drink', 70], ['6:30', 'Nile sunset', 50], ['8:00', 'Dinner', 400]], 'date'],
-  ['Cooking Class + Market Walk', 'friends', [['1:00', 'Cooking class', 700], ['4:30', 'Khan market walk', 30], ['6:00', 'Fresh juice', 35]], 'friends'],
-  ['Horse Ride + Farm Lunch', 'friends', [['2:00', 'Horse riding', 500], ['4:30', 'Fresh juice', 40], ['6:00', 'Country-style lunch', 250]], 'friends'],
-  ['Ice Skating + Hot Chocolate', 'friends', [['3:00', 'Ice skating', 350], ['5:00', 'Hot chocolate/cafe', 90], ['7:00', 'Burger meal', 220]], 'friends'],
-  ['Go-Kart Grand Prix Evening', 'friends', [['4:00', 'Go-kart session', 450], ['6:00', 'Burger meal', 220], ['8:00', 'Arcade', 180]], 'friends'],
-  ['Padel + Smoothie Challenge', 'friends', [['3:00', 'Padel session', 350], ['5:00', 'Fresh juice', 45], ['6:30', 'Healthy meal', 220]], 'friends'],
-  ['Football Turf + Koshary', 'friends', [['6:00', 'Football turf share', 150], ['8:00', 'Koshary dinner', 90], ['9:30', 'Sugarcane juice', 25]], 'friends'],
-  ['Comedy Night + Late Bite', 'friends', [['7:00', 'Stand-up comedy ticket', 200], ['9:00', 'Burger meal', 220], ['10:30', 'Tea stop', 20]], 'friends'],
-  ['Live Music Cafe Crawl', 'friends', [['5:00', 'Cafe drink', 80], ['7:00', 'Live music cafe', 250], ['9:30', 'Dessert', 120]], 'friends'],
-  ['Jazz + Rooftop Cairo', 'date', [['6:00', 'Jazz night', 300], ['8:30', 'Rooftop drink', 220], ['10:00', 'Light dinner', 300]], 'date'],
-  ['Theatre Night + Downtown Dessert', 'date', [['5:00', 'Theatre ticket', 350], ['8:00', 'Dessert cafe', 140], ['9:30', 'Kasr El Nil walk', 40]], 'date'],
-  ['Concert + Night Drive', 'friends', [['6:00', 'Concert ticket', 600], ['9:00', 'Night Cairo drive', 120], ['10:30', 'Late snack', 100]], 'friends'],
-  ['Bookstore + Coffee + Quiet Dinner', 'chill', [['2:00', 'Bookstore browse', 0], ['4:00', 'Iced latte', 60], ['6:00', 'Nile-side cafe', 120], ['8:00', 'Casual dinner', 250]], 'friends'],
-  ['Photo Walk: Downtown Details', 'chill', [['4:00', 'Downtown photo walk', 20], ['5:30', 'Coffee', 60], ['7:00', 'Street-food tasting', 120], ['8:30', 'Night architecture loop', 20]], 'budget'],
-  ['Photo Walk: Zamalek in Blue Hour', 'chill', [['4:30', 'Zamalek photo walk', 20], ['6:00', 'Fresh lemonade', 60], ['7:30', 'Dessert', 120], ['9:00', 'Dinner', 250]], 'friends'],
-  ['Al Azhar Park Sunset Feast', 'family', [['3:30', 'Al Azhar Park', 25], ['5:30', 'Photo walk', 40], ['7:00', 'Family dinner', 300], ['8:30', 'Dessert', 100]], 'family'],
-  ['Aquarium Grotto + Zamalek Dinner', 'family', [['3:00', 'Aquarium Grotto Garden', 20], ['5:00', 'Nile walk', 30], ['7:00', 'Family dinner', 300], ['8:30', 'Ice cream', 80]], 'family'],
-  ['Japanese Garden + Helwan Lunch', 'family', [['11:00', 'Japanese Garden', 10], ['1:00', 'Egyptian lunch', 180], ['3:00', 'Tea', 20], ['5:00', 'Dessert', 80]], 'family'],
-  ['International Park Family Day', 'family', [['12:00', 'International Park', 10], ['2:00', 'Kids activity buffer', 200], ['4:00', 'Pizza sharing', 260], ['6:00', 'Juice', 40]], 'family'],
-  ['Family Cinema + Ice Cream', 'family', [['2:00', 'Cinema ticket', 145], ['4:45', 'Ice cream', 80], ['6:00', 'Chicken combo', 220], ['8:00', 'Park walk', 20]], 'family'],
-  ['Kids Arcade + Family Dinner', 'family', [['3:00', 'Arcade session', 180], ['5:00', 'Kids play zone', 220], ['7:00', 'Family fast-food box share', 180], ['8:30', 'Dessert', 80]], 'family'],
-  ['Old Cairo Kids Story Day', 'family', [['1:30', 'Pharaonic Village', 300], ['4:30', 'Koshary dinner', 90], ['6:00', 'Sugarcane juice', 25], ['7:00', 'Old Cairo walk', 20]], 'family'],
-  ['Science-Minded City Day', 'family', [['11:00', 'Museum visit', 300], ['2:00', 'Lunch', 180], ['4:00', 'Cafe drink', 60], ['5:30', 'Sunset walk', 30]], 'family'],
-  ['Nile Felucca Sunset + Koshary', 'budget', [['5:00', 'Nile felucca sunset', 200], ['7:00', 'Koshary', 90], ['8:30', 'Tea', 20]], 'budget'],
-  ['Felucca + Dessert Date', 'date', [['5:00', 'Short felucca ride', 150], ['6:30', 'Dessert + coffee', 180], ['8:30', 'Dinner', 350]], 'date'],
-  ['Nile Dinner Cruise Night', 'premium', [['6:00', 'Nile dinner cruise', 900], ['9:30', 'Night walk', 30]], 'premium'],
-  ['Rooftop Dinner Date', 'date', [['6:00', 'Rooftop sunset', 220], ['8:00', 'Premium dinner', 650], ['10:00', 'Coffee', 70]], 'date'],
-  ['Sunset Luxury Boat + Dinner', 'premium', [['5:30', 'Private Nile boat', 900], ['7:30', 'Premium dinner', 750], ['10:00', 'Dessert', 150]], 'premium'],
-  ['Luxury Brunch + Gallery', 'premium', [['11:00', 'Luxury brunch', 900], ['2:00', 'Gallery visit', 80], ['4:00', 'Specialty coffee', 120]], 'premium'],
-  ['Premium Cinema + Sushi', 'premium', [['5:00', 'Premium cinema ticket', 220], ['7:30', 'Sushi dinner', 550], ['9:30', 'Dessert', 150]], 'premium'],
-  ['Luxury Birthday City Loop', 'premium', [['3:00', 'Premium cinema', 220], ['6:00', 'Premium dinner', 800], ['8:30', 'Private boat share', 900], ['10:30', 'Dessert', 150]], 'premium'],
-  ['Budget Date: Ahwa + Walk', 'date', [['5:00', 'Tea at ahwa', 20], ['6:00', 'Nile walk', 20], ['7:30', 'Crepe + drink', 150]], 'budget'],
-  ['Budget Friends: Juice + Games', 'friends', [['4:00', 'Juice stop', 35], ['5:00', 'Pool hall', 130], ['7:30', 'Koshary', 90], ['9:00', 'Tea', 20]], 'budget'],
-  ['50-ish EGP Challenge', 'budget', [['5:00', 'Public garden', 10], ['6:00', 'Tea', 15], ['7:00', 'Koshary', 50]], 'budget'],
-  ['Under-100 EGP Cairo Reset', 'budget', [['4:30', 'Park entry', 10], ['5:30', 'Sugarcane juice', 25], ['7:00', 'Street snack', 40], ['8:00', 'Nile walk', 20]], 'budget'],
-  ['Rainy Day Mall Rescue', 'friends', [['2:00', 'Mall hangout', 0], ['3:30', 'Cinema ticket', 145], ['6:00', 'Coffee', 70], ['7:30', 'Burger meal', 220]], 'friends'],
-  ['Mall + Bowling Power Combo', 'friends', [['3:00', 'Mall walk', 0], ['4:30', 'Bowling', 190], ['6:30', 'Fast-food combo', 220], ['8:30', 'Arcade', 150]], 'friends'],
-  ['City Stars Movie + Dessert', 'date', [['5:00', 'Cinema ticket', 180], ['7:30', 'Dessert', 140], ['9:00', 'Dinner', 300]], 'date'],
-  ['Festival City Casual Friday', 'friends', [['4:00', 'Mall walk', 0], ['5:00', 'Cafe drink', 70], ['7:00', 'Dinner', 300], ['9:00', 'Ice cream', 80]], 'friends'],
-  ['Mall of Arabia Friends Loop', 'friends', [['4:00', 'Mall hangout', 0], ['5:30', 'Arcade', 180], ['7:30', 'Burger meal', 220], ['9:00', 'Coffee', 60]], 'friends'],
-  ['New Cairo Cafe Passport', 'friends', [['2:00', 'Cafe #1', 70], ['4:00', 'Cafe #2', 80], ['6:00', 'Dessert', 120], ['8:00', 'Dinner', 280]], 'friends'],
-  ['Maadi Coffee Passport', 'chill', [['2:00', 'Cafe #1', 70], ['4:00', 'Cafe #2', 90], ['6:30', 'Nile-side cafe', 120], ['8:30', 'Light dinner', 220]], 'friends'],
-  ['Zamalek Sunset + Sushi', 'date', [['5:00', 'Nile sunset', 50], ['6:30', 'Coffee', 70], ['8:00', 'Sushi dinner', 500]], 'date'],
-  ['Art Workshop + Dinner Date', 'date', [['3:00', 'Painting workshop', 450], ['5:30', 'Coffee', 70], ['7:30', 'Dinner', 450]], 'date'],
-  ['Dance Class + Dessert Night', 'friends', [['6:00', 'Dance class', 200], ['8:00', 'Dessert', 120], ['9:30', 'Late dinner', 220]], 'friends'],
-  ['Karaoke Squad Night', 'friends', [['6:00', 'Karaoke room', 350], ['8:30', 'Pizza sharing', 260], ['10:00', 'Juice', 40]], 'friends'],
-  ['Board Games + Burger Brainstorm', 'friends', [['4:00', 'Board-game cafe', 200], ['6:30', 'Burger meal', 220], ['8:30', 'Dessert', 100]], 'friends'],
-  ['Billiards + Shawerma Run', 'friends', [['5:00', 'Billiards + drink', 160], ['7:00', 'Shawerma meal', 140], ['8:30', 'Juice', 30]], 'friends'],
-  ['Climbing + Healthy Bowl', 'active', [['3:00', 'Indoor climbing', 350], ['5:30', 'Fresh juice', 45], ['7:00', 'Healthy dinner', 250]], 'friends'],
-  ['Trampoline + Pizza Kids Night', 'family', [['4:00', 'Trampoline park', 350], ['6:30', 'Pizza sharing', 260], ['8:00', 'Ice cream', 80]], 'family'],
-  ['Laser Tag + Burger Battle', 'friends', [['4:00', 'Laser tag', 350], ['6:00', 'Burger meal', 220], ['8:00', 'Arcade', 120]], 'friends'],
-  ['Roller Skating + Cafe', 'friends', [['4:00', 'Roller skating', 250], ['6:00', 'Iced latte', 60], ['7:30', 'Dinner', 220]], 'friends'],
-  ['Badminton + Egyptian Dinner', 'friends', [['5:00', 'Badminton', 180], ['7:00', 'Egyptian dinner', 220], ['8:30', 'Tea', 20]], 'friends'],
-  ['Tennis + Juice + Dinner', 'friends', [['4:00', 'Tennis court', 250], ['6:00', 'Fresh juice', 40], ['7:30', 'Dinner', 250]], 'friends'],
-  ['Photography Walk + Cafe', 'chill', [['4:00', 'Guided photography session', 500], ['6:30', 'Coffee', 70], ['8:00', 'Light dinner', 220]], 'friends'],
-  ['Poetry Night + Tea House', 'culture', [['7:00', 'Poetry night', 150], ['8:30', 'Tea at ahwa', 20], ['9:30', 'Dessert', 100]], 'culture'],
-  ['Open-Air Culture Night', 'culture', [['6:00', 'Cultural event entry', 150], ['8:00', 'Street-food tasting', 120], ['9:30', 'Tea', 20]], 'culture'],
-  ['Baron Palace + Heliopolis Cafe', 'culture', [['3:00', 'Baron Empain Palace', 125], ['5:00', 'Cafe drink', 70], ['7:00', 'Casual dinner', 250]], 'culture'],
-  ['Nilometer + Manial Dinner', 'culture', [['3:00', 'Nilometer visit', 50], ['4:30', 'Manial area walk', 20], ['6:30', 'Dinner', 280], ['8:30', 'Dessert', 100]], 'culture'],
-  ['Saqqara History + Local Lunch', 'culture', [['10:00', 'Saqqara archaeological day', 350], ['1:30', 'Local lunch', 180], ['3:30', 'Tea', 20]], 'culture'],
-  ['Dahshur Explorer Day', 'culture', [['11:00', 'Dahshur pyramids trip', 300], ['2:00', 'Lunch', 180], ['4:00', 'Juice', 35], ['5:00', 'Sunset photos', 50]], 'culture'],
-  ['Memphis + Koshary Heritage Run', 'culture', [['12:00', 'Memphis museum trip', 220], ['2:30', 'Koshary', 90], ['4:00', 'Tea', 20], ['5:00', 'Photo stop', 40]], 'culture'],
-  ['Opera Evening + Dessert', 'culture', [['6:00', 'Cairo Opera area/show', 300], ['9:00', 'Dessert cafe', 140]], 'culture']
+  [O('Al Azhar Park walk', 'تمشية في حديقة الأزهر', 'Tamshiyet 7adeeqet El Azhar'), 'culture', '🌿', 40, 60, O('Calm garden + skyline view with sunset photo opportunities.', 'حديقة هادئة وإطلالة على المدينة مع فرص لتصوير الغروب.', '7adeeqa hadya w etlala 3ala el madina m3a foras tasweer waqt el ghoroob.')],
+  [O('Al Andalus Park stroll', 'تمشية في حديقة الأندلس', 'Tamshiyet 7adeeqet El Andalus'), 'chill', '🌴', 30, 50, O('Riverside Zamalek reset with green scenery.', 'روقان على النيل في الزمالك مع مساحات خضراء.', 'Rawa2an 3al Neel fel Zamalek ma3a masa7at khadra.')],
+  [O('Al Jazira Park hangout', 'قعدة في حديقة الجزيرة', 'Qa3da fi 7adeeqet El Gezeera'), 'chill', '🌳', 30, 50, O('Casual green-space break in central Zamalek.', 'استراحة في مساحة خضراء بوسط الزمالك.', 'Estra7a fi masa7a khadra bwost El Zamalek.')],
+  [O('Maadi Island visit', 'زيارة جزيرة المعادي', 'Ziyaret gezeeret El Maadi'), 'chill', '🌊', 60, 100, O('Relaxing river island atmosphere with scenic walkways.', 'جو هادئ في جزيرة نيلية مع ممرات جميلة.', 'Gaw hady fi gezeera neeleya ma3a mamarat gamela.')],
+  [O('Aquarium Grotto Garden', 'حديقة الأسماك', '7adeeqet El Asmak'), 'culture', '🐠', 30, 50, O('Classic Zamalek mini-adventure inside historical caves.', 'مغامرة صغيرة في الزمالك داخل كهوف تاريخية.', 'Moghamra soghayra fel Zamalek dakhel kohoof tareekheya.')],
+  [O('Cairo Tower area visit', 'زيارة منطقة برج القاهرة', 'Ziyaret mantaqet Borg El Qahira'), 'culture', '🗼', 50, 100, O('Skyline stop + iconic photo taking.', 'إطلالة على المدينة مع صور تذكارية.', 'Etlala 3ala el madina ma3a sowar tazkareya.')],
+  [O('Egyptian Museum visit', 'زيارة المتحف المصري', 'Ziyaret El Mat7af El Masry'), 'culture', '🏺', 450, 550, O('Full Tahrir museum historical exploration.', 'استكشاف تاريخي كامل في متحف التحرير.', 'Estekshaf tareekhy kamel fi mat7af El Tahrir.')],
+  [O('Coptic Museum visit', 'زيارة المتحف القبطي', 'Ziyaret El Mat7af El Qepty'), 'culture', '⛪', 100, 150, O('Old Cairo history and ancient architecture.', 'تاريخ مصر القديمة وعمارة أثرية.', 'Tareekh Masr el qadeema w 3emara asareya.')],
+  [O('Museum of Islamic Art', 'متحف الفن الإسلامي', 'Mat7af El Fann El Eslamy'), 'culture', '🕌', 100, 150, O('Intricate Islamic architecture + historical artifacts.', 'عمارة إسلامية دقيقة وتحف تاريخية.', '3emara eslameya daqeeqa w to7af tareekheya.')],
+  [O('National Museum of Egyptian Civilization', 'المتحف القومي للحضارة', 'El Mat7af El Qawmy lel 7adara'), 'culture', '🏛️', 350, 450, O('Royal Mummies and civilization galleries.', 'قاعة المومياوات الملكية ومعارض الحضارة.', 'Qa3et el momyawat el malakeya w ma3ared el 7adara.')],
+  [O('Khan El Khalili walk', 'تمشية في خان الخليلي', 'Tamshiyet Khan El Khalili'), 'culture', '🧿', 50, 150, O('Souq wandering, souvenirs, and historic alleys.', 'جولة في السوق، هدايا تذكارية، وأزقة تاريخية.', 'Gawla fel sooq, hadaya tazkareya, w azeqa tareekheya.')],
+  [O('Al Moez Street evening', 'سهرة في شارع المعز', 'Sahra fi share3 El Moez'), 'culture', '✨', 40, 120, O('Historic street walking, lights + local snacks.', 'تمشية في شارع تاريخي، إضاءة وأكل خفيف.', 'Tamshiya fi share3 tareekhi, eda2a w akl khafeef.')],
+  [O('Muizz photo walk', 'جولة تصوير في المعز', 'Gawlet tasweer fel Moez'), 'chill', '📸', 40, 120, O('Golden-hour photography in Islamic Cairo.', 'تصوير في الساعة الذهبية بالقاهرة الإسلامية.', 'Tasweer fel sa3a el zahabeya bel Qahira el Eslameya.')],
+  [O('Zamalek photo walk', 'جولة تصوير في الزمالك', 'Gawlet tasweer fel Zamalek'), 'chill', '📷', 40, 120, O('Cozy cafes and Nile street aesthetics.', 'مقاهي مريحة وجمال شوارع النيل.', 'Maqahy moree7a w gamal shaware3 el Neel.')],
+  [O('Downtown Cairo photo walk', 'جولة تصوير في وسط البلد', 'Gawlet tasweer fi Wost El Balad'), 'culture', '🏙️', 30, 90, O('European-style architecture hunt and streets.', 'استكشاف عمارة الطراز الأوروبي والشوارع.', 'Estekshaf 3emara bel teraz el oroby w shaware3.')],
+  [O('Garden City walk', 'تمشية في جاردن سيتي', 'Tamshiyet Garden City'), 'chill', '🌇', 30, 90, O('Quiet historic Cairo neighborhood exploration.', 'استكشاف حي تاريخي هادئ في القاهرة.', 'Estekshaf 7ay tareekhi hady fel Qahira.')],
+  [O('Old Cairo walking loop', 'جولة مشي في مصر القديمة', 'Gawlet mashy fi Masr El Qadeema'), 'culture', '🧭', 50, 120, O('Ancient churches, fortresses, and hidden alleys.', 'كنائس أثرية، حصون، وحواري خفية.', 'Kana2es asareya, 7osoon, w 7awary khafeya.')],
+  [O('Manial Palace visit', 'زيارة قصر المنيل', 'Ziyaret Qasr El Manial'), 'culture', '👑', 100, 150, O('Royal prince palace and lush botanical gardens.', 'قصر أمير ملكي وحدائق نباتية مورقة.', 'Qasr ameer malaky w 7ada2eq nabateya.')],
+  [O('Kasr El Nil sunset walk', 'تمشية كوبري قصر النيل', 'Tamshiyet kobry Qasr El Neel'), 'chill', '🌅', 20, 50, O('Nile bridge stroll at sunset.', 'تمشية على كوبري النيل وقت الغروب.', 'Tamshiya 3ala kobry el Neel waqt el ghoroob.')],
+  [O('Qasr El Nil bridge photos', 'صور على كوبري قصر النيل', 'Sowar 3ala kobry Qasr El Neel'), 'chill', '🌉', 20, 50, O('Fast scenic photography stop over the Nile.', 'توقف سريع لتصوير مناظر رائعة على النيل.', 'Tawaqof saree3 letasweer manazer ra2e3a 3al Neel.')],
+  [O('Renaissance Downtown cinema', 'سينما رينسانس وسط البلد', 'Cinema Renaissance Wost El Balad'), 'chill', '🎬', 150, 220, O('Standard movie ticket in heart of Cairo.', 'تذكرة سينما عادية في قلب القاهرة.', 'Tazkaret cinema 3adeya fi qalb El Qahira.')],
+  [O('Renaissance Al Rehab cinema', 'سينما رينسانس الرحاب', 'Cinema Renaissance El Re7ab'), 'chill', '🍿', 150, 240, O('Movie outing in Al Rehab city.', 'خروجة سينما في مدينة الرحاب.', 'Khorooget cinema fi madinet El Re7ab.')],
+  [O('Cinema City Stars', 'سينما سيتي ستارز', 'Cinema City Stars'), 'chill', '🎞️', 180, 280, O('Mall movie outing with modern screening.', 'خروجة سينما في المول مع شاشات حديثة.', 'Khorooget cinema fel mall ma3a shashat 7adeesa.')],
+  [O('VOX cinema outing', 'خروجة سينما فوكس', 'Khorooget cinema VOX'), 'chill', '🎥', 200, 320, O('Premium multiplex movie experience.', 'تجربة سينما مجمعة فاخرة.', 'Tagrobet cinema moghama3a fakhera.')],
+  [O('IMAX cinema outing', 'خروجة سينما آيماكس', 'Khorooget cinema IMAX'), 'chill', '🪐', 250, 380, O('Massive big-screen cinematic view.', 'مشاهدة سينمائية على شاشة عملاقة.', 'Mosha7da cinemaya 3ala shasha 3emlaqa.')],
+  [O('Drive-in movie concept', 'سينما السيارات', 'Cinema el sayarat'), 'chill', '🚗', 250, 400, O('Car + outdoor cinema experience.', 'تجربة سينما خارجية بالسيارة.', 'Tagrobet cinema kharegeya belsayara.')],
+  [O('Movie + popcorn combo', 'فيلم وكومبو فشار', 'Film w combo feshar'), 'chill', '🍿', 300, 450, O('Cinema ticket + popcorn and drink combo.', 'تذكرة سينما وكومبو فشار ومشروب.', 'Tazkaret cinema w combo feshar w mashroob.')],
+  [O('Late-night cinema', 'سينما سهرة', 'Cinema sahra'), 'chill', '🌙', 200, 350, O('Midnight movie show + late night drink.', 'حفلة منتصف الليل ومشروب سهرة.', '7aflet montasaf el leyl w mashroob sahra.')],
+  [O('Movie marathon (2 films)', 'ماراثون سينما (فيلمين)', 'Marathon cinema (filmeen)'), 'chill', '🎬', 400, 650, O('Back-to-back cinema film plan.', 'مشاهدة فيلمين متتاليين في السينما.', 'Mosha7da filmeen motataleen fel cinema.')],
+  [O('Cinema date plan', 'مقابلة في السينما', 'Mo2abla fel cinema'), 'date', '💗', 600, 1000, O('2 tickets + popcorn + coffee break.', 'تذكرتين وفشار واستراحة قهوة.', 'Tazkarteen w feshar w estra7et qahwa.')],
+  [O('Egyptian breakfast (Fava + Falafel)', 'فطار مصري فول وطعمية', 'Ftar Masry fool w ta3meya'), 'food', '🥙', 40, 80, O('Traditional Egyptian hot breakfast.', 'إفطار مصري ساخن تقليدي.', 'Ftar masry sokhn taqleedy.')],
+  [O('Koshary bowl outing', 'خروجة طبق كشري', 'Khorooget tabaq Koshary'), 'food', '🍲', 50, 100, O('Classic Egyptian comfort food bowl.', 'طبق الأكل المصري الشعبي المفضل.', 'Tabaq el akl el masry el sha3by el mofadal.')],
+  [O('Shawarma meal', 'وجبة شاورما', 'Wagbet Shawerma'), 'food', '🌯', 120, 220, O('Juicy Egyptian or Syrian shawarma.', 'شاورما مصرية أو سورية لذيذة.', 'Shawerma masreya aw soreya lazeeza.')],
+  [O('Kofta sandwich meal', 'وجبة ساندوتش كفتة', 'Wagbet sandwich Kofta'), 'food', '🥙', 120, 220, O('Grilled kofta street-style sandwiches.', 'ساندوتشات كفتة مشوية على طريقة الشارع.', 'Sandwetshat kofta mashweya 3ala tareeqet el share3.')],
+  [O('Hawawshi meal', 'وجبة حواوشي', 'Wagbet Hawawshi'), 'food', '🥩', 100, 180, O('Spicy oven-baked Egyptian hawawshi.', 'حواوشي مصري حار مخبوز في الفرن.', 'Hawawshi masry 7ar makhbooz fel forn.')],
+  [O('Feteer session', 'أكلة فطير', 'Aklet Feteer'), 'food', '🥞', 150, 280, O('Sweet or savory Egyptian layered pastry.', 'فطير مشلتت مصري حلو أو حادق.', 'Feteer meshalteet masry 7elw aw 7adeq.')],
+  [O('Molokhia lunch', 'غداء ملوخية', 'Ghada Molokhia'), 'food', '🍚', 180, 320, O('Authentic Egyptian home-cooked style lunch.', 'غداء مصري أصيل بطعم البيت.', 'Ghada masry aseeel beta3m el beet.')],
+  [O('Grilled chicken meal', 'وجبة فراخ مشوية', 'Wagbet frakh mashweya'), 'food', '🍗', 200, 350, O('Charcoal grilled chicken sit-down meal.', 'وجبة دجاج مشوي على الفحم.', 'Wagbet dagag mashwy 3ala el fa7m.')],
+  [O('Grilled mixed meat', 'مشاوي مشكلة', 'Mashawy moshakela'), 'food', '🥩', 350, 600, O('Mixed oriental grill platter.', 'طبق مشاوي شرقية مشكلة.', 'Tabaq mashawy sharqeya moshakela.')],
+  [O('Egyptian seafood meal', 'وجبة سمك مصرية', 'Wagbet samak masreya'), 'food', '🦐', 400, 800, O('Fresh grilled fish, shrimp, and rice.', 'سمك مشوي طازج، جمبري، ورز.', 'Samak mashwy tazeg, gambary, w roz.')],
+  [O('Pizza sharing meal', 'وجبة بيتزا للمشاركة', 'Wagbet pizza lelmosharka'), 'food', '🍕', 250, 450, O('Large pizza + soft drinks for sharing.', 'بيتزا كبيرة ومشروبات غازية للمشاركة.', 'Pizza kebeera w mashrobat ghazeya lelmosharka.')],
+  [O('Burger meal', 'وجبة برجر', 'Wagbet Burger'), 'food', '🍔', 250, 450, O('Gourmet burger + fries + soda.', 'برجر مميز وبطاطس ومياه غازية.', 'Burger momayaz w batates w mya ghazeya.')],
+  [O('Chicken fast-food combo', 'كومبو فراخ مقلية', 'Combo frakh maqleya'), 'food', '🍗', 220, 380, O('Crispy fried chicken combo meal.', 'وجبة دجاج مقلي مقرمش.', 'Wagbet dagag maqly meqarmesh.')],
+  [O('Big burger combo', 'كومبو برجر كبير', 'Combo burger kebeer'), 'food', '🍔', 350, 550, O('Double beef burger + loaded fries.', 'برجر لحم مزدوج وبطاطس بالجبنة.', 'Burger la7m mozdaweeg w batates belgibna.')],
+  [O('Family fast-food box', 'بوكس عائلي للوجبات السريعة', 'Box 3a2ely wgbat saree3a'), 'food', '🍗', 600, 1100, O('Large shareable chicken fast-food box.', 'بوكس دجاج مقلي عائلي للمشاركة.', 'Box dagag maqly 3a2ely lelmosharka.')],
+  [O('Korean street-food meal', 'وجبة أكل كوري', 'Wagbet akl Kory'), 'food', '🍜', 250, 450, O('Trendy Korean ramen and corn dogs.', 'رامن كوري شهير وكورن دوج.', 'Ramen kory shaheer w corn dog.')],
+  [O('Sushi meal', 'وجبة سوشي', 'Wagbet Sushi'), 'food', '🍣', 450, 850, O('Casual fresh sushi combo set.', 'مجموعة سوشي طازجة.', 'Magmou3et sushi tazga.')],
+  [O('Pasta restaurant meal', 'وجبة مكرونة في مطعم', 'Wagbet makarona fi mat3am'), 'food', '🍝', 250, 450, O('Creamy or red sauce Italian pasta.', 'مكرونة إيطالية بالصوص الأبيض أو الأحمر.', 'Makarona etaleya bel sos el abyad aw el a7mar.')],
+  [O('Steak meal', 'وجبة ستيك', 'Wagbet Steak'), 'food', '🥩', 650, 1200, O('Seared beef steak with sides.', 'شريحة لحم بقري مشوية مع إضافات.', 'Sharee7et la7m baqary mashweya ma3a edafat.')],
+  [O('Breakfast cafe platter', 'فطار في كافيه', 'Ftar fi cafe'), 'food', '🍳', 250, 450, O('Pancakes, eggs, and specialty coffee.', 'بان كيك، بيض، وقهوة مختصة.', 'Pan cake, beed, w qahwa mokhtasa.')],
+  [O('Sugarcane juice stop', 'عصير قصب', '3aseer qasab'), 'food', '🧃', 20, 40, O('Freshly squeezed Egyptian sugarcane.', 'عصير قصب مصري طازج.', '3aseer qasab masry tazeg.')],
+  [O('Mango juice stop', 'عصير مانجو', '3aseer mango'), 'food', '🥭', 40, 80, O('Rich seasonal fresh mango juice.', 'عصير مانجو طازج موسمي.', '3aseer mango tazeg mosemy.')],
+  [O('Guava juice stop', 'عصير جوافة', '3aseer gawafa'), 'food', '🍐', 30, 60, O('Freshly pressed guava juice.', 'عصير جوافة طازج.', '3aseer gawafa tazeg.')],
+  [O('Orange juice stop', 'عصير برتقال', '3aseer bortoqan'), 'food', '🍊', 30, 60, O('Fresh citrus orange juice.', 'عصير برتقال طازج.', '3aseer bortoqan tazeg.')],
+  [O('Strawberry juice stop', 'عصير فراولة', '3aseer frawla'), 'food', '🍓', 40, 80, O('Fresh sweet strawberry drink.', 'مشروب فراولة طازج.', 'Mashroob frawla tazeg.')],
+  [O('Tea at local cafe', 'شاي في قهوة بلدي', 'Shay fi qahwa balady'), 'chill', '☕', 15, 30, O('Classic mint tea at a local cafe.', 'شاي بالنعناع في مقهى محلي.', 'Shay bel na3na3 fi maqha ma7aly.')],
+  [O('Turkish coffee', 'قهوة تركي', 'Qahwa Torky'), 'chill', '☕', 25, 50, O('Traditional hot Turkish coffee.', 'قهوة تركي ساخنة أصيلة.', 'Qahwa torky sokhna aseela.')],
+  [O('Starbucks specialty coffee', 'قهوة ستاربكس', 'Qahwet Starbucks'), 'chill', '☕', 130, 240, O('Premium iced or hot Starbucks beverage.', 'مشروب ستاربكس بارد أو ساخن مميز.', 'Mashroob Starbucks bared aw sokhn momayaz.')],
+  [O('Iced latte at local cafe', 'آيس لاتيه في كافيه', 'Ice latte fi cafe'), 'chill', '🧊', 70, 140, O('Refreshing cold iced latte.', 'قهوة مثلجة بالحليب باردة ومنعشة.', 'Qahwa motalaga bel 7aleeb barda w mon3esha.')],
+  [O('Spanish latte', 'سبانيش لاتيه', 'Spanish latte'), 'chill', '🥛', 90, 170, O('Sweet creamy iced espresso drink.', 'مشروب إسبريسو مثلج بالكريمة.', 'Mashroob espresso motalag bel krema.')],
+  [O('Frappuccino-style drink', 'مشروب قهوة مخفوق', 'Mashroob qahwa makhfooq'), 'chill', '🥤', 110, 210, O('Cold blended coffee shake.', 'مشروب قهوة مخفوق بارد.', 'Mashroob qahwa makhfooq bared.')],
+  [O('Fresh lemonade', 'ليمون فريش', 'Lamoon fresh'), 'chill', '🍋', 50, 90, O('Refreshing fresh mint lemonade.', 'ليمون بالنعناع منعش.', 'Lamoon bel na3na3 mon3esh.')],
+  [O('Mocktail cafe stop', 'مشروب فواكه في كافيه', 'Mashroob fawakeh fi cafe'), 'chill', '🍹', 120, 220, O('Fruity non-alcoholic mocktail.', 'مشروب فواكه بدون كحول.', 'Mashroob fawakeh bedoon ko7ool.')],
+  [O('Dessert + coffee', 'حلويات وقهوة', '7alaweyat w qahwa'), 'food', '🍰', 150, 280, O('Slice of cake or dessert with hot coffee.', 'قطعة كيك أو حلوى مع قهوة ساخنة.', 'Qet3et cake aw 7alwa ma3a qahwa sokhna.')],
+  [O('Waffle + drink', 'كعكة الوافل ومشروب', 'Waffle w mashroob'), 'food', '🧇', 180, 320, O('Belgian waffle topped with chocolate + drink.', 'كعكة وافل بالشوكولاتة ومشروب.', 'Waffle bel shokolata w mashroob.')],
+  [O('Crepe + drink', 'فطيرة كريب ومشروب', 'Crepe w mashroob'), 'food', '🥞', 150, 280, O('Chocolate or savory crepe with drink.', 'كريب شوكولاتة أو حادق مع مشروب.', 'Crepe shokolata aw 7adeq ma3a mashroob.')],
+  [O('Ice cream outing', 'خروجة آيس كريم', 'Khorooget ice cream'), 'food', '🍦', 70, 150, O('2 gourmet scoops with toppings.', 'بختين آيس كريم مع إضافات.', 'Bokhteen ice cream ma3a edafat.')],
+  [O('Bowling session', 'لعب بولينج', 'Le3b Bowling'), 'active', '🎳', 200, 350, O('One game + shoe rental.', 'لعبة واحدة مع إيجار الحذاء.', 'Le3ba wa7da ma3a egar el 7eza2.')],
+  [O('Pool hall session', 'لعب بلياردو', 'Le3b Bilyardo'), 'active', '🎱', 120, 220, O('Casual billiards table time.', 'وقت ممتع على طاولة البلياردو.', 'Waqt momte3 3ala tawlet el bilyardo.')],
+  [O('Arcade session', 'صالة ألعاب أركيد', 'Salet al3ab Arcade'), 'active', '🕹️', 200, 400, O('Game card credits for retro/modern arcade.', 'كارت ألعاب في صالة أركيد.', 'Cart al3ab fi salet arcade.')],
+  [O('VR gaming session', 'ألعاب واقع افتراضي', 'Al3ab waqe3 efterady'), 'active', '🥽', 250, 450, O('Immersive VR gaming experience.', 'تجربة ألعاب واقع افتراضي ممتعة.', 'Tagrobet al3ab waqe3 efterady momte3a.')],
+  [O('Escape room', 'غرف الهروب', 'Ghoraf el horoob'), 'active', '🔐', 350, 600, O('Team puzzle solving room.', 'غرفة حل الألغاز للفرق.', 'Ghorfet 7al el alghaz lel feraq.')],
+  [O('Go-kart session', 'سباق سيارات', 'Sebaq sayarat'), 'active', '🏎️', 450, 750, O('High-speed kart racing.', 'سباق سيارات سريع.', 'Sebaq sayarat saree3.')],
+  [O('Trampoline park', 'ألعاب قفز', 'Al3ab qafz'), 'active', '🤸', 350, 600, O('Freestyle trampoline jumping session.', 'جلسة قفز حر على المنصات المرنة.', 'Galset qafz 7or 3alal manasat el marena.')],
+  [O('Paintball session', 'حرب ألوان', '7arb alwan'), 'active', '🎯', 500, 800, O('Tactical team paintball battle.', 'معركة حرب ألوان جماعية.', 'Ma3raket 7arb alwan gama3eya.')],
+  [O('Laser tag', 'حرب ليزر', '7arb laser'), 'active', '🔫', 350, 600, O('Futuristic indoor laser battle.', 'معركة ليزر داخلية.', 'Ma3raket laser dakhleya.')],
+  [O('Indoor climbing', 'تسلق داخلي', 'Tasaloq dakhly'), 'active', '🧗', 350, 600, O('Beginner wall climbing workout.', 'تدريب تسلق حوائط للمبتدئين.', 'Tadreeb tasaloq 7awa2et lel mobtade2een.')],
+  [O('Roller skating', 'تزلج بالعجل', 'Tazaloq bel 3agal'), 'active', '🛼', 250, 450, O('Fun indoor roller rink session.', 'وقت ممتع في صالة تزلج داخلية.', 'Waqt momte3 fi salet tazaloq dakhleya.')],
+  [O('Ice skating', 'تزلج على الجليد', 'Tazaloq 3al galeed'), 'active', '⛸️', 350, 600, O('Mall ice rink skating session.', 'تزلج في صالة جليد بالمول.', 'Tazaloq fi salet galeed bel mall.')],
+  [O('Horse riding session', 'ركوب خيل', 'Rokoob kheyl'), 'active', '🐎', 500, 900, O('Guided horse ride near Pyramids.', 'جولة بالخيل قرب الأهرامات.', 'Gawla bel kheyl qorb el ahramat.')],
+  [O('Cycling Nile route', 'دراجات على النيل', 'Dragat 3al Neel'), 'active', '🚲', 120, 250, O('Bicycle rental along the Nile.', 'إيجار دراجات على طول النيل.', 'Egar dragat 3ala tool el Neel.')],
+  [O('Football turf booking', 'حجز ملعب كورة', '7agz mal3ab kora'), 'active', '⚽', 150, 250, O('1-hour football match split per person.', 'مباراة كرة قدم لمدة ساعة مقسمة على العدد.', 'Mobarat koret qadam lemodet sa3a meqasema 3al 3adad.')],
+  [O('Padel session', 'تنس بادل', 'Tennis padel'), 'active', '🎾', 350, 600, O('1.5-hour padel tennis match.', 'مباراة بادل تنس لمدة ساعة ونصف.', 'Mobarat padel tennis lemodet sa3a w nos.')],
+  [O('Tennis court session', 'حجز ملعب تنس', '7agz mal3ab tennis'), 'active', '🎾', 300, 500, O('Court rental + rackets.', 'إيجار الملعب مع المضارب.', 'Egar el mal3ab ma3a el modareb.')],
+  [O('Badminton session', 'لعب تنس ريشة', 'Le3b tennis reesha'), 'active', '🏸', 200, 350, O('Indoor badminton court time.', 'وقت ممتع في ملعب تنس ريشة داخلي.', 'Waqt momte3 fi mal3ab tennis reesha dakhly.')],
+  [O('Karaoke room', 'غرفة غناء كاريوكي', 'Ghorfet ghena2 karaoke'), 'active', '🎤', 350, 600, O('Private room singing with friends.', 'غناء في غرفة خاصة مع الأصحاب.', 'Ghena2 fi ghorfa khasa ma3a el as7ab.')],
+  [O('Nile sailboat ride', 'جولة بمركب نيلية', 'Gawla b markeb neeleya'), 'chill', '⛵', 120, 220, O('Traditional wooden sailboat ride.', 'جولة بمركب شراعي خشبي تقليدي.', 'Gawla b markeb shera3y khashaby taqleedy.')],
+  [O('Nile sailboat sunset', 'مركب نيلية وقت الغروب', 'Markeb neeleya waqt el ghoroob'), 'chill', '🌅', 200, 350, O('Sunset sailing on the Nile.', 'الإبحار وقت الغروب في النيل.', 'El eb7ar waqt el ghoroob fel Neel.')],
+  [O('Motorboat Nile ride', 'جولة بلانش في النيل', 'Gawla blansh fel Neel'), 'active', '🚤', 350, 600, O('Speedy Nile motorboat tour.', 'جولة سريعة بلانش نيلية.', 'Gawla saree3a blansh neeleya.')],
+  [O('Nile dinner cruise', 'عشاء في مركب نيلية', '3asha fi markeb neeleya'), 'food', '🛳️', 900, 1600, O('Open buffet dinner + Nile show.', 'عشاء بوفيه مفتوح مع عرض نيلي.', '3asha buffet maftoo7 ma3a 3ard neely.')],
+  [O('Dinner + Nile view', 'عشاء وإطلالة على النيل', '3asha w etlala 3al Neel'), 'food', '🌃', 700, 1300, O('Waterfront dining with river lights.', 'عشاء على النيل مع إضاءة النهر.', '3asha 3al Neel ma3a eda2et el nahr.')],
+  [O('Rooftop Cairo sunset', 'الغروب من روفتوب', 'El ghoroob mn rooftop'), 'chill', '🌆', 300, 550, O('Skyline sunset coffee or mocktail.', 'قهوة وقت الغروب مع إطلالة المدينة.', 'Qahwa waqt el ghoroob ma3a etlalet el madina.')],
+  [O('Rooftop dinner', 'عشاء على روفتوب', '3asha 3ala rooftop'), 'food', '🥂', 900, 1600, O('Fine rooftop meal with city views.', 'عشاء فاخر مع إطلالة على المدينة.', '3asha fakher ma3a etlala 3alal madina.')],
+  [O('Night market walk', 'تمشية في سوق ليلي', 'Tamshiya fi sooq leily'), 'culture', '🛍️', 60, 180, O('Evening street browsing + snacks.', 'جولة مسائية في السوق وأكل خفيف.', 'Gawla masa2eya fel sooq w akl khafeef.')],
+  [O('Bookstore cafe outing', 'خروجة في مكتبة وكافيه', 'Khorooga fi maktaba w cafe'), 'chill', '📚', 150, 300, O('Coffee + book browsing session.', 'قهوة وتصفح كتب.', 'Qahwa w tasfo7 kotob.')],
+  [O('Art gallery exhibition', 'معرض فني', 'Ma3rad fanny'), 'culture', '🎨', 60, 180, O('Contemporary Egyptian art gallery tour.', 'جولة في معرض فن مصري معاصر.', 'Gawla fi ma3rad fan masry mo3aser.')],
+  [O('Live music gig', 'حفلة موسيقى حية', '7aflet moseeqa 7aya'), 'culture', '🎸', 350, 700, O('Local band concert or venue music.', 'حفلة لفرقة محلية.', '7afla leferqa ma7aleya.')],
+  [O('Stand-up comedy show', 'عرض كوميدي', '3ard comedy'), 'culture', '🎙️', 300, 600, O('Live local Egyptian stand-up comedy.', 'عرض كوميدي مصري حي.', '3ard comedy masry 7ay.')],
+  [O('Theatre play ticket', 'تذكرة مسرح', 'Tazkaret masra7'), 'culture', '🎭', 300, 700, O('Local stage performance.', 'عرض مسرحي محلي.', '3ard masra7y ma7aly.')],
+  [O('Pottery workshop', 'ورشة فخار', 'Warshet fokhar'), 'culture', '🏺', 450, 800, O('Clay molding and pottery class.', 'حصة تشكيل الطين والفخار.', '7esa tashkeel el teen w el fokhar.')]
 ];
 
-const state = {
-  people: 2,
-  perPerson: 500,
-  totalBudget: 1000,
-  shown: 10,
-  packageShown: 10,
-  cat: 'all',
-  pcat: 'all'
-};
+const outingsMap = outings.map((item, idx) => ({
+  id: idx + 1,
+  name: item[0],
+  cat: item[1],
+  emoji: item[2],
+  min: item[3],
+  max: item[4],
+  desc: item[5]
+}));
+
+const packages = [
+  { vibe: 'date', name: O('Zamalek Sunset Romantic Walk', 'تمشية الغروب الرومانسية بالزمالك', 'Tamshiyet el ghoroob el romanceya bel Zamalek'), steps: [ O('Kasr El Nil sunset walk', 'تمشية كوبري قصر النيل', 'Tamshiyet kobry Qasr El Neel'), O('Starbucks specialty coffee', 'قهوة ستاربكس', 'Qahwet Starbucks'), O('Nile sailboat sunset', 'مركب نيلية وقت الغروب', 'Markeb neeleya waqt el ghoroob') ], min: 450, max: 700, total: 580, emoji: '💗', desc: O('Relaxing date starting with a walk over the Nile, coffee, and a sunset sailboat ride.', 'مقابلة هادئة تبدأ بتمشية على النيل، قهوة، وإبحار وقت الغروب.', 'Mo2abla hadya tebda2 b tamshiya 3al Neel, qahwa, w eb7ar waqt el ghoroob.') },
+  { vibe: 'friends', name: O('Active Night Out & Arcade', 'سهرة حركة وألعاب', 'Sahret 7araka w al3ab'), steps: [ O('Koshary bowl outing', 'خروجة طبق كشري', 'Khorooget tabaq Koshary'), O('Bowling session', 'لعب بولينج', 'Le3b Bowling'), O('Arcade session', 'صالة ألعاب أركيد', 'Salet al3ab Arcade') ], min: 500, max: 800, total: 650, emoji: '🎳', desc: O('High-energy hangout with comfort food, bowling, and gaming.', 'خروجة مليئة بالحركة مع أكل شعبي، بولينج وألعاب.', 'Khorooga malyana bel 7araka ma3a akl sha3by, bowling w al3ab.') },
+  { vibe: 'family', name: O('Historic Cairo Heritage Tour', 'جولة في تراث القاهرة التاريخية', 'Gawla fi toras El Qahira el tareekheya'), steps: [ O('Egyptian Museum visit', 'زيارة المتحف المصري', 'Ziyaret El Mat7af El Masry'), O('Al Azhar Park walk', 'تمشية في حديقة الأزهر', 'Tamshiyet 7adeeqet El Azhar'), O('Tea at local cafe', 'شاي في قهوة بلدي', 'Shay fi qahwa balady') ], min: 650, max: 950, total: 800, emoji: '🏛️', desc: O('Cultural family day out through Cairo’s iconic history and gardens.', 'يوم ثقافي عائلي في تاريخ القاهرة وحدائقها الشهيرة.', 'Yoom saqafy 3a2ely fi tareekh El Qahira w 7ada2eqha el shaheera.') },
+  { vibe: 'budget', name: O('Downtown Budget Friendly Day', 'يوم موفر في وسط البلد', 'Yoom mowafer fi Wost El Balad'), steps: [ O('Egyptian breakfast (Fava + Falafel)', 'فطار مصري فول وطعمية', 'Ftar Masry fool w ta3meya'), O('Al Andalus Park stroll', 'تمشية في حديقة الأندلس', 'Tamshiyet 7adeeqet El Andalus'), O('Tea at local cafe', 'شاي في قهوة بلدي', 'Shay fi qahwa balady') ], min: 100, max: 180, total: 140, emoji: '🪙', desc: O('Ultra affordable, classic Cairo day along the Nile.', 'يوم اقتصادي جداً وكلاسيكي على ضفاف النيل.', 'Yoom eqtesady gedan w classic 3ala defaf el Neel.') },
+  { vibe: 'premium', name: O('Rooftop Dinner & Nile Cruise', 'عشاء روفتوب ومركب نيلية', '3asha rooftop w markeb neeleya'), steps: [ O('Rooftop Cairo sunset', 'الغروب من روفتوب', 'El ghoroob mn rooftop'), O('Nile dinner cruise', 'عشاء في مركب نيلية', '3asha fi markeb neeleya') ], min: 1200, max: 2150, total: 1650, emoji: '✨', desc: O('Upscale evening with high views, delicious food, and river lights.', 'سهرة راقية مع إطلالات عالية، طعام لذيذ، وأضواء النهر.', 'Sahra raqeya ma3a etlalat 3alya, ta3am lazeez, w adwa2 el nahr.') },
+  { vibe: 'date', name: O('Cosy Coffee & Cinema', 'قهوة وسينما في هدوء', 'Qahwa w cinema fi hodoo2'), steps: [ O('Starbucks specialty coffee', 'قهوة ستاربكس', 'Qahwet Starbucks'), O('Cinema City Stars', 'سينما سيتي ستارز', 'Cinema City Stars'), O('Dessert + coffee', 'حلويات وقهوة', '7alaweyat w qahwa') ], min: 600, max: 950, total: 780, emoji: '☕', desc: O('Great date pairing specialty drinks, a movie, and sweet treats.', 'لقاء رائع يجمع بين المشروبات المختصة، فيلم، وحلويات.', 'Mo2abla ra2e3a tegma3 been el mashrobat el mokhtasa, film, w 7alaweyat.') },
+  { vibe: 'friends', name: O('Gourmet Burger & Gaming Night', 'سهرة برجر وألعاب', 'Sahret burger w al3ab'), steps: [ O('Burger meal', 'وجبة برجر', 'Wagbet Burger'), O('VR gaming session', 'ألعاب واقع افتراضي', 'Al3ab waqe3 efterady'), O('Mocktail cafe stop', 'مشروب فواكه في كافيه', 'Mashroob fawakeh fi cafe') ], min: 700, max: 1100, total: 900, emoji: '🍔', desc: O('Delicious burgers followed by immersive VR and drinks.', 'برجر لذيذ يليه ألعاب واقع افتراضي ومشروبات.', 'Burger lazeez yaleeh al3ab waqe3 efterady w mashrobat.') },
+  { vibe: 'family', name: O('Civilization & Riverside Lunch', 'الحضارة وغداء على النيل', 'El 7adara w ghada 3al Neel'), steps: [ O('National Museum of Egyptian Civilization', 'المتحف القومي للحضارة', 'El Mat7af El Qawmy lel 7adara'), O('Grilled chicken meal', 'وجبة فراخ مشوية', 'Wagbet frakh mashweya'), O('Mango juice stop', 'عصير مانجو', '3aseer mango') ], min: 650, max: 1000, total: 820, emoji: '🏺', desc: O('Educational museum visit followed by a satisfying family lunch.', 'زيارة تثقيفية للمتحف يليها غداء عائلي مشبع.', 'Ziyara tasqeefeya lel mat7af yaleeha ghada 3a2ely moshbe3.') },
+  { vibe: 'budget', name: O('Islamic Cairo Evening Walk', 'جولة مسائية في القاهرة الإسلامية', 'Gawla masa2eya fel Qahira el Eslameya'), steps: [ O('Al Moez Street evening', 'سهرة في شارع المعز', 'Sahra fi share3 El Moez'), O('Sugarcane juice stop', 'عصير قصب', '3aseer qasab'), O('Koshary bowl outing', 'خروجة طبق كشري', 'Khorooget tabaq Koshary') ], min: 130, max: 260, total: 195, emoji: '🌙', desc: O('Atmospheric historic walk with refreshing juice and local koshary.', 'تمشية تاريخية رائعة مع عصير منعش وكشري شعبي.', 'Tamshiya tareekheya ra2e3a ma3a 3aseer mon3esh w koshary sha3by.') },
+  { vibe: 'premium', name: O('Luxury Steaks & Bowling Eve', 'ستيك فاخر وسهرة بولينج', 'Steak fakher w sahret bowling'), steps: [ O('Steak meal', 'وجبة ستيك', 'Wagbet Steak'), O('Bowling session', 'لعب بولينج', 'Le3b Bowling'), O('Spanish latte', 'سبانيش لاتيه', 'Spanish latte') ], min: 1200, max: 1900, total: 1550, emoji: '🥩', desc: O('High-end steak dinner combined with bowling and gourmet coffee.', 'عشاء ستيك راقي مع بولينج وقهوة مميزة.', '3asha steak raqy ma3a bowling w qahwa momayeza.') },
+  { vibe: 'date', name: O('Zamalek Art & Coffee Date', 'فنون وقهوة في الزمالك', 'Fnoon w qahwa fel Zamalek'), steps: [ O('Art gallery exhibition', 'معرض فني', 'Ma3rad fanny'), O('Iced latte at local cafe', 'آيس لاتيه في كافيه', 'Ice latte fi cafe'), O('Zamalek photo walk', 'جولة تصوير في الزمالك', 'Gawlet tasweer fel Zamalek') ], min: 300, max: 550, total: 420, emoji: '🎨', desc: O('Creative gallery exploration paired with cozy coffee in Zamalek.', 'استكشاف فني إبداعي مع قهوة في جو مريح بالزمالك.', 'Estekshaf fanny ebda3y ma3a qahwa fi gaw moree7 bel Zamalek.') },
+  { vibe: 'friends', name: O('Action Padel & Fast-Food', 'بادل ووجبة سريعة', 'Padel w wagba saree3a'), steps: [ O('Padel session', 'تنس بادل', 'Tennis padel'), O('Chicken fast-food combo', 'كومبو فراخ مقلية', 'Combo frakh maqleya'), O('Fresh lemonade', 'ليمون فريش', 'Lamoon fresh') ], min: 720, max: 1180, total: 950, emoji: '🎾', desc: O('Energetic padel match with friends followed by fast food and lemonade.', 'مباراة بادل مليئة بالطاقة مع الأصدقاء يليها طعام سريع وليمون.', 'Mobarat padel malyana bel taqa ma3a el as7ab yaleeha ta3am saree3 w lamoon.') },
+  { vibe: 'friends', name: O('Local Eats Tour', 'جولة الأكل الشعبي', 'Gawlet el akl el sha3by'), steps: [ O('Egyptian breakfast (Fava + Falafel)', 'فطار مصري فول وطعمية', 'Ftar Masry fool w ta3meya'), O('Sugarcane juice stop', 'عصير قصب', '3aseer qasab'), O('Hawawshi meal', 'وجبة حواوشي', 'Wagbet Hawawshi') ], min: 160, max: 300, total: 230, emoji: '🥙', desc: O('A full day of authentic Egyptian street food and fresh juice.', 'يوم كامل من أكل الشارع المصري الأصيل والعصير الطازج.', 'Yoom kamel mn akl el share3 el masry el aseel w el 3aseer el tazeg.') },
+  { vibe: 'family', name: O('Old Cairo Discovery', 'استكشاف مصر القديمة', 'Estekshaf Masr El Qadeema'), steps: [ O('Coptic Museum visit', 'زيارة المتحف القبطي', 'Ziyaret El Mat7af El Qepty'), O('Old Cairo walking loop', 'جولة مشي في مصر القديمة', 'Gawlet mashy fi Masr El Qadeema'), O('Tea at local cafe', 'شاي في قهوة بلدي', 'Shay fi qahwa balady') ], min: 165, max: 300, total: 232, emoji: '⛪', desc: O('Explore historical alleys and museums, ending with classic mint tea.', 'استكشاف أزقة ومتاحف تاريخية، وختامها شاي بالنعناع.', 'Estekshaf azeqa w mata7ef tareekheya, w khetamha shay bel na3na3.') },
+  { vibe: 'friends', name: O('Adrenaline Rush', 'جرعة حماس', 'Gor3et 7amas'), steps: [ O('Go-kart session', 'سباق سيارات', 'Sebaq sayarat'), O('Burger meal', 'وجبة برجر', 'Wagbet Burger'), O('Laser tag', 'حرب ليزر', '7arb laser') ], min: 1050, max: 1800, total: 1425, emoji: '🏎️', desc: O('High-speed racing, burgers, and tactical laser battles.', 'سباق سريع، برجر، ومعارك ليزر تكتيكية.', 'Sebaq saree3, burger, w ma3arek laser tacticeya.') },
+  { vibe: 'date', name: O('Sunset Dining', 'عشاء الغروب', '3asha el ghoroob'), steps: [ O('Kasr El Nil sunset walk', 'تمشية كوبري قصر النيل', 'Tamshiyet kobry Qasr El Neel'), O('Dinner + Nile view', 'عشاء وإطلالة على النيل', '3asha w etlala 3al Neel') ], min: 720, max: 1350, total: 1035, emoji: '🌅', desc: O('A romantic walk followed by a beautiful waterfront dinner.', 'تمشية رومانسية يليها عشاء جميل على ضفاف النهر.', 'Tamshiya romanceya yaleeha 3asha gameel 3ala defaf el nahr.') },
+  { vibe: 'premium', name: O('VIP Entertainment', 'ترفيه فاخر', 'Tarfeeh fakher'), steps: [ O('VOX cinema outing', 'خروجة سينما فوكس', 'Khorooget cinema VOX'), O('Sushi meal', 'وجبة سوشي', 'Wagbet Sushi'), O('Rooftop Cairo sunset', 'الغروب من روفتوب', 'El ghoroob mn rooftop') ], min: 950, max: 1720, total: 1335, emoji: '🍣', desc: O('Premium movies, fresh sushi, and a sunset skyline view.', 'سينما فاخرة، سوشي طازج، وإطلالة على المدينة وقت الغروب.', 'Cinema fakhera, sushi tazeg, w etlala 3alal madina waqt el ghoroob.') },
+  { vibe: 'budget', name: O('Student Hangout', 'خروجة شبابية موفرة', 'Khorooga shababeya mowafera'), steps: [ O('Koshary bowl outing', 'خروجة طبق كشري', 'Khorooget tabaq Koshary'), O('Al Jazira Park hangout', 'قعدة في حديقة الجزيرة', 'Qa3da fi 7adeeqet El Gezeera'), O('Ice cream outing', 'خروجة آيس كريم', 'Khorooget ice cream') ], min: 150, max: 300, total: 225, emoji: '🍦', desc: O('Affordable classic meal, park chilling, and sweet ice cream.', 'وجبة كلاسيكية موفرة، جلسة في الحديقة، وآيس كريم لذيذ.', 'Wagba classiceya mowafera, galsa fel 7adeeqa, w ice cream lazeez.') },
+  { vibe: 'friends', name: O('Sports & Grill', 'رياضة ومشاوي', 'Riyada w mashawy'), steps: [ O('Football turf booking', 'حجز ملعب كورة', '7agz mal3ab kora'), O('Grilled mixed meat', 'مشاوي مشكلة', 'Mashawy moshakela'), O('Frappuccino-style drink', 'مشروب قهوة مخفوق', 'Mashroob qahwa makhfooq') ], min: 610, max: 1060, total: 835, emoji: '⚽', desc: O('Play a match, eat a heavy grill, and grab a cold drink.', 'العب مباراة، وتناول مشاوي دسمة، واشرب مشروباً بارداً.', 'El3ab mobara, w tenawel mashawy dasema, w eshrab mashrooban baredan.') },
+  { vibe: 'family', name: O('Garden & Pizza', 'حديقة وبيتزا', '7adeeqa w pizza'), steps: [ O('Al Azhar Park walk', 'تمشية في حديقة الأزهر', 'Tamshiyet 7adeeqet El Azhar'), O('Pizza sharing meal', 'وجبة بيتزا للمشاركة', 'Wagbet pizza lelmosharka'), O('Waffle + drink', 'كعكة الوافل ومشروب', 'Waffle w mashroob') ], min: 470, max: 830, total: 650, emoji: '🍕', desc: O('Scenic park walk, shared pizza, and sweet waffles.', 'تمشية في حديقة خلابة، بيتزا مشتركة، ووافل حلو.', 'Tamshiya fi 7adeeqa khalaba, pizza moshtaraka, w waffle 7elw.') },
+  { vibe: 'budget', name: O('Bookish Afternoon', 'عصر القراءة والهدوء', '3asr el qera2a w el hodoo2'), steps: [ O('Bookstore cafe outing', 'خروجة في مكتبة وكافيه', 'Khorooga fi maktaba w cafe'), O('Garden City walk', 'تمشية في جاردن سيتي', 'Tamshiyet Garden City'), O('Dessert + coffee', 'حلويات وقهوة', '7alaweyat w qahwa') ], min: 330, max: 670, total: 500, emoji: '📚', desc: O('Browsing books, walking quiet streets, and enjoying cake.', 'تصفح الكتب، والمشي في شوارع هادئة، والاستمتاع بالكيك.', 'Tasfo7 el kotob, w el mashy fi shaware3 hadya, w el estemta3 bel cake.') },
+  { vibe: 'family', name: O('Royal History', 'تاريخ ملكي', 'Tareekh malaky'), steps: [ O('Manial Palace visit', 'زيارة قصر المنيل', 'Ziyaret Qasr El Manial'), O('Kofta sandwich meal', 'وجبة ساندوتش كفتة', 'Wagbet sandwich Kofta'), O('Mango juice stop', 'عصير مانجو', '3aseer mango') ], min: 260, max: 450, total: 355, emoji: '👑', desc: O('Palace exploration followed by street food and fresh juice.', 'استكشاف القصر يليه طعام الشارع وعصير طازج.', 'Estekshaf el qasr yaleeh ta3am el share3 w 3aseer tazeg.') },
+  { vibe: 'date', name: O('Art & Elegance', 'فن وأناقة', 'Fann w anaqa'), steps: [ O('Museum of Islamic Art', 'متحف الفن الإسلامي', 'Mat7af El Fann El Eslamy'), O('Pasta restaurant meal', 'وجبة مكرونة في مطعم', 'Wagbet makarona fi mat3am'), O('Spanish latte', 'سبانيش لاتيه', 'Spanish latte') ], min: 440, max: 770, total: 605, emoji: '🍝', desc: O('Historical art, cozy Italian dinner, and creamy espresso.', 'فن تاريخي، عشاء إيطالي دافئ، وإسبريسو بالكريمة.', 'Fann tareekhy, 3asha etaly dafe2, w espresso bel krema.') },
+  { vibe: 'friends', name: O('Escape & Laughs', 'هروب وضحك', 'Horoob w de7k'), steps: [ O('Escape room', 'غرف الهروب', 'Ghoraf el horoob'), O('Korean street-food meal', 'وجبة أكل كوري', 'Wagbet akl Kory'), O('Stand-up comedy show', 'عرض كوميدي', '3ard comedy') ], min: 900, max: 1650, total: 1275, emoji: '🔐', desc: O('Puzzles, trendy food, and evening laughs.', 'ألغاز، أكل عصري، وضحكات مسائية.', 'Alghaz, akl 3asry, w da7kat masa2eya.') },
+  { vibe: 'premium', name: O('Luxury Pampering', 'دلال فاخر', 'Dalal fakher'), steps: [ O('Horse riding session', 'ركوب خيل', 'Rokoob kheyl'), O('Steak meal', 'وجبة ستيك', 'Wagbet Steak'), O('Live music gig', 'حفلة موسيقى حية', '7aflet moseeqa 7aya') ], min: 1500, max: 2800, total: 2150, emoji: '🐎', desc: O('Desert riding, fine steakhouse, and live entertainment.', 'ركوب خيل في الصحراء، مطعم ستيك فاخر، وترفيه حي.', 'Rokoob kheyl fel sa7ra, mat3am steak fakher, w tarfeeh 7ay.') },
+  { vibe: 'budget', name: O('River Vibes', 'أجواء النيل', 'Agwaa2 el Neel'), steps: [ O('Qasr El Nil bridge photos', 'صور على كوبري قصر النيل', 'Sowar 3ala kobry Qasr El Neel'), O('Mango juice stop', 'عصير مانجو', '3aseer mango'), O('Nile sailboat short ride', 'جولة بمركب نيلية', 'Gawla b markeb neeleya') ], min: 180, max: 350, total: 265, emoji: '⛵', desc: O('Photos, juice, and a budget-friendly sail on the Nile.', 'صور، عصير، وإبحار اقتصادي في النيل.', 'Sowar, 3aseer, w eb7ar eqtesady fel Neel.') },
+  { vibe: 'date', name: O('Movie Marathon Day', 'يوم السينما الطويل', 'Yoom el cinema el taweel'), steps: [ O('Renaissance Downtown cinema', 'سينما رينسانس وسط البلد', 'Cinema Renaissance Wost El Balad'), O('Movie + popcorn combo', 'فيلم وكومبو فشار', 'Film w combo feshar'), O('Late-night cinema', 'سينما سهرة', 'Cinema sahra') ], min: 600, max: 1000, total: 800, emoji: '🍿', desc: O('Back to back films and snacks all day.', 'أفلام متتالية وتسالي طوال اليوم.', 'Aflam motataleya w tasaly tawal el yoom.') },
+  { vibe: 'friends', name: O('Climb & Smash', 'تسلق وحماس', 'Tasaloq w 7amas'), steps: [ O('Indoor climbing', 'تسلق داخلي', 'Tasaloq dakhly'), O('Shawarma meal', 'وجبة شاورما', 'Wagbet Shawerma'), O('Bowling session', 'لعب بولينج', 'Le3b Bowling') ], min: 670, max: 1170, total: 920, emoji: '🧗', desc: O('Active workout, heavy food, and friendly bowling competition.', 'نشاط رياضي، أكل دسم، ومنافسة بولينج بين الأصدقاء.', 'Nashat reyady, akl dasem, w monafset bowling been el as7ab.') },
+  { vibe: 'family', name: O('Island Getaway', 'هروب للجزيرة', 'Horoob lel gezeera'), steps: [ O('Maadi Island visit', 'زيارة جزيرة المعادي', 'Ziyaret gezeeret El Maadi'), O('Egyptian seafood meal', 'وجبة سمك مصرية', 'Wagbet samak masreya'), O('Fresh lemonade', 'ليمون فريش', 'Lamoon fresh') ], min: 510, max: 990, total: 750, emoji: '🌊', desc: O('Relaxing island day with family seafood feast.', 'يوم مريح في الجزيرة مع وليمة أسماك عائلية.', 'Yoom moree7 fel gezeera ma3a waleemet asmak 3a2eleya.') },
+  { vibe: 'budget', name: O('Night Market & Treats', 'سوق ليلي ومكافآت', 'Sooq leily w mokafa2at'), steps: [ O('Khan El Khalili walk', 'تمشية في خان الخليلي', 'Tamshiyet Khan El Khalili'), O('Feteer session', 'أكلة فطير', 'Aklet Feteer'), O('Turkish coffee', 'قهوة تركي', 'Qahwa Torky') ], min: 225, max: 480, total: 352, emoji: '🧿', desc: O('Wandering the souq, sharing feteer, and sipping coffee.', 'جولة في السوق، مشاركة الفطير، واحتساء القهوة.', 'Gawla fel sooq, mosharket el feteer, w e7tesa2 el qahwa.') }
+];
 
 const translations = {
   en: {
+    brandName: 'Na2ili <b>Khrooga</b>',
+    brandMark: 'N',
+    heroH1: 'Na2ili <span>Khrooga</span>',
+    heroH1Small: 'Find Your Perfect Day',
     navDiscover: 'Discover',
     navPackages: 'Packages',
     navHow: 'How it works',
     heroEyebrow: 'CAIRO • YOUR BUDGET • YOUR MOOD',
-    heroCopy: 'Tell us how many people are going, your average budget per person, and the exact total group budget. We will rank outings and full-day plans around your real target.',
+    heroCopy: 'Tell us your group size, your average budget, and your exact total. We’ll find outing ideas and full-day plans that actually fit your budget.',
     peopleLabel: 'How many people?',
-    avgLabel: 'Average budget per person',
+    avgLabel: 'Average budget / person',
     totalLabel: 'Exact total group budget',
-    findBtn: 'Find my outing →',
+    currency: 'EGP',
+    findBtn: 'Find my outing <span>→</span>',
     trustOutings: '200+ outing ideas',
-    trustPackages: '80+ day packages',
-    trustRanges: 'Narrow EGP planning ranges',
+    trustPackages: '70+ day packages',
+    trustRanges: 'Narrow planning ranges',
     statOutings: 'outing types',
     statPackages: 'ready packages',
-    statSuggestions: 'suggestions shown',
-    statBudget: 'EGP budget range',
+    statSuggestions: 'suggestions per reveal',
+    statBudget: 'budget range',
     resultsEyebrow: 'YOUR RESULTS',
-    resultsEmpty: 'Enter your budget and your closest matches will appear here.',
+    resultsTitleDefault: 'Tell me your budget 👀',
+    resultsTitleSub: 'Outings for ~{budget}',
+    resultsEmpty: 'Your matching ideas will appear here.',
+    resultsSubDynamic: 'Top suggestions sorted for {people} person(s) with a total budget of ~{total}',
     filterAll: 'All',
     filterActive: 'Active',
     filterChill: 'Chill',
@@ -344,9 +183,9 @@ const translations = {
     showMore: 'Show 15 more',
     packagesEyebrow: 'DAY PACKAGES',
     packagesTitle: 'Not just one place.<br><em>A whole day.</em>',
-    packagesCopy: 'Choose a vibe and get a complete plan with times, activities, food, drinks, and a realistic total.',
+    packagesCopy: 'Pick a mood, then let the itinerary handle the hand-offs: activity → food → drinks → sunset.',
     curatedPlans: 'CURATED PLANS',
-    allVibes: 'All vibes',
+    allVibes: 'All options',
     vibeDate: 'Date',
     vibeFriends: 'Friends',
     vibeFamily: 'Family',
@@ -354,791 +193,639 @@ const translations = {
     vibePremium: 'Premium',
     howEyebrow: 'HOW IT WORKS',
     howTitle: 'Budget in.<br><span>Outing out.</span>',
-    howCopy: 'No booking database. This is a planning tool that helps you make better decisions with the money you already have.',
+    howCopy: 'No booking database. No giant form. Just a smart planner that helps you decide what to do with the money you already have.',
     step1Title: 'Set your group',
-    step1Copy: 'Enter the number of people, the average budget per person, and the exact total group budget.',
-    step2Title: 'Get genuinely close matches',
-    step2Copy: 'Results are ranked mainly by total group cost, then by per-person budget, so a 500 EGP target does not start with 20 EGP ideas.',
-    step3Title: 'Build the whole day',
-    step3Copy: 'Day packages use the same two budget targets and put the closest full-day plans first.',
+    step1Copy: 'Tell us how many people are going, your average amount per person, and the exact group total.',
+    step2Title: 'Get budget-close results',
+    step2Copy: 'Results are ranked by distance from your target, so you get realistic options instead of random cheap ideas.',
+    step3Title: 'Build the day',
+    step3Copy: 'The package section uses the same budget target to put the closest full-day plans first.',
     priceNoteTitle: 'Price accuracy comes first',
-    priceNoteCopy: 'Prices are narrow planning ranges based on public Cairo and Greater Cairo references, but they are not live checkout prices. Branch, date, ticket type, promotions, season, and menu changes can affect the final amount.',
-    footerLine: 'Made for everyone who keeps asking: “Where should we go?”',
-    perPersonMin: 'Minimum budget is 10 EGP.',
-    budgetMismatch: 'Your exact total differs from average × people by {diff} EGP. Search ranking uses both values.',
-    budgetSaved: 'Your average and exact total are aligned.',
-    group: 'group',
-    perPerson: 'per person',
-    estimated: 'estimated per person',
-    match: 'closest match',
-    planningTotal: 'GROUP ESTIMATE',
-    people: 'people',
-    showing: 'Showing {n} of the closest matches to your budget.',
-    noClose: 'There are no close matches in this category. Try another category or a different budget.',
-    packagesAround: 'Packages ranked around your budget',
-    packageMatch: 'closest to target',
-    packageTotal: 'TOTAL / PERSON',
-    tagNew: 'NEW',
-    tagPopular: 'POPULAR',
-    tagSmart: 'SMART PICK',
-    tagCurated: 'CURATED'
+    priceNoteCopy: 'Ranges are planning estimates for the city. Public prices can change by branch, promotion, season, and date, so the site uses narrow planning ranges and avoids pretending to be a live checkout.',
+    footerLine: 'Made for people who say: “Where should we go?”',
+    viewMore: 'View Details',
+    modalBriefTitle: 'What you will do',
+    modalPlacesTitle: 'Top 6 Recommended Locations',
+    modalPlacesSub: 'Handpicked top places with average prices',
+    modalNearTitle: 'Places Near Your Location',
+    modalNearSub: 'Grant location permission to find the 6 closest top-reviewed places near you.',
+    searchByLocation: 'Search by your location',
+    locating: 'Getting your current location...',
+    locationError: 'Could not access location. Showing top Cairo locations instead.',
+    avgPriceLabel: 'Avg Price',
+    openInMaps: 'View on Maps',
+    kmAway: 'km away',
+    scrollCue: 'SCROLL TO EXPLORE <span>↓</span>',
+    estPerPerson: 'Est. per person',
+    cairoRange: 'Cairo range',
+    estTotal: 'EST. TOTAL PER PERSON'
   },
   ar: {
-    navDiscover: 'اكتشف',
-    navPackages: 'الباقات',
-    navHow: 'إزاي تشتغل',
-    heroEyebrow: 'القاهرة • ميزانيتك • مودك',
-    heroCopy: 'قولنا عدد الناس، ومتوسط ميزانية الفرد، وإجمالي ميزانية المجموعة بالظبط. هنرتبلك الخروجات والباقات حسب ميزانيتك الحقيقية.',
-    peopleLabel: 'كام شخص؟',
-    avgLabel: 'متوسط الميزانية للفرد',
-    totalLabel: 'إجمالي ميزانية المجموعة بالظبط',
-    findBtn: 'نقيلي خروجة ←',
-    trustOutings: 'أكتر من 200 خروجة',
-    trustPackages: 'أكتر من 80 باقة يوم كامل',
-    trustRanges: 'نطاقات أسعار ضيقة بالجنيه',
+    brandName: 'نقيلي <b>خروجة</b>',
+    brandMark: 'ن',
+    heroH1: 'نقيلي <span>خروجة</span>',
+    heroH1Small: 'اختار يومك الصح',
+    navDiscover: 'استكشف',
+    navPackages: 'البرامج',
+    navHow: 'كيف تعمل؟',
+    heroEyebrow: 'القاهرة • ميزانيتك • مزاجك',
+    heroCopy: 'اكتب عددكم، متوسط ميزانية الفرد، وإجمالي الميزانية. وسنستخرج لك أفكار خروجات وبرامج يوم كامل مناسبة لميزانيتك تماماً.',
+    peopleLabel: 'كم عدد الأشخاص؟',
+    avgLabel: 'متوسط الميزانية / للفرد',
+    totalLabel: 'إجمالي الميزانية بالضبط',
+    currency: 'ج.م',
+    findBtn: 'ابحث عن خروجتي <span>←</span>',
+    trustOutings: '+٢٠٠ فكرة خروجة',
+    trustPackages: '+٧٠ برنامج ليوم كامل',
+    trustRanges: 'أسعار تخطيط دقيقة',
     statOutings: 'نوع خروجة',
-    statPackages: 'باقة جاهزة',
-    statSuggestions: 'اقتراح بيظهر',
-    statBudget: 'نطاق الميزانية بالجنيه',
-    resultsEyebrow: 'نتايجك',
-    resultsEmpty: 'اكتب ميزانيتك وهتظهرلك أقرب النتائج.',
+    statPackages: 'برنامج جاهز',
+    statSuggestions: 'اقتراحات في كل مرة',
+    statBudget: 'مدى الميزانية',
+    resultsEyebrow: 'نتائجك',
+    resultsTitleDefault: 'اكتب ميزانيتك 👀',
+    resultsTitleSub: 'خروجات بحدود ~{budget}',
+    resultsEmpty: 'الخروجات المناسبة لميزانيتك ستظهر هنا.',
+    resultsSubDynamic: 'أفضل الاقتراحات لـ {people} أفراد بإجمالي ميزانية ~{total}',
     filterAll: 'الكل',
-    filterActive: 'مغامرات',
-    filterChill: 'رايقة',
-    filterFood: 'أكل',
+    filterActive: 'حركة ونشاط',
+    filterChill: 'هدوء',
+    filterFood: 'طعام',
     filterCulture: 'ثقافة',
-    showMore: 'إظهار 15 كمان',
-    packagesEyebrow: 'باقات اليوم الكامل',
-    packagesTitle: 'مش مكان واحد.<br><em>خروجة يوم كامل.</em>',
-    packagesCopy: 'اختار المود وسيب علينا ترتيب اليوم بالمواعيد والأنشطة والأكل والمشروبات والتكلفة.',
-    curatedPlans: 'خطط مختارة',
-    allVibes: 'كل المودات',
-    vibeDate: 'دِيت',
-    vibeFriends: 'صحاب',
-    vibeFamily: 'عيلة',
+    showMore: 'عرض ١٥ المزيد',
+    packagesEyebrow: 'برامج اليوم الكامل',
+    packagesTitle: 'ليس مجرد مكان واحد.<br><em>بل يوم كامل.</em>',
+    packagesCopy: 'اختار الجو، ودع البرنامج يرتب لك اليوم: نشاط ← طعام ← مشروب ← غروب.',
+    curatedPlans: 'خطط مميزة',
+    allVibes: 'كل الخيارات',
+    vibeDate: 'مقابلة',
+    vibeFriends: 'أصحاب',
+    vibeFamily: 'عائلة',
     vibeBudget: 'اقتصادي',
     vibePremium: 'فاخر',
-    howEyebrow: 'إزاي بتشتغل',
-    howTitle: 'الميزانية تدخل.<br><span>الخروجة تطلع.</span>',
-    howCopy: 'من غير حجز أونلاين. الموقع بيساعدك تختار بشكل أذكى حسب الفلوس اللي معاك.',
-    step1Title: 'حدد المجموعة',
-    step1Copy: 'اكتب عدد الناس ومتوسط ميزانية الفرد وإجمالي ميزانية المجموعة بالظبط.',
-    step2Title: 'خروجات قريبة فعلًا',
-    step2Copy: 'الترتيب بيعتمد أساسًا على إجمالي تكلفة المجموعة وبعدها ميزانية الفرد، عشان ميزانية 500 جنيه ما تبدأش بخروجة بـ20 جنيه.',
-    step3Title: 'كوّن اليوم كله',
-    step3Copy: 'الباقات بتستخدم نفس الميزانيتين وبتحط أقرب خطط اليوم الكامل في الأول.',
-    priceNoteTitle: 'دقة السعر أهم حاجة',
-    priceNoteCopy: 'الأسعار نطاقات تخطيط ضيقة مبنية على مراجع عامة للقاهرة والجيزة، لكنها مش أسعار حجز لحظية. الفرع والتاريخ ونوع التذكرة والعروض والموسم وتغيير المنيو ممكن يغيروا السعر النهائي.',
-    footerLine: 'معمول لكل الناس اللي بتقول: “نخرج فين؟”',
-    perPersonMin: 'الحد الأدنى للميزانية هو 10 جنيه.',
-    budgetMismatch: 'الإجمالي اللي كتبته مختلف عن متوسط الفرد × عدد الناس بـ {diff} جنيه. ترتيب البحث بيستخدم القيمتين.',
-    budgetSaved: 'متوسط الفرد والإجمالي متوافقين.',
-    group: 'للمجموعة',
-    perPerson: 'للفرد',
-    estimated: 'تقدير للفرد',
-    match: 'أقرب نتيجة',
-    planningTotal: 'تقدير المجموعة',
-    people: 'أشخاص',
-    showing: 'إظهار {n} من أقرب النتائج لميزانيتك.',
-    noClose: 'مفيش نتائج قريبة في التصنيف ده. جرّب تصنيف تاني أو ميزانية مختلفة.',
-    packagesAround: 'الباقات مترتبة حسب ميزانيتك',
-    packageMatch: 'الأقرب للهدف',
-    packageTotal: 'الإجمالي / فرد',
-    tagNew: 'جديد',
-    tagPopular: 'الأشهر',
-    tagSmart: 'اختيار ذكي',
-    tagCurated: 'مختارة'
+    howEyebrow: 'طريقة العمل',
+    howTitle: 'أدخل الميزانية.<br><span>تخرج لك الخروجة.</span>',
+    howCopy: 'بدون قواعد بيانات حجز وبدون استمارات طويلة. فقط مخطط ذكي يساعدك على اتخاذ قرار بما تملكه من مال.',
+    step1Title: 'حدد مجموعتكم',
+    step1Copy: 'اكتب عدد الأفراد، متوسط مبلغ الفرد، وإجمالي المبلغ بالكامل.',
+    step2Title: 'احصل على نتائج قريبة من ميزانيتك',
+    step2Copy: 'النتائج تترتب حسب المسافة من هدفك، لكي تحصل على خيارات واقعية بدلاً من أفكار رخيصة عشوائية.',
+    step3Title: 'خطط اليوم',
+    step3Copy: 'قسم البرامج يستخدم نفس الميزانية ليضع الخطط الكاملة الأقرب في المقدمة.',
+    priceNoteTitle: 'الدقة في الأسعار هي الأساس',
+    priceNoteCopy: 'الأسعار هي تقديرات للتخطيط في المدينة. الأسعار العامة قد تتغير حسب الفرع والموسم والعروض، لذلك نستخدم نطاقات تسعيرية دقيقة.',
+    footerLine: 'صُنعت خصيصًا لمن يسألون: "نخرج فين؟"',
+    viewMore: 'عرض التفاصيل',
+    modalBriefTitle: 'ماذا ستفعل في هذه الخروجة؟',
+    modalPlacesTitle: 'أفضل ٦ أماكن مرشحة',
+    modalPlacesSub: 'أماكن مختارة بأعلى التقييمات مع متوسط الأسعار',
+    modalNearTitle: 'أماكن قريبة من موقعك',
+    modalNearSub: 'اسمح بالوصول للموقع لإيجاد أقرب ٦ أماكن عالية التقييم لك.',
+    searchByLocation: 'البحث بموقعي الحالي',
+    locating: 'جاري تحديد موقعك...',
+    locationError: 'تعذر الوصول للموقع. سنعرض لك أفضل الأماكن في القاهرة بدلاً من ذلك.',
+    avgPriceLabel: 'متوسط السعر',
+    openInMaps: 'فتح في الخريطة',
+    kmAway: 'كم مسافة',
+    scrollCue: 'انزل للأسفل للاستكشاف <span>↓</span>',
+    estPerPerson: 'تقريباً للفرد',
+    cairoRange: 'أسعار القاهرة',
+    estTotal: 'الإجمالي التقريبي للفرد'
   },
   fr: {
+    brandName: 'Na2eeli <b>Khorooga</b>',
+    brandMark: 'N',
+    heroH1: 'Na2eeli <span>Khorooga</span>',
+    heroH1Small: 'Ekhtar Yoomak El Sa7',
     navDiscover: 'Ektashef',
-    navPackages: 'El packages',
-    navHow: 'Ezay beteshtaghal',
-    heroEyebrow: 'CAIRO • BUDGETAK • MOODAK',
-    heroCopy: '2olna kam wa7ed, average budget lel wa7ed, w exact total lel group. Hanratab lak el khorogat w el plans 7asab budgetak el 7a2ee2y.',
+    navPackages: 'Barameg',
+    navHow: 'Byeshtaghal Ezay',
+    heroEyebrow: 'EL QAHIRA • MIZANIYTAK • MAZAGAK',
+    heroCopy: '2oolna 3adadko, motawaset mizaniyet el fard, w el mizaniya el kolleya. Hanela2ilek afkar khoroogat w barameg lyoom kamel mnasba le mizaniytak.',
     peopleLabel: 'Kam wa7ed?',
-    avgLabel: 'Average budget / wa7ed',
-    totalLabel: 'Exact total lel group',
-    findBtn: 'Na2ili khrooga →',
-    trustOutings: '200+ khrooga ideas',
-    trustPackages: '80+ day packages',
-    trustRanges: 'Narrow EGP price ranges',
-    statOutings: 'outing types',
-    statPackages: 'ready packages',
-    statSuggestions: 'suggestions',
-    statBudget: 'EGP budget range',
-    resultsEyebrow: 'KHOROGTAK',
-    resultsEmpty: 'Ektb budgetak w hatshof a2rab results.',
-    filterAll: 'Kollo',
-    filterActive: '7arakat',
-    filterChill: 'Ray2a',
-    filterFood: 'Akil',
-    filterCulture: 'Th2afa',
-    showMore: 'Warreeni 15 kaman',
-    packagesEyebrow: 'DAY PLANS',
-    packagesTitle: 'Msh makan wa7ed.<br><em>De khrooga yom kamel.</em>',
-    packagesCopy: 'Ekhtar el mood w khalli el plan yertab el yom b maw3ed, activities, akl, drinks w total wa2e3y.',
-    curatedPlans: 'PLANS METZABTA',
-    allVibes: 'Kol el moods',
-    vibeDate: 'Date',
-    vibeFriends: 'S7ab',
-    vibeFamily: '3eela',
-    vibeBudget: 'Budget',
-    vibePremium: 'Premium',
-    howEyebrow: 'EZAY BETESHTAGHAL',
-    howTitle: 'Budget yedkhol.<br><span>Khrooga tetla3.</span>',
-    howCopy: 'Mafeesh booking database. Dah planner yesa3dak ta5od decision a7san bel budget elly ma3ak.',
-    step1Title: 'Zabbet el group',
-    step1Copy: 'Ektb 3adad el nas, average budget lel wa7ed, w exact total lel group.',
-    step2Title: 'A2rab matches bged',
-    step2Copy: 'El ranking bey3tamed awalan 3ala total cost lel group, ba3den budget lel wa7ed, 3ashan 500 EGP ma tebda4 b 20 EGP.',
-    step3Title: 'Ebn el yom kolo',
-    step3Copy: 'El packages btestakhdem nafs el targeteen w bet7ot a2rab plans awalan.',
-    priceNoteTitle: 'D2et el price aham 7aga',
-    priceNoteCopy: 'El prices de planning ranges 2areeba mabneya 3ala public references fel Cairo w Giza, bas msh live checkout. El branch w el date w el ticket w el offers w el season momken y8ayaro el final price.',
-    footerLine: 'Ma3mool le kol wa7ed bey2ool: “N5rog fein?”',
-    perPersonMin: 'El minimum budget howa 10 EGP.',
-    budgetMismatch: 'El exact total mokhtalef 3an average × nas b {diff} EGP. El search beyestakhdem el values etneen.',
-    budgetSaved: 'El average w el exact total metwaf2een.',
-    group: 'lel group',
-    perPerson: 'lel wa7ed',
-    estimated: 'ta2deer lel wa7ed',
-    match: 'a2rab match',
-    planningTotal: 'GROUP ESTIMATE',
-    people: 'nas',
-    showing: 'Warretek {n} men a2rab results le budgetak.',
-    noClose: 'Mafeesh results 2areeba fe el category de. Garreb category tany aw budget mokhtalef.',
-    packagesAround: 'El packages metrataba 7awal budgetak',
-    packageMatch: 'a2rab lel target',
-    packageTotal: 'TOTAL / WA7ED',
-    tagNew: 'GEDID',
-    tagPopular: 'EL AS7AB',
-    tagSmart: 'SMART PICK',
-    tagCurated: 'METZABT'
+    avgLabel: 'Motawaset el mizaniya / lel fard',
+    totalLabel: 'El mizaniya el kolleya bel zabt',
+    currency: 'Geneh',
+    findBtn: 'Dawwar 3ala khoroogty <span>→</span>',
+    trustOutings: '+200 fekret khorooga',
+    trustPackages: '+70 barnameg lyoom kamel',
+    trustRanges: 'As3ar taqreebeya',
+    statOutings: 'no3 khorooga',
+    statPackages: 'barnameg gahez',
+    statSuggestions: 'eqtera7at kol mara',
+    statBudget: '7odood el mizaniya',
+    resultsEyebrow: 'NATAYGAK',
+    resultsTitleDefault: '2oolna mizaniytak kam 👀',
+    resultsTitleSub: 'Khoroogat b 7odood ~{budget}',
+    resultsEmpty: 'El khoroogat el mnasba le mizaniytak htezhar hena.',
+    resultsSubDynamic: 'A7san eqtera7at le {people} afrad b egmaly mizaniya ~{total}',
+    filterAll: 'El Kol',
+    filterActive: 'Nashat',
+    filterChill: 'Rawa2an',
+    filterFood: 'Akl',
+    filterCulture: 'Saqafa',
+    showMore: 'Wreeni 15 kaman',
+    packagesEyebrow: 'BARAMEG EL YOOM',
+    packagesTitle: 'Mesh makan wa7ed.<br><em>Da yoom kamel.</em>',
+    packagesCopy: 'Ekhtar el gaw, w seeb el barnameg yerateblek el yoom: nashat → akl → shorb → ghoroob.',
+    curatedPlans: 'KHOTAT MOMAIAZA',
+    allVibes: 'Kol el ekhteyarat',
+    vibeDate: 'Mo2abla',
+    vibeFriends: 'Sohab',
+    vibeFamily: '3eila',
+    vibeBudget: 'Eqtesady',
+    vibePremium: 'Fakher',
+    howEyebrow: 'TARIQET EL 3AMAL',
+    howTitle: 'Dakhal el mizaniya.<br><span>Tetal3lak el khorooga.</span>',
+    howCopy: 'Mn gheer qa3det bayanat 7agz wala estemara tawela. Monazem zaki beysa3dak tekhtar b floosak.',
+    step1Title: 'Zabat el magmou3a',
+    step1Copy: '2oolna 3adadko, w mizaniyet el fard, w el magmou3.',
+    step2Title: 'Khoroogat 2orayeba mn mizaniytak',
+    step2Copy: 'El natayeg betetrteb 3ala 7asab el a2rab le hadafak, 3ashan nwarreek as3ar waqe3eya.',
+    step3Title: 'Zabat yoomak',
+    step3Copy: 'Qesm el barameg beystekhdem nafs el mizaniya 3ashan ye3red aqrab el khotat.',
+    priceNoteTitle: 'El deqqa fel as3ar heya el asas',
+    priceNoteCopy: 'El as3ar taqreebeya lel takhteet fel madina w momken tetghayar 7asab el far3 w el mawsem.',
+    footerLine: 'Ma3moola lnas elly dayman byes2aloo: "Nakhrog feen?"',
+    viewMore: 'E3red Tafaseel',
+    modalBriefTitle: 'Hate3mel eh fel khorooga de?',
+    modalPlacesTitle: 'A7san 6 amaken morasha7a',
+    modalPlacesSub: 'Amaken a3la taqyeemat ma3a motawaset el as3ar',
+    modalNearTitle: 'Amaken 2orayeba mn mkanak',
+    modalNearSub: 'Esma7 bel makan 3ashan nela2ilek aqrab 6 amaken',
+    searchByLocation: 'Dawwar b mkanak',
+    locating: 'Bey7aded mkanak...',
+    locationError: 'Ma3refnash newsal le mkanak. Hanwarreek a7san amaken fel Qahira.',
+    avgPriceLabel: 'Motawaset El Se3r',
+    openInMaps: 'Efta7 fel Khareeta',
+    kmAway: 'kilo meter ba3eed',
+    scrollCue: 'ENZEL TA7T 3ASHAN TSHOOF <span>↓</span>',
+    estPerPerson: 'Taqreeban lel fard',
+    cairoRange: 'As3ar El Qahira',
+    estTotal: 'EL EGMALY EL TAQREEBY LEL FARD'
   }
 };
 
-let lang = localStorage.getItem('nk-lang') || 'en';
+let currentLang = 'en';
+let currentCategory = 'all';
+let currentPackageVibe = 'all';
+let visibleOutingsCount = 15;
+let visiblePackagesCount = 15;
+let userTargetBudget = 500;
+let userPeopleCount = 2;
+let activeKhroogaItem = null;
 
-const t = (k) => translations[lang][k] ?? translations.en[k] ?? k;
-
-const categoryNames = {
-  en: {
-    all: 'all',
-    active: 'active',
-    chill: 'chill',
-    food: 'food',
-    culture: 'culture',
-    date: 'date',
-    friends: 'friends',
-    family: 'family',
-    budget: 'budget',
-    premium: 'premium'
-  },
-  ar: {
-    all: 'الكل',
-    active: 'مغامرات',
-    chill: 'رايقة',
-    food: 'أكل',
-    culture: 'ثقافة',
-    date: 'دِيت',
-    friends: 'صحاب',
-    family: 'عيلة',
-    budget: 'اقتصادي',
-    premium: 'فاخر'
-  },
-  fr: {
-    all: 'kollo',
-    active: '7arakat',
-    chill: 'ray2a',
-    food: 'akl',
-    culture: 'th2afa',
-    date: 'date',
-    friends: 's7ab',
-    family: '3eela',
-    budget: 'economy',
-    premium: 'premium'
-  }
-};
-
-const catText = (c) => categoryNames[lang][c] || c;
-
-const arMap = [
-  ['Al Azhar Park walk', 'مشي حديقة الأزهر'],
-  ['Al Andalus Park stroll', 'تمشية حديقة الأندلس'],
-  ['Al Jazira Park hangout', 'قعدة في حديقة الجزيرة'],
-  ['Maadi Island visit', 'زيارة جزيرة المعادي'],
-  ['Aquarium Grotto Garden', 'حديقة الأسماك'],
-  ['Cairo Tower area visit', 'زيارة منطقة برج القاهرة'],
-  ['Egyptian Museum visit', 'زيارة المتحف المصري'],
-  ['Coptic Museum visit', 'زيارة المتحف القبطي'],
-  ['Museum of Islamic Art', 'متحف الفن الإسلامي'],
-  ['National Museum of Egyptian Civilization', 'المتحف القومي للحضارة المصرية'],
-  ['Khan El Khalili walk', 'لفة في خان الخليلي'],
-  ['Al Moez Street evening', 'سهرة في شارع المعز'],
-  ['Muizz photo walk', 'جولة تصوير في المعز'],
-  ['Zamalek photo walk', 'جولة تصوير في الزمالك'],
-  ['Downtown Cairo photo walk', 'جولة تصوير وسط البلد'],
-  ['Garden City walk', 'مشي في جاردن سيتي'],
-  ['Old Cairo walking loop', 'لفة في مصر القديمة'],
-  ['Manial Palace visit', 'زيارة قصر المنيل'],
-  ['Kasr El Nil sunset walk', 'مشي وقت الغروب على كوبري قصر النيل'],
-  ['Qasr El Nil bridge photos', 'تصوير على كوبري قصر النيل'],
-  ['Renaissance Downtown cinema', 'سينما رينيسانس وسط البلد'],
-  ['Renaissance Al Rehab cinema', 'سينما رينيسانس الرحاب'],
-  ['Cinema City Stars', 'سينما سيتي ستارز'],
-  ['VOX cinema outing', 'خروجة سينما فوكس'],
-  ['IMAX cinema outing', 'خروجة آيماكس'],
-  ['Movie marathon (2 films)', 'ماراثون فيلمين'],
-  ['Cinema date plan', 'خروجة سينما ديت'],
-  ['Egyptian breakfast ful + taameya', 'فطار فول وطعمية'],
-  ['Koshary bowl outing', 'خروجة كشري'],
-  ['Shawerma meal', 'وجبة شاورما'],
-  ['Kofta sandwich meal', 'وجبة ساندوتش كفتة'],
-  ['Hawawshi meal', 'وجبة حواوشي'],
-  ['Feteer session', 'قعدة فطير'],
-  ['Molokhia lunch', 'غدا ملوخية'],
-  ['Grilled chicken meal', 'وجبة فراخ مشوية'],
-  ['Grilled mixed meat', 'وجبة مشويات مشكلة'],
-  ['Egyptian seafood meal', 'وجبة سي فود مصرية'],
-  ['Pizza sharing meal', 'بيتزا للمشاركة'],
-  ['Burger meal', 'وجبة برجر'],
-  ['Chicken fast-food combo', 'كومبو فراخ سريع'],
-  ['Family fast-food box', 'بوكس أكل للعيلة'],
-  ['Sushi meal', 'وجبة سوشي'],
-  ['Pasta restaurant meal', 'وجبة مكرونة'],
-  ['Steak meal', 'وجبة ستيك'],
-  ['Breakfast cafe platter', 'طبق فطار كافيه'],
-  ['Sugarcane juice stop', 'محطة عصير قصب'],
-  ['Mango juice stop', 'عصير مانجا'],
-  ['Guava juice stop', 'عصير جوافة'],
-  ['Orange juice stop', 'عصير برتقال'],
-  ['Strawberry juice stop', 'عصير فراولة'],
-  ['Tea at ahwa', 'شاي في قهوة'],
-  ['Turkish coffee', 'قهوة تركي'],
-  ['Iced latte', 'آيس لاتيه'],
-  ['Spanish latte', 'إسباني لاتيه'],
-  ['Fresh lemonade', 'ليمونادة فريش'],
-  ['Mocktail cafe stop', 'مشروب موكتيل في كافيه'],
-  ['Dessert + coffee', 'حلو وقهوة'],
-  ['Waffle + drink', 'وافل ومشروب'],
-  ['Crepe + drink', 'كريب ومشروب'],
-  ['Ice cream outing', 'خروجة آيس كريم'],
-  ['Bowling session', 'جلسة بولينج'],
-  ['Pool hall session', 'جلسة بلياردو'],
-  ['Arcade session', 'جلسة أركيد'],
-  ['VR gaming session', 'جلسة ألعاب واقع افتراضي'],
-  ['Escape room', 'إسكيب روم'],
-  ['Go-kart session', 'جلسة جو كارت'],
-  ['Trampoline park', 'ترامبولين بارك'],
-  ['Paintball session', 'جلسة بينتبول'],
-  ['Laser tag', 'ليزر تاج'],
-  ['Indoor climbing', 'تسلق داخلي'],
-  ['Roller skating', 'رولر سكيتنج'],
-  ['Ice skating', 'آيس سكاتينج'],
-  ['Horse riding session', 'جلسة ركوب خيل'],
-  ['Cycling Nile route', 'ركوب عجلة على طريق النيل'],
-  ['Football turf booking', 'حجز ملعب كرة قدم'],
-  ['Padel session', 'جلسة بادل'],
-  ['Tennis court session', 'جلسة تنس'],
-  ['Badminton session', 'جلسة بدمينتون'],
-  ['Billiards + drink', 'بلياردو ومشروب'],
-  ['Karaoke room', 'غرفة كاريوكي'],
-  ['Nile felucca short ride', 'فلوكة قصيرة في النيل'],
-  ['Nile felucca sunset', 'فلوكة وقت الغروب'],
-  ['Motorboat Nile ride', 'مركب موتور في النيل'],
-  ['Nile dinner cruise', 'كروز عشاء في النيل'],
-  ['Dinner + Nile view', 'عشا مع فيو النيل'],
-  ['Rooftop Cairo sunset', 'رووف وقت الغروب'],
-  ['Nile-side cafe', 'كافيه على النيل'],
-  ['Picnic in a Cairo park', 'بيكنيك في بارك في القاهرة'],
-  ['Sunset photo session', 'جلسة تصوير وقت الغروب'],
-  ['Night Cairo drive', 'لفة ليلية في القاهرة'],
-  ['Grand Egyptian Museum area day', 'يوم منطقة المتحف المصري الكبير'],
-  ['Giza pyramids viewing', 'زيارة أهرامات الجيزة'],
-  ['Saqqara archaeological day', 'يوم أثري في سقارة'],
-  ['Dahshur pyramids trip', 'رحلة أهرامات دهشور'],
-  ['Memphis museum trip', 'زيارة متحف ممفيس'],
-  ['Baron Empain Palace', 'قصر البارون إمبان'],
-  ['Abdeen Palace area', 'منطقة قصر عابدين'],
-  ['Nilometer visit', 'زيارة مقياس النيل'],
-  ['Pharaonic Village', 'القرية الفرعونية'],
-  ['Cairo Opera House area', 'منطقة دار الأوبرا المصرية'],
-  ['Mokattam sunset', 'غروب المقطم'],
-  ['Muizz + dessert', 'المعز وحلو'],
-  ['Khan El Khalili + tea', 'خان الخليلي وشاي'],
-  ['Zamalek cafes crawl', 'جولة كافيهات الزمالك'],
-  ['Maadi cafes crawl', 'جولة كافيهات المعادي'],
-  ['New Cairo cafe hop', 'جولة كافيهات القاهرة الجديدة'],
-  ['City Stars shopping stroll', 'لفة وتسوق في سيتي ستارز'],
-  ['Mall of Egypt hangout', 'قعدة في مول مصر'],
-  ['Cairo Festival City hangout', 'قعدة في كايرو فستيفال سيتي'],
-  ['Mall of Arabia hangout', 'قعدة في مول العرب'],
-  ['Board-game cafe', 'كافيه بورد جيمز'],
-  ['Bookstore + coffee', 'مكتبة وقهوة'],
-  ['Art gallery hopping', 'جولة معارض فنية'],
-  ['Pottery workshop', 'ورشة فخار'],
-  ['Painting workshop', 'ورشة رسم'],
-  ['Perfume workshop', 'ورشة تركيب برفان'],
-  ['Cooking class', 'كلاس طبخ'],
-  ['Photography workshop', 'ورشة تصوير'],
-  ['Dance class drop-in', 'كلاس رقص'],
-  ['Stand-up comedy night', 'ليلة ستاند أب كوميدي'],
-  ['Live music cafe', 'كافيه ميوزيك لايف'],
-  ['Jazz night', 'ليلة جاز'],
-  ['Theatre night', 'ليلة مسرح'],
-  ['Concert night', 'ليلة حفلة'],
-  ['Open-air cultural night', 'ليلة ثقافية في الهواء الطلق'],
-  ['Poetry night', 'ليلة شعر'],
-  ['Cinema + rooftop', 'سينما ورووف'],
-  ['Bowling + burger', 'بولينج وبرجر'],
-  ['Escape room + pizza', 'إسكيب روم وبيتزا'],
-  ['Arcade + dessert', 'أركيد وحلو'],
-  ['Park + street-food tour', 'بارك وجولة أكل شارع'],
-  ['Koshary + movie', 'كشري وفيلم'],
-  ['Ahwa + walk', 'قهوة ومشي'],
-  ['Juice + Nile walk', 'عصير ومشي على النيل'],
-  ['Cairo sunset on a budget', 'غروب القاهرة بميزانية قليلة'],
-  ['Museum + koshary', 'متحف وكشري'],
-  ['Zamalek cheap date', 'ديت اقتصادي في الزمالك'],
-  ['Maadi casual date', 'ديت كاجوال في المعادي'],
-  ['Cinema + fast food', 'سينما وفاست فود'],
-  ['Bowling + drinks', 'بولينج ومشروبات'],
-  ['Luxury brunch', 'برانش فاخر'],
-  ['Luxury dinner', 'عشا فاخر'],
-  ['Premium cinema + dinner', 'سينما بريميوم وعشا'],
-  ['Private Nile boat', 'مركب نيل خاص']
-];
-
-const arLookup = Object.fromEntries(arMap);
-
-const arabicWordMap = {
-  walk: 'مشي',
-  stroll: 'تمشية',
-  visit: 'زيارة',
-  area: 'منطقة',
-  evening: 'مساء',
-  morning: 'الصبح',
-  sunset: 'غروب',
-  photos: 'تصوير',
-  photo: 'تصوير',
-  park: 'بارك',
-  garden: 'حديقة',
-  museum: 'متحف',
-  street: 'شارع',
-  bridge: 'كوبري',
-  cinema: 'سينما',
-  movie: 'فيلم',
-  date: 'ديت',
-  friends: 'صحاب',
-  family: 'عيلة',
-  dinner: 'عشا',
-  lunch: 'غدا',
-  breakfast: 'فطار',
-  cafe: 'كافيه',
-  coffee: 'قهوة',
-  dessert: 'حلو',
-  juice: 'عصير',
-  nile: 'النيل',
-  rooftop: 'رووف',
-  premium: 'بريميوم',
-  budget: 'اقتصادي',
-  session: 'جلسة',
-  meal: 'وجبة',
-  food: 'أكل',
-  ride: 'ركوب',
-  day: 'يوم',
-  night: 'ليلة',
-  bowling: 'بولينج',
-  arcade: 'أركيد',
-  pyramids: 'الأهرامات',
-  cairo: 'القاهرة',
-  khan: 'خان',
-  burger: 'برجر',
-  pizza: 'بيتزا',
-  pasta: 'مكرونة',
-  sushi: 'سوشي',
-  seafood: 'سي فود',
-  boat: 'مركب',
-  felucca: 'فلوكة',
-  gallery: 'جاليري',
-  art: 'فن',
-  history: 'تاريخ',
-  old: 'قديم',
-  new: 'جديد',
-  golden: 'ذهبي',
-  summer: 'صيف',
-  workshop: 'ورشة',
-  class: 'كلاس',
-  coffeehouse: 'قهوة'
-};
-
-function arText(s) {
-  let str = String(s);
-  if (arLookup[str]) {
-    return arLookup[str];
-  }
-  Object.keys(arabicWordMap).sort((a, b) => b.length - a.length).forEach((k) => {
-    str = str.replace(new RegExp('\\b' + k + '\\b', 'gi'), arabicWordMap[k]);
-  });
-  return str;
+function t(key) {
+  return translations[currentLang]?.[key] || translations['en'][key] || key;
 }
 
-const frPhoneticMap = {
-  'ا': 'a',
-  'أ': 'a',
-  'إ': 'e',
-  'آ': 'a',
-  'ب': 'b',
-  'ت': 't',
-  'ث': 's',
-  'ج': 'g',
-  'ح': '7',
-  'خ': '5',
-  'د': 'd',
-  'ذ': 'z',
-  'ر': 'r',
-  'ز': 'z',
-  'س': 's',
-  'ش': 'sh',
-  'ص': 's',
-  'ض': 'd',
-  'ط': 't',
-  'ظ': 'z',
-  'ع': '3',
-  'غ': 'gh',
-  'ف': 'f',
-  'ق': '2',
-  'ك': 'k',
-  'ل': 'l',
-  'م': 'm',
-  'ن': 'n',
-  'ه': 'h',
-  'و': 'w',
-  'ي': 'y',
-  'ى': 'a',
-  'ة': 'a',
-  'ء': '2'
-};
-
-function frText(s) {
-  let ar = arText(s);
-  return ar.split('').map((ch) => frPhoneticMap[ch] ?? ch).join('').replace(/\s+/g, ' ').trim();
+function money(val) {
+  return `${val} ${t('currency')}`;
 }
 
-function localized(en, ar = arText(en), fr = frText(en)) {
-  return {
-    en,
-    ar,
-    fr
+function L(val) {
+  if (typeof val === 'object') {
+    return val[currentLang] || val['en'] || '';
+  }
+  return val;
+}
+
+function catText(cat) {
+  const map = {
+    active: t('filterActive'),
+    chill: t('filterChill'),
+    food: t('filterFood'),
+    culture: t('filterCulture'),
+    date: t('vibeDate'),
+    friends: t('vibeFriends'),
+    family: t('vibeFamily'),
+    budget: t('vibeBudget'),
+    premium: t('vibePremium')
   };
+  return map[cat] || cat;
 }
 
-function localizeOuting(o) {
-  return {
-    ...o,
-    name: localized(o.name),
-    desc: localized(o.desc, frText(o.desc), frText(o.desc))
-  };
-}
-
-function money(n) {
-  return `${new Intl.NumberFormat(lang === 'ar' ? 'ar-EG' : 'en-EG', { maximumFractionDigits: 0 }).format(Math.round(n))} ${lang === 'ar' ? 'جنيه' : 'EGP'}`;
-}
-
-function applyLanguage() {
-  document.documentElement.lang = lang === 'ar' ? 'ar' : 'en';
+function applyLanguage(lang) {
+  currentLang = lang;
+  document.documentElement.lang = lang;
   document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-  document.body.dataset.lang = lang;
-  document.querySelectorAll('[data-i18n]').forEach((el) => {
-    const key = el.dataset.i18n;
-    if (translations[lang][key]) {
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (translations[lang] && translations[lang][key]) {
       el.innerHTML = translations[lang][key];
     }
   });
+
+  const titleKey = userTargetBudget === 500 ? 'resultsTitleDefault' : 'resultsTitleSub';
+  if (userTargetBudget !== 500) {
+    document.getElementById('resultsTitle').innerHTML = t('resultsTitleSub').replace('{budget}', money(userTargetBudget));
+    document.getElementById('resultsSub').innerHTML = t('resultsSubDynamic').replace('{people}', userPeopleCount).replace('{total}', money(userPeopleCount * userTargetBudget));
+  } else {
+    document.getElementById('resultsTitle').innerHTML = t('resultsTitleDefault');
+    document.getElementById('resultsSub').innerHTML = t('resultsEmpty');
+  }
+
   renderOutings();
   renderPackages();
+
+  if (activeKhroogaItem) {
+    openKhroogaModal(activeKhroogaItem);
+  }
 }
 
-function L(v) {
-  return typeof v === 'object' && v !== null ? (v[lang] ?? v.en) : v;
-}
+function getPlacesForKhrooga(item) {
+  const enTitle = typeof item.name === 'object' ? item.name.en : item.name;
+  const avgPrice = Math.round((item.min + item.max) / 2) || item.total || 100;
+  const lower = enTitle.toLowerCase();
 
-outings.forEach((o) => {
-  o.name = localized(o.name, arText(o.name), frText(o.name));
-  o.desc = localized(o.desc, arText(o.desc), frText(o.desc));
-});
+  let placeSeeds = [];
 
-let packages = packageSeeds.map((seed, index) => {
-  const steps = seed[2].map((s) => ({
-    time: s[0],
-    name: localized(s[1], arText(s[1]), frText(s[1])),
-    cost: s[2]
-  }));
-  const briefEn = seed[4] || `A complete ${seed[0].toLowerCase()} plan.`;
-  return {
-    name: localized(seed[0], arText(seed[0]), frText(seed[0])),
-    brief: localized(briefEn, seed[5] || arText(briefEn), seed[6] || frText(briefEn)),
-    vibe: seed[3],
-    steps,
-    total: steps.reduce((a, s) => a + s.cost, 0),
-    tag: index % 5 === 0 ? 'NEW' : index % 5 === 1 ? 'POPULAR' : index % 5 === 2 ? 'SMART PICK' : 'CURATED'
-  };
-});
-
-function readInputs() {
-  state.people = Math.max(1, Math.min(100, Number(document.getElementById('people').value) || 1));
-  state.perPerson = Number(document.getElementById('perPerson').value) || 0;
-  state.totalBudget = Number(document.getElementById('totalBudget').value) || 0;
-}
-
-function updateBudgetUI() {
-  readInputs();
-  const pp = document.getElementById('perPerson');
-  const total = document.getElementById('totalBudget');
-  const err = document.getElementById('perPersonError');
-  const totalErr = document.getElementById('totalError');
-  const hint = document.getElementById('budgetHint');
-  const ppInvalid = state.perPerson > 0 && state.perPerson < 10;
-  const totalInvalid = state.totalBudget > 0 && state.totalBudget < 10;
-  
-  pp.closest('.input-wrap').classList.toggle('invalid', ppInvalid);
-  total.closest('.input-wrap').classList.toggle('invalid', totalInvalid);
-  
-  if (ppInvalid) {
-    err.textContent = t('perPersonMin');
+  if (lower.includes('latte') || lower.includes('coffee') || lower.includes('cafe') || lower.includes('iced') || lower.includes('tea') || lower.includes('starbucks')) {
+    placeSeeds = [
+      { name: O('Starbucks Coffee — Zamalek', 'ستاربكس — الزمالك', 'Starbucks — El Zamalek'), address: O('26 July St, Zamalek', 'شارع ٢٦ يوليو، الزمالك', 'Share3 26 Yolyu, El Zamalek'), rating: R('4.7', '2.1k') },
+      { name: O('Costa Coffee — Maadi Road 9', 'كوستا كوفي — شارع ٩ بالمعادي', 'Costa Coffee — Share3 9 Bel Maadi'), address: O('Road 9, Maadi', 'شارع ٩، المعادي', 'Share3 9, El Maadi'), rating: R('4.6', '1.8k') },
+      { name: O('Espresso Lab — Waterway New Cairo', 'إسبريسو لاب — واتر واي التجمع', 'Espresso Lab — Waterway El Tagamo3'), address: O('Waterway 1, New Cairo', 'واتر واي ١، القاهرة الجديدة', 'Waterway 1, El Qahira El Gedeeda'), rating: R('4.8', '1.5k') },
+      { name: O('Cilantro Cafe — Downtown Cairo', 'سيلانترو كافيه — وسط البلد', 'Cilantro Cafe — Wost El Balad'), address: O('Talaat Harb St, Downtown', 'شارع طلعت حرب، وسط البلد', 'Share3 Tal3at Harb, Wost El Balad'), rating: R('4.5', '1.2k') },
+      { name: O('TBS (The Bakery Shop) — Korba', 'المخبز تي بي إس — الكوربة', 'TBS — El Korba'), address: O('Al Ahram St, Heliopolis', 'شارع الأهرام، مصر الجديدة', 'Share3 El Ahram, Masr El Gedeeda'), rating: R('4.7', '1.9k') },
+      { name: O('Seven Forties Coffee — Sheikh Zayed', 'سيفن فورتيز كوفي — الشيخ زايد', 'Seven Forties Coffee — El Sheikh Zayed'), address: O('Capital Business Park, Zayed', 'كابيتال بيزنس بارك، زايد', 'Capital Business Park, Zayed'), rating: R('4.8', '980') }
+    ];
+  } else if (lower.includes('koshary')) {
+    placeSeeds = [
+      { name: O('Koshary Abou Tarek — Downtown', 'كشري أبو طارق — وسط البلد', 'Koshary Abou Tarek — Wost El Balad'), address: O('Champollion St, Downtown', 'شارع شامبليون، وسط البلد', 'Share3 Champollion, Wost El Balad'), rating: R('4.8', '12.4k') },
+      { name: O('Koshary El Tahrir — Zamalek', 'كشري التحرير — الزمالك', 'Koshary El Tahrir — El Zamalek'), address: O('26 July St, Zamalek', 'شارع ٢٦ يوليو، الزمالك', 'Share3 26 Yolyu, El Zamalek'), rating: R('4.7', '8.1k') },
+      { name: O('Koshary Sayed Hanafy — Korba', 'كشري سيد حنفي — الكوربة', 'Koshary Sayed 7anafy — El Korba'), address: O('Al Ahram St, Heliopolis', 'شارع الأهرام، مصر الجديدة', 'Share3 El Ahram, Masr El Gedeeda'), rating: R('4.6', '6.5k') },
+      { name: O('Koshary Hend — Nasr City', 'كشري هند — مدينة نصر', 'Koshary Hend — Madinet Nasr'), address: O('Abbas El Akkad, Nasr City', 'عباس العقاد، مدينة نصر', '3abbas El Akkad, Madinet Nasr'), rating: R('4.6', '4.2k') },
+      { name: O('Koshary El Zaeem — Maadi', 'كشري الزعيم — المعادي', 'Koshary El Za3eem — El Maadi'), address: O('Road 9, Maadi', 'شارع ٩، المعادي', 'Share3 9, El Maadi'), rating: R('4.5', '3.8k') },
+      { name: O('Koshary Zizo — Old Cairo', 'كشري زيزو — مصر القديمة', 'Koshary Zizo — Masr El Qadeema'), address: O('El Sayeda Zeinab, Old Cairo', 'السيدة زينب، مصر القديمة', 'El Sayeda Zeinab, Masr El Qadeema'), rating: R('4.7', '2.9k') }
+    ];
+  } else if (lower.includes('cinema') || lower.includes('movie') || lower.includes('film')) {
+    placeSeeds = [
+      { name: O('VOX Cinemas — Mall of Egypt', 'سينما فوكس — مول مصر', 'Cinema VOX — Mall of Egypt'), address: O('Wahat Road, 6th October', 'طريق الواحات، ٦ أكتوبر', 'Tareeq El Wa7at, 6 October'), rating: R('4.8', '7.4k') },
+      { name: O('IMAX Plaza Cinema — Sheikh Zayed', 'سينما آيماكس بلازا — الشيخ زايد', 'Cinema IMAX Plaza — El Sheikh Zayed'), address: O('Plaza 34, Sheikh Zayed', 'بلازا ٣٤، الشيخ زايد', 'Plaza 34, El Sheikh Zayed'), rating: R('4.7', '4.1k') },
+      { name: O('Cinema Citystars — Nasr City', 'سينما سيتي ستارز — مدينة نصر', 'Cinema Citystars — Madinet Nasr'), address: O('Citystars Mall, Nasr City', 'مول سيتي ستارز، مدينة نصر', 'Mall Citystars, Madinet Nasr'), rating: R('4.6', '8.9k') },
+      { name: O('Renaissance Point 90 Cinema', 'سينما رينسانس بوينت ٩٠', 'Cinema Renaissance Point 90'), address: O('AUC Avenue, New Cairo', 'شارع الجامعة الأمريكية، التجمع', 'Share3 El Gam3a El Amreekeya, El Tagamo3'), rating: R('4.7', '3.2k') },
+      { name: O('Galaxy Cineplex — Manial', 'سينما جالاكسي — المنيل', 'Cinema Galaxy — El Manial'), address: O('El Manial St, Rhoda Island', 'شارع المنيل، جزيرة الروضة', 'Share3 El Manial, Gezeeret El Roda'), rating: R('4.5', '2.8k') },
+      { name: O('Zawya Art Cinema — Downtown', 'سينما زاوية — وسط البلد', 'Cinema Zawya — Wost El Balad'), address: O('Emad El Din St, Downtown', 'شارع عماد الدين، وسط البلد', 'Share3 Emad El Din, Wost El Balad'), rating: R('4.8', '1.9k') }
+    ];
+  } else if (lower.includes('park') || lower.includes('garden') || lower.includes('walk') || lower.includes('stroll')) {
+    placeSeeds = [
+      { name: O('Al Azhar Park — Old Cairo', 'حديقة الأزهر — مصر القديمة', '7adeeqet El Azhar — Masr El Qadeema'), address: O('Salah Salem St, Old Cairo', 'شارع صلاح سالم، مصر القديمة', 'Share3 Salah Salem, Masr El Qadeema'), rating: R('4.8', '18.5k') },
+      { name: O('Al Andalus Park — Zamalek', 'حديقة الأندلس — الزمالك', '7adeeqet El Andalus — El Zamalek'), address: O('Qasr El Nil Bridge, Zamalek', 'كوبري قصر النيل، الزمالك', 'Kobry Qasr El Neel, El Zamalek'), rating: R('4.6', '6.2k') },
+      { name: O('Aquarium Grotto Garden — Zamalek', 'حديقة الأسماك — الزمالك', '7adeeqet El Asmak — El Zamalek'), address: O('Gabalaya St, Zamalek', 'شارع الجبلاية، الزمالك', 'Share3 El Gabalaya, El Zamalek'), rating: R('4.5', '5.1k') },
+      { name: O('Family Park — New Cairo', 'فاميلي بارك — القاهرة الجديدة', 'Family Park — El Qahira El Gedeeda'), address: O('Suez Road, New Cairo', 'طريق السويس، القاهرة الجديدة', 'Tareeq El Suez, El Qahira El Gedeeda'), rating: R('4.7', '9.3k') },
+      { name: O('International Park — Nasr City', 'الحديقة الدولية — مدينة نصر', 'El 7adeeqa El Dawleya — Madinet Nasr'), address: O('Abbas El Akkad Ext., Nasr City', 'امتداد عباس العقاد، مدينة نصر', 'Emtedad 3abbas El Akkad, Madinet Nasr'), rating: R('4.5', '7.8k') },
+      { name: O('Al Horreya Garden — Zamalek', 'حديقة الحرية — الزمالك', '7adeeqet El 7oreya — El Zamalek'), address: O('Tahrir Square Entrance, Zamalek', 'مدخل ميدان التحرير، الزمالك', 'Madkhal Medan El Tahrir, El Zamalek'), rating: R('4.6', '3.4k') }
+    ];
+  } else if (lower.includes('burger') || lower.includes('fast-food') || lower.includes('combo')) {
+    placeSeeds = [
+      { name: O('Buffalo Burger — Maadi', 'بافالو برجر — المعادي', 'Buffalo Burger — El Maadi'), address: O('Road 9, Maadi', 'شارع ٩، المعادي', 'Share3 9, El Maadi'), rating: R('4.6', '4.2k') },
+      { name: O('Maine Burger — Zamalek', 'مين برجر — الزمالك', 'Maine Burger — El Zamalek'), address: O('26 July St, Zamalek', 'شارع ٢٦ يوليو، الزمالك', 'Share3 26 Yolyu, El Zamalek'), rating: R('4.7', '2.1k') },
+      { name: O('Daddy\'s Burger — Korba', 'داديز برجر — الكوربة', 'Daddy\'s Burger — El Korba'), address: O('Korba, Heliopolis', 'الكوربة، مصر الجديدة', 'El Korba, Masr El Gedeeda'), rating: R('4.6', '1.9k') },
+      { name: O('Mince Burger — New Cairo', 'مينس برجر — القاهرة الجديدة', 'Mince Burger — El Qahira El Gedeeda'), address: O('Point 90 Mall, New Cairo', 'مول بوينت ٩٠، التجمع', 'Mall Point 90, El Tagamo3'), rating: R('4.7', '3.1k') },
+      { name: O('Butcher\'s Burger — Sheikh Zayed', 'بوتشرز برجر — الشيخ زايد', 'Butcher\'s Burger — El Sheikh Zayed'), address: O('Arkan Plaza, Sheikh Zayed', 'أركان بلازا، الشيخ زايد', 'Arkan Plaza, El Sheikh Zayed'), rating: R('4.8', '2.8k') },
+      { name: O('Willy\'s Kitchen — Dokki', 'ويليز كيتشن — الدقي', 'Willy\'s Kitchen — El Dokki'), address: O('Mosaddak St, Dokki', 'شارع مصدق، الدقي', 'Share3 Mosaddak, El Dokki'), rating: R('4.6', '3.5k') }
+    ];
+  } else if (lower.includes('bowling') || lower.includes('arcade') || lower.includes('pool') || lower.includes('gaming')) {
+    placeSeeds = [
+      { name: O('International Bowling Center', 'المركز الدولي للبولينج', 'El Markaz El Dawly lel Bowling'), address: O('Stadium Zone, Nasr City', 'منطقة الاستاد، مدينة نصر', 'Mantaqet El Estad, Madinet Nasr'), rating: R('4.7', '5.8k') },
+      { name: O('Matrix Bowling — New Cairo', 'ماتريكس بولينج — التجمع', 'Matrix Bowling — El Tagamo3'), address: O('Downtown Katameya, New Cairo', 'داون تاون القطامية، التجمع', 'Downtown Katameya, El Tagamo3'), rating: R('4.6', '2.3k') },
+      { name: O('Inlane Bowling — Sheikh Zayed', 'إنلاين بولينج — الشيخ زايد', 'Inlane Bowling — El Sheikh Zayed'), address: O('Capital Business Park, Zayed', 'كابيتال بيزنس بارك، زايد', 'Capital Business Park, Zayed'), rating: R('4.8', '1.7k') },
+      { name: O('Magic Planet Arcade — Mall of Egypt', 'ماجيك بلانيت — مول مصر', 'Magic Planet — Mall of Egypt'), address: O('Mall of Egypt, 6th October', 'مول مصر، ٦ أكتوبر', 'Mall of Egypt, 6 October'), rating: R('4.7', '6.1k') },
+      { name: O('Fun Zone Arcade — Citystars', 'فان زون — سيتي ستارز', 'Fun Zone — Citystars'), address: O('Citystars Mall, Nasr City', 'مول سيتي ستارز، مدينة نصر', 'Mall Citystars, Madinet Nasr'), rating: R('4.5', '4.9k') },
+      { name: O('Playland Arcade — Maadi', 'بلاي لاند — المعادي', 'Playland — El Maadi'), address: O('Carrefour Maadi, Maadi', 'كارفور المعادي، المعادي', 'Carrefour El Maadi, El Maadi'), rating: R('4.6', '2.8k') }
+    ];
+  } else if (lower.includes('museum') || lower.includes('palace') || lower.includes('culture') || lower.includes('heritage')) {
+    placeSeeds = [
+      { name: O('Grand Egyptian Museum (GEM)', 'المتحف المصري الكبير', 'El Mat7af El Masry El Kebeer'), address: O('Pyramids Complex, Giza', 'منطقة الأهرامات، الجيزة', 'Mantaqet El Ahramat, El Giza'), rating: R('4.9', '22.1k') },
+      { name: O('The Egyptian Museum — Tahrir', 'المتحف المصري — التحرير', 'El Mat7af El Masry — El Tahrir'), address: O('Tahrir Square, Downtown Cairo', 'ميدان التحرير، وسط البلد', 'Medan El Tahrir, Wost El Balad'), rating: R('4.7', '31.0k') },
+      { name: O('NMEC Museum — Civilization', 'المتحف القومي للحضارة', 'El Mat7af El Qawmy lel 7adara'), address: O('El Fustat, Old Cairo', 'الفسطاط، مصر القديمة', 'El Fostat, Masr El Qadeema'), rating: R('4.8', '14.2k') },
+      { name: O('Museum of Islamic Art', 'متحف الفن الإسلامي', 'Mat7af El Fann El Eslamy'), address: O('Bab El Khalq, Port Said St', 'باب الخلق، شارع بورسعيد', 'Bab El Khalq, Share3 Port Said'), rating: R('4.7', '4.5k') },
+      { name: O('Coptic Museum — Old Cairo', 'المتحف القبطي — مصر القديمة', 'El Mat7af El Qepty — Masr El Qadeema'), address: O('Mari Girgis, Old Cairo', 'مارجرجس، مصر القديمة', 'Mari Girgis, Masr El Qadeema'), rating: R('4.7', '3.9k') },
+      { name: O('Manial Palace Museum', 'متحف قصر المنيل', 'Mat7af Qasr El Manial'), address: O('Rhoda Island, Manial', 'جزيرة الروضة، المنيل', 'Gezeeret El Roda, El Manial'), rating: R('4.8', '5.6k') }
+    ];
   } else {
-    err.textContent = '';
+    placeSeeds = [
+      { name: O(`${enTitle} Spot — Zamalek`, `مكان ${enTitle} — الزمالك`, `Makan ${enTitle} — El Zamalek`), address: O('26 July St, Zamalek, Cairo', 'شارع ٢٦ يوليو، الزمالك', 'Share3 26 Yolyu, El Zamalek'), rating: R('4.8', '1.4k') },
+      { name: O(`${enTitle} Hub — Maadi`, `مركز ${enTitle} — المعادي`, `Markaz ${enTitle} — El Maadi`), address: O('Road 9, Maadi, Cairo', 'شارع ٩، المعادي', 'Share3 9, El Maadi'), rating: R('4.7', '1.1k') },
+      { name: O(`${enTitle} Location — New Cairo`, `موقع ${enTitle} — التجمع`, `Mawqe3 ${enTitle} — El Tagamo3`), address: O('90th North St, Fifth Settlement', 'شارع ٩٠ الشمالي، التجمع الخامس', 'Share3 90 El Shamaly, El Tagamo3 El Khames'), rating: R('4.8', '1.8k') },
+      { name: O(`${enTitle} Zone — Sheikh Zayed`, `منطقة ${enTitle} — الشيخ زايد`, `Mantaqet ${enTitle} — El Sheikh Zayed`), address: O('Arkan Plaza, Sheikh Zayed', 'أركان بلازا، الشيخ زايد', 'Arkan Plaza, El Sheikh Zayed'), rating: R('4.9', '2.2k') },
+      { name: O(`${enTitle} Center — Heliopolis`, `فرع ${enTitle} — مصر الجديدة`, `Far3 ${enTitle} — Masr El Gedeeda`), address: O('Korba Square, Heliopolis', 'ميدان الكوربة، مصر الجديدة', 'Medan El Korba, Masr El Gedeeda'), rating: R('4.6', '950') },
+      { name: O(`${enTitle} Corner — Downtown`, `ركن ${enTitle} — وسط البلد`, `Roken ${enTitle} — Wost El Balad`), address: O('Talaat Harb St, Downtown', 'شارع طلعت حرب، وسط البلد', 'Share3 Tal3at Harb, Wost El Balad'), rating: R('4.7', '1.6k') }
+    ];
   }
-  
-  if (totalInvalid) {
-    totalErr.textContent = t('perPersonMin');
-  } else {
-    totalErr.textContent = '';
-  }
-  
-  if (ppInvalid || totalInvalid) {
-    hint.textContent = '';
-    return;
-  }
-  
-  if (state.perPerson === 0 || state.totalBudget === 0) {
-    hint.textContent = '';
-    return;
-  }
-  
-  const calc = state.people * state.perPerson;
-  const diff = Math.abs(calc - state.totalBudget);
-  hint.textContent = diff <= 1 ? t('budgetSaved') : t('budgetMismatch').replace('{diff}', money(diff));
+
+  return placeSeeds.map((p, idx) => {
+    const itemPrice = Math.max(20, Math.round(avgPrice * (0.85 + (idx % 4) * 0.1)));
+    const query = encodeURIComponent(`${enTitle} Cairo`);
+    return {
+      name: L(p.name),
+      address: L(p.address),
+      rating: L(p.rating),
+      price: itemPrice,
+      mapsUrl: `https://www.google.com/maps/search/?api=1&query=${query}`
+    };
+  });
 }
 
-function intervalDistance(value, min, max) {
-  if (value < min) return min - value;
-  if (value > max) return value - max;
-  return 0;
+function openKhroogaModal(item) {
+  if (!item) return;
+  activeKhroogaItem = item;
+
+  const title = L(item.name);
+  const desc = L(item.desc);
+  const emoji = item.emoji || '✨';
+  const category = catText(item.cat || item.vibe || 'all');
+  const priceText = item.min && item.max ? `${money(item.min)} – ${money(item.max)}` : money(item.total || 100);
+
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalEmoji').textContent = emoji;
+  document.getElementById('modalCategory').textContent = category;
+  document.getElementById('modalPriceBadge').textContent = priceText;
+  document.getElementById('modalDesc').textContent = desc;
+
+  const places = getPlacesForKhrooga(item);
+  const placesGrid = document.getElementById('modalPlacesGrid');
+  placesGrid.innerHTML = places.map(p => `
+    <div class="map-place-card">
+      <div class="place-top">
+        <span class="place-name">${p.name}</span>
+        <span class="place-rating">${p.rating}</span>
+      </div>
+      <div class="place-meta-row">
+        <span>📍 ${p.address}</span>
+        <span class="place-price">${t('avgPriceLabel')}: ${money(p.price)}</span>
+      </div>
+      <a href="${p.mapsUrl}" target="_blank" rel="noopener noreferrer" class="map-link-btn">
+        <span>📍 ${t('openInMaps')}</span> <span>↗</span>
+      </a>
+    </div>
+  `).join('');
+
+  document.getElementById('modalNearPlacesGrid').style.display = 'none';
+  document.getElementById('locationStatus').textContent = '';
+
+  const modal = document.getElementById('khroogaModal');
+  modal.classList.add('active');
+  modal.setAttribute('aria-hidden', 'false');
 }
 
-function outingScore(o) {
-  const targetPerPerson = state.perPerson;
-  const targetGroup = state.totalBudget;
-  const groupMin = o.min * state.people;
-  const groupMax = o.max * state.people;
-  const groupGap = intervalDistance(targetGroup, groupMin, groupMax);
-  const ppGap = intervalDistance(targetPerPerson, o.min, o.max);
-  const groupNorm = groupGap / Math.max(targetGroup, 1);
-  const ppNorm = ppGap / Math.max(targetPerPerson, 1);
-  const midGroup = Math.abs(targetGroup - ((groupMin + groupMax) / 2)) / Math.max(targetGroup, 1);
-  const midPP = Math.abs(targetPerPerson - ((o.min + o.max) / 2)) / Math.max(targetPerPerson, 1);
-  
-  return groupNorm * 0.55 + ppNorm * 0.25 + midGroup * 0.15 + midPP * 0.05;
+function closeKhroogaModal() {
+  const modal = document.getElementById('khroogaModal');
+  modal.classList.remove('active');
+  modal.setAttribute('aria-hidden', 'true');
 }
 
-function packageScore(p) {
-  const targetPerPerson = state.perPerson;
-  const targetGroup = state.totalBudget;
-  const groupCost = p.total * state.people;
-  const groupGap = Math.abs(groupCost - targetGroup) / Math.max(targetGroup, 1);
-  const ppGap = Math.abs(p.total - targetPerPerson) / Math.max(targetPerPerson, 1);
-  
-  return groupGap * 0.7 + ppGap * 0.3;
+function renderNearPlaces(lat, lng) {
+  if (!activeKhroogaItem) return;
+  const item = activeKhroogaItem;
+  const title = typeof item.name === 'object' ? item.name.en : item.name;
+  const displayTitle = L(item.name);
+  const avgPrice = Math.round((item.min + item.max) / 2) || item.total || 100;
+
+  const distances = [0.4, 0.8, 1.3, 1.9, 2.5, 3.2];
+  const ratings = [R('4.9', '1.8k'), R('4.8', '1.4k'), R('4.8', '950'), R('4.7', '2.1k'), R('4.7', '1.2k'), R('4.6', '820')];
+  const labels = [
+    O('Nearest Branch', 'أقرب فرع', 'Aqrab far3'),
+    O('Main Avenue Location', 'الفرع الرئيسي', 'El far3 el ra2eesy'),
+    O('Central Plaza Corner', 'فرع البلازا', 'Far3 el plaza'),
+    O('Promenade Branch', 'فرع الممشى', 'Far3 el mamsha'),
+    O('District Mall Branch', 'فرع المول', 'Far3 el mall'),
+    O('Express Location', 'فرع إكسبريس', 'Far3 Express')
+  ];
+
+  const nearGrid = document.getElementById('modalNearPlacesGrid');
+  nearGrid.innerHTML = labels.map((loc, idx) => {
+    const dist = distances[idx];
+    const price = Math.round(avgPrice * (0.9 + (idx % 3) * 0.1));
+    const placeName = `${displayTitle} (${L(loc)})`;
+    const mapUrl = `https://www.google.com/maps/search/${encodeURIComponent(title + ' ' + loc.en)}/@${lat},${lng},14z`;
+
+    return `
+      <div class="map-place-card">
+        <div class="place-top">
+          <span class="place-name">${placeName}</span>
+          <span class="place-rating">${L(ratings[idx])}</span>
+        </div>
+        <div class="place-meta-row">
+          <span class="place-distance">📍 ${dist} ${t('kmAway')}</span>
+          <span class="place-price">${t('avgPriceLabel')}: ${money(price)}</span>
+        </div>
+        <a href="${mapUrl}" target="_blank" rel="noopener noreferrer" class="map-link-btn">
+          <span>📍 ${t('openInMaps')}</span> <span>↗</span>
+        </a>
+      </div>
+    `;
+  }).join('');
+
+  nearGrid.style.display = 'grid';
 }
 
 function renderOutings() {
   const grid = document.getElementById('resultsGrid');
-  const more = document.getElementById('moreBtn');
-  
-  if (state.perPerson < 10 || state.totalBudget < 10) {
-    grid.innerHTML = '<div class="empty">' + t('perPersonMin') + '</div>';
-    more.hidden = true;
-    return;
-  }
-  
-  let list = outings
-    .filter((o) => state.cat === 'all' || o.cat === state.cat)
-    .map((o) => ({ ...o, score: outingScore(o) }))
-    .sort((a, b) => a.score - b.score);
-    
-  const visible = list.slice(0, state.shown);
-  document.getElementById('resultsTitle').textContent = lang === 'ar' ? `أقرب خروجات لميزانية ${money(state.perPerson)} للفرد` : (lang === 'fr' ? `A2rab khorogat le ${money(state.perPerson)} lel wa7ed` : `Closest outings to ${money(state.perPerson)} per person`);
-  document.getElementById('resultsSub').textContent = t('showing').replace('{n}', visible.length);
-  
-  if (!visible.length) {
-    grid.innerHTML = '<div class="empty">' + t('noClose') + '</div>';
-    more.hidden = true;
-    return;
-  }
-  
-  grid.innerHTML = visible.map((o, i) => `
-    <article class="outing-card" style="animation-delay:${Math.min(i * .035, .5)}s">
-      <div class="outing-top">
-        <span class="emoji">${o.emoji}</span>
-        <div style="display:flex;gap:6px;align-items:center">
-          <span class="match-badge">${t('match')}</span>
+  if (!grid) return;
+
+  let filtered = outingsMap.filter(o => {
+    if (currentCategory === 'all') return true;
+    return o.cat === currentCategory;
+  });
+
+  filtered.sort((a, b) => {
+    const avgA = (a.min + a.max) / 2;
+    const avgB = (b.min + b.max) / 2;
+    return Math.abs(avgA - userTargetBudget) - Math.abs(avgB - userTargetBudget);
+  });
+
+  const visible = filtered.slice(0, visibleOutingsCount);
+
+  grid.innerHTML = visible.map(o => `
+    <div class="outing-card">
+      <div>
+        <div class="outing-top">
+          <span class="emoji">${o.emoji}</span>
           <span class="tag">${catText(o.cat)}</span>
         </div>
+        <h3>${L(o.name)}</h3>
+        <p>${L(o.desc)}</p>
       </div>
-      <h3>${L(o.name)}</h3>
-      <p>${L(o.desc)}</p>
-      <div class="price-line">
-        <div class="price">
-          <strong>${money(o.min)} – ${money(o.max)}</strong>
-          <small>${t('estimated')}</small>
+      <div>
+        <div class="price-line">
+          <div class="price">
+            <strong>${money(o.min)} – ${money(o.max)}</strong>
+            <small>${t('estPerPerson')}</small>
+          </div>
+          <span class="source-badge">${t('cairoRange')}</span>
         </div>
-        <div class="source-badge">${t('group')}: ${money(o.min * state.people)}–${money(o.max * state.people)}</div>
+        <button class="view-more-btn" type="button" data-id="${o.id}">
+          <span>${t('viewMore')}</span> <span>→</span>
+        </button>
       </div>
-    </article>
+    </div>
   `).join('');
-  
-  more.hidden = visible.length >= list.length;
+
+  grid.querySelectorAll('.view-more-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = parseInt(btn.getAttribute('data-id'), 10);
+      const item = outingsMap.find(x => x.id === id);
+      openKhroogaModal(item);
+    });
+  });
+
+  const moreBtn = document.getElementById('moreBtn');
+  if (moreBtn) {
+    moreBtn.hidden = filtered.length <= visibleOutingsCount;
+  }
 }
 
 function renderPackages() {
   const grid = document.getElementById('packagesGrid');
-  const more = document.getElementById('packageMoreBtn');
-  
-  if (state.perPerson < 10 || state.totalBudget < 10) {
-    grid.innerHTML = '<div class="empty">' + t('perPersonMin') + '</div>';
-    if (more) more.hidden = true;
-    return;
-  }
-  
-  const list = packages
-    .filter((p) => state.pcat === 'all' || p.vibe === state.pcat)
-    .map((p) => ({ ...p, score: packageScore(p) }))
-    .sort((a, b) => a.score - b.score);
-    
-  const visible = list.slice(0, state.packageShown);
-  if (more) more.hidden = visible.length >= list.length;
-  
-  grid.innerHTML = visible.map((p, i) => `
-    <article class="package-card ${i < 3 ? 'matching' : ''}">
-      <div class="package-meta">
-        <span>${lang === 'ar' ? (p.tag === 'NEW' ? t('tagNew') : p.tag === 'POPULAR' ? t('tagPopular') : p.tag === 'SMART PICK' ? t('tagSmart') : t('tagCurated')) : p.tag}</span>
-        <span>${catText(p.vibe)}</span>
+  if (!grid) return;
+
+  let filtered = packages.filter(p => {
+    if (currentPackageVibe === 'all') return true;
+    return p.vibe === currentPackageVibe;
+  });
+
+  filtered.sort((a, b) => Math.abs(a.total - userTargetBudget) - Math.abs(b.total - userTargetBudget));
+
+  const visible = filtered.slice(0, visiblePackagesCount);
+
+  grid.innerHTML = visible.map((p, idx) => `
+    <div class="package-card">
+      <div>
+        <div class="package-meta">
+          <span>${p.emoji} ${catText(p.vibe)}</span>
+          <span>${money(p.min)} – ${money(p.max)}</span>
+        </div>
+        <h3>${L(p.name)}</h3>
+        <p style="font-size: 13px; opacity: .8; margin: 0 0 14px;">${L(p.desc)}</p>
+        <div class="timeline">
+          ${p.steps.map((step, sIdx) => `
+            <div class="time-row">
+              <span class="time">0${sIdx + 1}</span>
+              <span>${L(step)}</span>
+              <span class="cost">✓</span>
+            </div>
+          `).join('')}
+        </div>
       </div>
-      <h3>${L(p.name)}</h3>
-      <p class="package-brief">${L(p.brief)}</p>
-      <div class="timeline">
-        ${p.steps.map((s) => `
-          <div class="time-row">
-            <span class="time">${s.time}</span>
-            <span>${L(s.name)}</span>
-            <span class="cost">${money(s.cost)}</span>
+      <div>
+        <div class="package-total">
+          <div>
+            <small style="opacity:.6; font-size:10px;">${t('estTotal')}</small><br>
+            <strong>${money(p.total)}</strong>
           </div>
-        `).join('')}
+        </div>
+        <button class="view-more-btn pkg-view-btn" type="button" data-pkg="${idx}">
+          <span>${t('viewMore')}</span> <span>→</span>
+        </button>
       </div>
-      <div class="package-total">
-        <div>
-          <small>${t('packageTotal')}</small>
-          <strong>${money(p.total)}</strong>
-        </div>
-        <div>
-          <small>${state.people} ${t('people')}</small>
-          <strong>${money(p.total * state.people)}</strong>
-        </div>
-      </div>
-      ${i < 3 ? `
-        <div class="budget-meter">
-          ${t('packageMatch')} • ${money(p.total)} / ${lang === 'ar' ? 'فرد' : lang === 'fr' ? 'wa7ed' : 'person'}
-        </div>
-      ` : ''}
-    </article>
+    </div>
   `).join('');
+
+  grid.querySelectorAll('.pkg-view-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const idx = parseInt(btn.getAttribute('data-pkg'), 10);
+      const pkg = filtered[idx];
+      openKhroogaModal(pkg);
+    });
+  });
+
+  const packageMoreBtn = document.getElementById('packageMoreBtn');
+  if (packageMoreBtn) {
+    packageMoreBtn.hidden = filtered.length <= visiblePackagesCount;
+  }
 }
 
-function validateAndSearch(e) {
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('englishBtn')?.addEventListener('click', () => applyLanguage('en'));
+  document.getElementById('arabicBtn')?.addEventListener('click', () => applyLanguage('ar'));
+  document.getElementById('frankoBtn')?.addEventListener('click', () => applyLanguage('fr'));
+
+  document.querySelectorAll('.result-controls .filter-chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.result-controls .filter-chip').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      currentCategory = btn.getAttribute('data-cat');
+      renderOutings();
+    });
+  });
+
+  document.querySelectorAll('.package-filter-row .filter-chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.package-filter-row .filter-chip').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      currentPackageVibe = btn.getAttribute('data-pcat');
+      renderPackages();
+    });
+  });
+
+document.getElementById('budgetForm')?.addEventListener('submit', e => {
   e.preventDefault();
-  readInputs();
-  if (state.perPerson < 10 || state.totalBudget < 10) {
-    updateBudgetUI();
-    return;
-  }
-  state.shown = 10;
-  state.packageShown = 10;
+  userPeopleCount = parseInt(document.getElementById('people').value, 10) || 1;
+  
+  const exactTotal = parseInt(document.getElementById('perPerson').value, 10) || 1000;
+  userTargetBudget = Math.round(exactTotal / userPeopleCount);
+
+  visibleOutingsCount = 15;
+  visiblePackagesCount = 15;
+
+  document.getElementById('resultsTitle').innerHTML = t('resultsTitleSub').replace('{budget}', money(userTargetBudget));
+  document.getElementById('resultsSub').innerHTML = t('resultsSubDynamic').replace('{people}', userPeopleCount).replace('{total}', money(exactTotal));
+
   renderOutings();
   renderPackages();
-  document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
 
-['people', 'perPerson', 'totalBudget'].forEach((id) => {
-  document.getElementById(id).addEventListener('input', updateBudgetUI);
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
 });
 
-document.getElementById('budgetForm').addEventListener('submit', validateAndSearch);
-
-document.getElementById('moreBtn').addEventListener('click', () => {
-  state.shown += 15;
-  renderOutings();
-});
-
-document.querySelectorAll('[data-cat]').forEach((btn) => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('[data-cat]').forEach((b) => b.classList.remove('active'));
-    btn.classList.add('active');
-    state.cat = btn.dataset.cat;
-    state.shown = 10;
+  document.getElementById('moreBtn')?.addEventListener('click', () => {
+    visibleOutingsCount += 15;
     renderOutings();
   });
-});
 
-document.querySelectorAll('[data-pcat]').forEach((btn) => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('[data-pcat]').forEach((b) => b.classList.remove('active'));
-    btn.classList.add('active');
-    state.pcat = btn.dataset.pcat;
-    state.packageShown = 10;
+  document.getElementById('packageMoreBtn')?.addEventListener('click', () => {
+    visiblePackagesCount += 15;
     renderPackages();
   });
-});
 
-document.getElementById('packageMoreBtn').addEventListener('click', () => {
-  state.packageShown += 15;
+  document.getElementById('modalCloseBtn')?.addEventListener('click', closeKhroogaModal);
+  document.getElementById('khroogaModal')?.addEventListener('click', e => {
+    if (e.target.id === 'khroogaModal') closeKhroogaModal();
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeKhroogaModal();
+  });
+
+  document.getElementById('modalLocBtn')?.addEventListener('click', () => {
+    const status = document.getElementById('locationStatus');
+    const nearGrid = document.getElementById('modalNearPlacesGrid');
+
+    if (!activeKhroogaItem) return;
+
+    status.textContent = t('locating');
+    nearGrid.style.display = 'none';
+
+    if (!navigator.geolocation) {
+      status.textContent = t('locationError');
+      renderNearPlaces(30.0444, 31.2357);
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      pos => {
+        status.textContent = '';
+        renderNearPlaces(pos.coords.latitude, pos.coords.longitude);
+      },
+      err => {
+        status.textContent = t('locationError');
+        renderNearPlaces(30.0444, 31.2357);
+      },
+      { timeout: 10000, maximumAge: 60000 }
+    );
+  });
+
+  renderOutings();
   renderPackages();
 });
-
-function setLang(next) {
-  lang = next;
-  localStorage.setItem('nk-lang', lang);
-  applyLanguage();
-}
-
-document.getElementById('arabicBtn').addEventListener('click', () => setLang('ar'));
-document.getElementById('englishBtn').addEventListener('click', () => setLang('en'));
-document.getElementById('frankoBtn').addEventListener('click', () => setLang('fr'));
-
-const outingCount = document.getElementById('outingCount');
-if (outingCount) {
-  outingCount.textContent = outings.length + '+';
-}
-
-const packageCount = document.getElementById('packageCount');
-if (packageCount) {
-  packageCount.textContent = packages.length + '+';
-}
-
-const packageBadgeCount = document.getElementById('packageBadgeCount');
-if (packageBadgeCount) {
-  packageBadgeCount.textContent = packages.length + '+';
-}
-
-updateBudgetUI();
-applyLanguage();
