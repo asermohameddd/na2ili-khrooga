@@ -180,7 +180,7 @@ const translations = {
     filterChill: 'Chill',
     filterFood: 'Food',
     filterCulture: 'Culture',
-    showMore: 'Show 15 more',
+    showMore: 'Show 5 more',
     packagesEyebrow: 'DAY PACKAGES',
     packagesTitle: 'Not just one place.<br><em>A whole day.</em>',
     packagesCopy: 'Pick a mood, then let the itinerary handle the hand-offs: activity → food → drinks → sunset.',
@@ -279,7 +279,7 @@ const translations = {
     filterChill: 'هدوء',
     filterFood: 'طعام',
     filterCulture: 'ثقافة',
-    showMore: 'عرض ١٥ المزيد',
+    showMore: 'عرض ٥ المزيد',
     packagesEyebrow: 'برامج اليوم الكامل',
     packagesTitle: 'ليس مجرد مكان واحد.<br><em>بل يوم كامل.</em>',
     packagesCopy: 'اختار الجو، ودع البرنامج يرتب لك اليوم: نشاط ← طعام ← مشروب ← غروب.',
@@ -347,9 +347,9 @@ const translations = {
     /* ===== /COMPARE FEATURE ===== */
   },
   fr: {
-    brandName: 'Na2eeli <b>Khorooga</b>',
+    brandName: 'Na2ili <b>Khrooga</b>',
     brandMark: 'N',
-    heroH1: 'Na2eeli <span>Khorooga</span>',
+    heroH1: 'Na2ili <span>Khrooga</span>',
     heroH1Small: 'Ekhtar Yoomak El Sa7',
     navDiscover: 'Ektashef',
     navPackages: 'Barameg',
@@ -378,7 +378,7 @@ const translations = {
     filterChill: 'Rawa2an',
     filterFood: 'Akl',
     filterCulture: 'Saqafa',
-    showMore: 'Wreeni 15 kaman',
+    showMore: 'Wreeni 5 kaman',
     packagesEyebrow: 'BARAMEG EL YOOM',
     packagesTitle: 'Mesh makan wa7ed.<br><em>Da yoom kamel.</em>',
     packagesCopy: 'Ekhtar el gaw, w seeb el barnameg yerateblek el yoom: nashat → akl → shorb → ghoroob.',
@@ -450,8 +450,8 @@ const translations = {
 let currentLang = 'en';
 let currentCategory = 'all';
 let currentPackageVibe = 'all';
-let visibleOutingsCount = 15;
-let visiblePackagesCount = 15;
+let visibleOutingsCount = 4;
+let visiblePackagesCount = 4;
 let userTargetBudget = 500;
 let userPeopleCount = 2;
 let activeKhroogaItem = null;
@@ -528,9 +528,25 @@ function getPlacesForKhrooga(item) {
   const avgPrice = Math.round((item.min + item.max) / 2) || item.total || 100;
   const lower = enTitle.toLowerCase();
 
-  let placeSeeds = [];
+    let placeSeeds = [];
 
-  if (lower.includes('latte') || lower.includes('coffee') || lower.includes('cafe') || lower.includes('iced') || lower.includes('tea') || lower.includes('starbucks')) {
+  /* ---- Local ahwa baladi (tea / Turkish coffee / cheap authentic sits) ---- */
+  const wantsAhwaBaladi =
+    /\btea\b/.test(lower) ||
+    lower.includes('turkish coffee') ||
+    lower.includes('baladi') ||
+    lower.includes('ahwa');
+
+  if (wantsAhwaBaladi) {
+    placeSeeds = [
+      { name: O('El Fishawy Cafe — Khan El Khalili', 'قهوة الفيشاوي — خان الخليلي', 'Ahwet El Fishawy — Khan El Khalili'), address: O('Souq El Fahhamin, Khan El Khalili, El Hussein', 'سوق الفحامين، خان الخليلي، الحسين', 'Sooq El Fahhamin, Khan El Khalili, El 7ussein'), rating: R('4.6', '9.8k') },
+      { name: O('Ahwet El Horreya — Bab El Louk', 'قهوة الحرية — باب اللوق', 'Ahwet El 7orreya — Bab El Louq'), address: O('El Horreya St, Bab El Louk, Downtown', 'شارع الحرية، باب اللوق، وسط البلد', 'Share3 El 7orreya, Bab El Louq, Wost El Balad'), rating: R('4.7', '6.4k') },
+      { name: O('Ahwet Zahret El Bustan — Downtown', 'قهوة زهرة البستان — وسط البلد', 'Ahwet Zahret El Bostan — Wost El Balad'), address: O('Talaat Harb St, Downtown Cairo', 'شارع طلعت حرب، وسط البلد', 'Share3 Tal3at Harb, Wost El Balad'), rating: R('4.5', '4.1k') },
+      { name: O('Ahwet El Borsa — Downtown', 'قهوة البورصة — وسط البلد', 'Ahwet El Borsa — Wost El Balad'), address: O('El Borsa St, Downtown Cairo', 'شارع البورصة، وسط البلد', 'Share3 El Borsa, Wost El Balad'), rating: R('4.5', '3.2k') },
+      { name: O('Ahwet Sabry — El Sayeda Zeinab', 'قهوة صبري — السيدة زينب', 'Ahwet Sabry — El Sayeda Zeinab'), address: O('Port Said St, El Sayeda Zeinab, Old Cairo', 'شارع بورسعيد، السيدة زينب', 'Share3 Port Said, El Sayeda Zeinab'), rating: R('4.4', '2.6k') },
+      { name: O('Ahwet El Abd — El Manial', 'قهوة العبد — المنيل', 'Ahwet El 3abd — El Manial'), address: O('Manial St, Rhoda Island, El Manial', 'شارع المنيل، جزيرة الروضة', 'Share3 El Manial, Gezeeret El Roda'), rating: R('4.5', '3.8k') }
+    ];
+  } else if (lower.includes('latte') || lower.includes('coffee') || lower.includes('cafe') || lower.includes('iced') || lower.includes('starbucks')) {
     placeSeeds = [
       { name: O('Starbucks Coffee — Zamalek', 'ستاربكس — الزمالك', 'Starbucks — El Zamalek'), address: O('26 July St, Zamalek', 'شارع ٢٦ يوليو، الزمالك', 'Share3 26 Yolyu, El Zamalek'), rating: R('4.7', '2.1k') },
       { name: O('Costa Coffee — Maadi Road 9', 'كوستا كوفي — شارع ٩ بالمعادي', 'Costa Coffee — Share3 9 Bel Maadi'), address: O('Road 9, Maadi', 'شارع ٩، المعادي', 'Share3 9, El Maadi'), rating: R('4.6', '1.8k') },
@@ -1163,8 +1179,8 @@ document.getElementById('budgetForm')?.addEventListener('submit', e => {
   ) || 1000;
   userTargetBudget = Math.round(exactTotal / userPeopleCount);
 
-  visibleOutingsCount = 15;
-  visiblePackagesCount = 15;
+  visibleOutingsCount = 4;
+  visiblePackagesCount = 4;
 
   document.getElementById('resultsTitle').innerHTML = t('resultsTitleSub').replace('{budget}', money(userTargetBudget));
   document.getElementById('resultsSub').innerHTML = t('resultsSubDynamic')
@@ -1200,13 +1216,13 @@ document.getElementById('budgetForm')?.addEventListener('submit', e => {
     });
   }
 });
-  document.getElementById('moreBtn')?.addEventListener('click', () => {
-    visibleOutingsCount += 15;
+   document.getElementById('moreBtn')?.addEventListener('click', () => {
+    visibleOutingsCount += 5;
     renderOutings();
   });
 
   document.getElementById('packageMoreBtn')?.addEventListener('click', () => {
-    visiblePackagesCount += 15;
+    visiblePackagesCount += 5;
     renderPackages();
   });
 
