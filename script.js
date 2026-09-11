@@ -159,7 +159,7 @@ const translations = {
     heroEyebrow: 'CAIRO • YOUR BUDGET • YOUR MOOD',
     heroCopy: 'Tell us your group size, your average budget, and your exact total. We’ll find outing ideas and full-day plans that actually fit your budget.',
     peopleLabel: 'How many people?',
-    avgLabel: 'Average budget / person',
+    avgLabel: 'Average budget / person (optional) ',
     totalLabel: 'Exact total group budget',
     currency: 'EGP',
     findBtn: 'Find my outing <span>→</span>',
