@@ -1022,21 +1022,38 @@ footer {
 }
 
 .compare-action-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 900;
   display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: space-between;
+  gap: 14px;
   background: var(--paper);
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  padding: 8px 14px;
-  box-shadow: 0 8px 22px rgba(25, 23, 19, .06);
-  animation: cmpFadeIn .25s ease;
+  border-top: 1px solid var(--line);
+  padding: 14px 5vw;
+  padding-bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+  box-shadow: 0 -8px 30px rgba(25, 23, 19, .12);
+  animation: cmpSlideUp .25s ease;
   flex-wrap: wrap;
 }
 
-@keyframes cmpFadeIn {
-  from { opacity: 0; transform: translateY(4px); }
+/* ensure hidden attribute still wins over display: flex */
+.compare-action-bar[hidden] {
+  display: none !important;
+}
+
+@keyframes cmpSlideUp {
+  from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Push page content up so the fixed compare bar doesn't cover the footer /
+   last cards while compare mode is active. */
+body.compare-mode {
+  padding-bottom: 110px;
 }
 
 .compare-count {
@@ -1341,9 +1358,28 @@ html[dir="rtl"] .compare-table td {
   }
   .compare-action-bar {
     justify-content: center;
+    padding: 12px 4vw;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    gap: 10px;
+  }
+  .compare-count {
+    font-size: 15px;
+  }
+  .compare-hint {
+    white-space: normal;
+    text-align: center;
   }
   .compare-bar-actions {
     justify-content: center;
+    width: 100%;
+  }
+  .compare-cancel-btn,
+  .compare-confirm-btn {
+    flex: 1;
+    padding: 10px 12px;
+  }
+  body.compare-mode {
+    padding-bottom: 150px;
   }
   .compare-table tbody th,
   .compare-table .cmp-corner {
