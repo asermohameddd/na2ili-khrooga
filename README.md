@@ -41,6 +41,13 @@ The JavaScript (Made with AI) functionality allows the website to handle differe
 The website can use the user's location to help provide suitable recommendations based on nearby places.
 Users can allow location access to discover outing suggestions that are closer to their current location.
 
+##Compare between hangouts
+In the website you can choose 2 or more hangouts and compare between them in:
+*Category
+*Average budget
+*Nearest branches 
+*Top rated branches
+
 ## Responsive Design
 The website is designed to work across different screen sizes, including:
 * Desktop
