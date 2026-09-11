@@ -579,15 +579,10 @@ function renderNearPlaces(lat, lng) {
   const displayTitle = L(item.name);
   const avgPrice = Math.round((item.min + item.max) / 2) || item.total || 100;
 
-  const distances = [0.4, 0.8, 1.3, 1.9, 2.5, 3.2];
-  const ratings = [R('4.9', '1.8k'), R('4.8', '1.4k'), R('4.8', '950'), R('4.7', '2.1k'), R('4.7', '1.2k'), R('4.6', '820')];
+   const distances = [0.4];
+  const ratings = [R('4.9', '1.8k')];
   const labels = [
     O('Nearest Branch', 'أقرب فرع', 'Aqrab far3'),
-    O('Main Avenue Location', 'الفرع الرئيسي', 'El far3 el ra2eesy'),
-    O('Central Plaza Corner', 'فرع البلازا', 'Far3 el plaza'),
-    O('Promenade Branch', 'فرع الممشى', 'Far3 el mamsha'),
-    O('District Mall Branch', 'فرع المول', 'Far3 el mall'),
-    O('Express Location', 'فرع إكسبريس', 'Far3 Express')
   ];
 
   const nearGrid = document.getElementById('modalNearPlacesGrid');
