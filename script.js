@@ -218,7 +218,34 @@ const translations = {
     scrollCue: 'SCROLL TO EXPLORE <span>↓</span>',
     estPerPerson: 'Est. per person',
     cairoRange: 'Cairo range',
-    estTotal: 'EST. TOTAL PER PERSON'
+    estTotal: 'EST. TOTAL PER PERSON',
+    /* ===== COMPARE FEATURE (ADDED) ===== */
+    compareBtn: 'Compare hangouts',
+    compareTag: 'COMPARISON',
+    compareTitle: 'Compare your outings',
+    compareSub: 'Category, average budget, nearest branch and top-rated places — side by side.',
+    compareMinHint: 'Select at least 2 outings',
+    compareCancel: 'Cancel',
+    compareConfirm: 'Confirm compare',
+    compareSelectedSuffix: 'selected',
+    comparePickMore: 'Select at least 2 outings to compare.',
+    compareEmpty: 'No outings selected. Close and pick some cards to compare.',
+    compareOuting: 'Outing',
+    compareCategory: 'Category',
+    compareAvgBudget: 'Avg budget / person',
+    compareRange: 'Price range',
+    compareBrief: 'Brief',
+    compareNearestBranch: 'Nearest branch',
+    compareTopRated: 'Top rated',
+    compareDistance: 'Distance',
+    compareOpenMap: 'Show in maps',
+    compareNearestBtn: 'Find nearest branches',
+    compareLocating: 'Finding the nearest branch for each outing...',
+    compareLocError: 'Could not access your location. Showing default branches.',
+    compareSelectMode: 'Tap outings to select',
+    compareExitSelect: 'Exit compare',
+    compareNoLocation: 'Press 📍 to find nearest'
+    /* ===== /COMPARE FEATURE ===== */
   },
   ar: {
     brandName: 'نقيلي <b>خروجة</b>',
@@ -290,7 +317,34 @@ const translations = {
     scrollCue: 'انزل للأسفل للاستكشاف <span>↓</span>',
     estPerPerson: 'تقريباً للفرد',
     cairoRange: 'أسعار القاهرة',
-    estTotal: 'الإجمالي التقريبي للفرد'
+    estTotal: 'الإجمالي التقريبي للفرد',
+    /* ===== COMPARE FEATURE (ADDED) ===== */
+    compareBtn: 'قارن خروجات',
+    compareTag: 'مقارنة',
+    compareTitle: 'قارن خروجاتك',
+    compareSub: 'التصنيف، متوسط الميزانية، أقرب فرع، وأعلى تقييم — جنب بعض.',
+    compareMinHint: 'اختار على الأقل خروجتين',
+    compareCancel: 'إلغاء',
+    compareConfirm: 'تأكيد المقارنة',
+    compareSelectedSuffix: 'مختارة',
+    comparePickMore: 'اختار على الأقل خروجتين للمقارنة.',
+    compareEmpty: 'مفيش خروجات مختارة. اقفل واختار كروت للمقارنة.',
+    compareOuting: 'الخروجة',
+    compareCategory: 'التصنيف',
+    compareAvgBudget: 'متوسط الميزانية / للفرد',
+    compareRange: 'مدى السعر',
+    compareBrief: 'نبذة',
+    compareNearestBranch: 'أقرب فرع',
+    compareTopRated: 'أعلى تقييم',
+    compareDistance: 'المسافة',
+    compareOpenMap: 'اعرض في الخريطة',
+    compareNearestBtn: 'هات أقرب الفروع',
+    compareLocating: 'بنجيب أقرب فرع لكل خروجة...',
+    compareLocError: 'مقدرناش نوصل لموقعك. هنعرض فروع افتراضية.',
+    compareSelectMode: 'اضغط على الخروجات للاختيار',
+    compareExitSelect: 'خروج من المقارنة',
+    compareNoLocation: 'اضغط 📍 لجلب الأقرب'
+    /* ===== /COMPARE FEATURE ===== */
   },
   fr: {
     brandName: 'Na2eeli <b>Khorooga</b>',
@@ -362,7 +416,34 @@ const translations = {
     scrollCue: 'ENZEL TA7T 3ASHAN TSHOOF <span>↓</span>',
     estPerPerson: 'Taqreeban lel fard',
     cairoRange: 'As3ar El Qahira',
-    estTotal: 'EL EGMALY EL TAQREEBY LEL FARD'
+    estTotal: 'EL EGMALY EL TAQREEBY LEL FARD',
+    /* ===== COMPARE FEATURE (ADDED) ===== */
+    compareBtn: 'Karen khrogat',
+    compareTag: 'MO2ARANA',
+    compareTitle: '2aren khoroogatak',
+    compareSub: 'El category, mizaniya, aqrab far3 w a3la taqyeem — ganb ba3d.',
+    compareMinHint: 'Ekhtar 3ala el a2al khoroogteen',
+    compareCancel: 'Cancel',
+    compareConfirm: 'Akkid el mo2arana',
+    compareSelectedSuffix: 'mokhtara',
+    comparePickMore: 'Ekhtar 3ala el a2al khoroogteen lel mo2arana.',
+    compareEmpty: 'Ma feesh khoroogat mokhtara. E2fel w ekhtar cards.',
+    compareOuting: 'Khorooga',
+    compareCategory: 'Category',
+    compareAvgBudget: 'Motawaset el mizaniya / lel fard',
+    compareRange: 'Price range',
+    compareBrief: 'Brief',
+    compareNearestBranch: 'Aqrab far3',
+    compareTopRated: 'A3la taqyeem',
+    compareDistance: 'Distance',
+    compareOpenMap: 'E3red fel khareeta',
+    compareNearestBtn: 'Hat aqrab el foro3',
+    compareLocating: 'Bengib aqrab far3 le kol khorooga...',
+    compareLocError: 'Ma2dernash newsal le mkanak. Han3red foro3 default.',
+    compareSelectMode: 'Dos 3ala el khoroogat lel ekhteyar',
+    compareExitSelect: 'Khoroog mn el mo2arana',
+    compareNoLocation: 'Dos 📍 lel aqrab'
+    /* ===== /COMPARE FEATURE ===== */
   }
 };
 
@@ -428,6 +509,18 @@ function applyLanguage(lang) {
 
   renderOutings();
   renderPackages();
+
+  refreshCompareLabels();
+  if (compareMode) {
+    updateCompareActionBar();
+    document.querySelectorAll('#resultsGrid .outing-card').forEach(card => {
+      const id = parseInt(card.getAttribute('data-id'), 10);
+      updateCardCompareState(card, id);
+    });
+  }
+  if (document.getElementById('compareModal')?.classList.contains('active') && compareSelection.length) {
+    renderCompareTable(compareLastGeo);
+  }
 }
 
 function getPlacesForKhrooga(item) {
@@ -523,6 +616,23 @@ function getPlacesForKhrooga(item) {
     };
   });
 }
+
+/* ===== COMPARE FEATURE (ADDED) : helpers for rating parsing & top-rated pick ===== */
+function parseRating(ratingStr) {
+  const m = String(ratingStr || '').match(/([0-9]+(?:\.[0-9]+)?)\s*★/);
+  return m ? parseFloat(m[1]) : 0;
+}
+
+function getTopRatedPlace(item) {
+  const places = getPlacesForKhrooga(item);
+  if (!places.length) return null;
+  return places.reduce((best, p) => {
+    const pR = parseRating(p.rating);
+    const bR = parseRating(best.rating);
+    return pR > bR ? p : best;
+  }, places[0]);
+}
+/* ===== /COMPARE FEATURE ===== */
 
 function openKhroogaModal(item) {
   if (!item) return;
@@ -630,7 +740,7 @@ function renderOutings() {
   const visible = filtered.slice(0, visibleOutingsCount);
 
   grid.innerHTML = visible.map(o => `
-    <div class="outing-card">
+    <div class="outing-card" data-id="${o.id}">
       <div>
         <div class="outing-top">
           <span class="emoji">${o.emoji}</span>
@@ -651,14 +761,26 @@ function renderOutings() {
           <span>${t('viewMore')}</span> <span>→</span>
         </button>
       </div>
+      <div class="cmp-card-check" data-cmp-check></div>
     </div>
   `).join('');
 
   grid.querySelectorAll('.view-more-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', (e) => {
+      if (compareMode) { e.stopPropagation(); return; }
       const id = parseInt(btn.getAttribute('data-id'), 10);
       const item = outingsMap.find(x => x.id === id);
       openKhroogaModal(item);
+    });
+  });
+
+  grid.querySelectorAll('.outing-card').forEach(card => {
+    const id = parseInt(card.getAttribute('data-id'), 10);
+    updateCardCompareState(card, id);
+    card.addEventListener('click', (e) => {
+      if (!compareMode) return;
+      if (e.target.closest('.view-more-btn')) e.stopPropagation();
+      toggleCompareSelection(id, card);
     });
   });
 
@@ -728,6 +850,278 @@ function renderPackages() {
   }
 }
 
+/* ============================================================
+   ===== COMPARE FEATURE (ADDED) — all compare logic here =====
+   ============================================================ */
+
+let compareMode = false;
+let compareSelection = [];
+let compareLastGeo = null;
+
+function getOutingById(id) {
+  return outingsMap.find(o => o.id === id);
+}
+
+function updateCardCompareState(card, id) {
+  const selected = compareSelection.includes(id);
+  card.classList.toggle('cmp-selected', selected);
+  const check = card.querySelector('[data-cmp-check]');
+  if (check) check.textContent = selected ? '✓' : '';
+}
+
+function enterCompareMode() {
+  compareMode = true;
+  document.body.classList.add('compare-mode');
+  const toggleBtn = document.getElementById('compareToggleBtn');
+  if (toggleBtn) toggleBtn.classList.add('active');
+  updateCompareActionBar();
+}
+
+function exitCompareMode() {
+  compareMode = false;
+  compareSelection = [];
+  document.body.classList.remove('compare-mode');
+  const toggleBtn = document.getElementById('compareToggleBtn');
+  if (toggleBtn) toggleBtn.classList.remove('active');
+  document.querySelectorAll('#resultsGrid .outing-card').forEach(card => {
+    card.classList.remove('cmp-selected');
+    const check = card.querySelector('[data-cmp-check]');
+    if (check) check.textContent = '';
+  });
+  const countEl = document.getElementById('compareCount');
+  if (countEl) countEl.textContent = `0 ${t('compareSelectedSuffix')}`;
+  updateCompareActionBar();
+}
+
+function toggleCompareSelection(id, card) {
+  const idx = compareSelection.indexOf(id);
+  if (idx > -1) {
+    compareSelection.splice(idx, 1);
+  } else {
+    compareSelection.push(id);
+  }
+  updateCardCompareState(card, id);
+  updateCompareActionBar();
+}
+
+function updateCompareActionBar() {
+  const bar = document.getElementById('compareActionBar');
+  const countEl = document.getElementById('compareCount');
+  const hintEl = document.getElementById('compareHint');
+  const confirmBtn = document.getElementById('compareConfirmBtn');
+  if (!bar || !countEl || !confirmBtn) return;
+
+  const n = compareSelection.length;
+  countEl.textContent = `${n} ${t('compareSelectedSuffix')}`;
+
+  if (!compareMode) {
+    bar.hidden = true;
+    return;
+  }
+  bar.hidden = false;
+  if (n < 2) {
+    hintEl.hidden = false;
+    hintEl.textContent = t('compareMinHint');
+    confirmBtn.disabled = true;
+  } else {
+    hintEl.hidden = true;
+    confirmBtn.disabled = false;
+  }
+}
+
+function refreshCompareLabels() {
+  const t1 = document.querySelector('#compareToggleBtn [data-i18n="compareBtn"]');
+  if (t1) t1.textContent = t('compareBtn');
+  const t2 = document.getElementById('compareModalTitle');
+  if (t2) t2.textContent = t('compareTitle');
+  const t3 = document.querySelector('.compare-toolbar .modal-subtext');
+  if (t3) t3.textContent = t('compareSub');
+  const t5 = document.getElementById('compareConfirmBtn');
+  if (t5) t5.textContent = t('compareConfirm');
+  const t6 = document.getElementById('compareCancelBtn');
+  if (t6) t6.textContent = t('compareCancel');
+  const t7 = document.getElementById('compareHint');
+  if (t7) t7.textContent = t('compareMinHint');
+}
+
+/* ===== COMPARE FEATURE (ADDED) : updated compare table ===== */
+function renderCompareTable(geo) {
+  const wrap = document.getElementById('compareTableWrap');
+  if (!wrap) return;
+
+  const items = compareSelection.map(id => getOutingById(id)).filter(Boolean);
+  if (!items.length) {
+    wrap.innerHTML = `<p class="compare-empty">${t('compareEmpty')}</p>`;
+    return;
+  }
+
+  const headerCols = items.map(it => `
+    <th>
+      <div class="cmp-head-emoji">${it.emoji}</div>
+      <div class="cmp-head-name">${L(it.name)}</div>
+    </th>
+  `).join('');
+
+  const catRow = items.map(it => `<td>${catText(it.cat)}</td>`).join('');
+
+  const avgRow = items.map(it => {
+    const avg = Math.round((it.min + it.max) / 2);
+    return `<td class="cmp-strong">${money(avg)}</td>`;
+  }).join('');
+
+  const rangeRow = items.map(it => `<td>${money(it.min)} – ${money(it.max)}</td>`).join('');
+
+  const briefRow = items.map(it => `<td class="cmp-brief">${L(it.desc)}</td>`).join('');
+
+  // Nearest branch — always uses the user's location when available.
+  // No "Cairo" fallback anymore: if geo is missing, it just searches
+  // "<hangout> nearest branch" so Google Maps picks the closest one.
+  const nearestRow = items.map(it => {
+    const enTitle = typeof it.name === 'object' ? it.name.en : it.name;
+    const displayTitle = L(it.name);
+    let mapsUrl;
+    if (geo) {
+      mapsUrl = `https://www.google.com/maps/search/${encodeURIComponent(enTitle + ' nearest branch')}/@${geo.lat},${geo.lng},13z`;
+    } else {
+      mapsUrl = `https://www.google.com/maps/search/${encodeURIComponent(enTitle + ' nearest branch')}`;
+    }
+    return `
+      <td>
+        <div class="cmp-branch-name">${displayTitle} — ${t('compareNearestBranch')}</div>
+        <a class="cmp-map-btn" href="${mapsUrl}" target="_blank" rel="noopener noreferrer">
+          📍 ${t('compareOpenMap')}
+        </a>
+      </td>
+    `;
+  }).join('');
+
+  // Top rated — now shows "<hangout> — Top rated" (no "places") and the
+  // maps link searches "<hangout> top rated".
+  const topRatedRow = items.map(it => {
+    const enTitle = typeof it.name === 'object' ? it.name.en : it.name;
+    const displayTitle = L(it.name);
+    const mapsUrl = `https://www.google.com/maps/search/${encodeURIComponent(enTitle + ' top rated')}`;
+    return `
+      <td>
+        <div class="cmp-branch-name">${displayTitle} — ${t('compareTopRated')}</div>
+        <a class="cmp-map-btn" href="${mapsUrl}" target="_blank" rel="noopener noreferrer">
+          📍 ${t('compareOpenMap')}
+        </a>
+      </td>
+    `;
+  }).join('');
+
+  wrap.innerHTML = `
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th class="cmp-corner">${t('compareOuting')}</th>
+          ${headerCols}
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>${t('compareCategory')}</th>
+          ${catRow}
+        </tr>
+        <tr>
+          <th>${t('compareAvgBudget')}</th>
+          ${avgRow}
+        </tr>
+        <tr>
+          <th>${t('compareRange')}</th>
+          ${rangeRow}
+        </tr>
+        <tr>
+          <th>${t('compareBrief')}</th>
+          ${briefRow}
+        </tr>
+        <tr>
+          <th>
+            <div>${t('compareNearestBranch')}</div>
+            <button class="cmp-loc-btn" id="cmpRowLocBtn" type="button">
+              <span>📍</span> <span>${t('searchByLocation')}</span>
+            </button>
+          </th>
+          ${nearestRow}
+        </tr>
+        <tr>
+          <th>${t('compareTopRated')}</th>
+          ${topRatedRow}
+        </tr>
+      </tbody>
+    </table>
+  `;
+
+  document.getElementById('cmpRowLocBtn')?.addEventListener('click', handleCompareLocation);
+}
+/* ===== /COMPARE FEATURE ===== */
+
+/* ===== COMPARE FEATURE (ADDED) : auto-fetch location on modal open ===== */
+function openCompareModal() {
+  const modal = document.getElementById('compareModal');
+  if (!modal) return;
+  modal.classList.add('active');
+  modal.setAttribute('aria-hidden', 'false');
+  const status = document.getElementById('compareLocationStatus');
+  if (status) status.textContent = '';
+
+  // If we don't have the user's location yet, quietly fetch it so the
+  // "Nearest branch" links always point to the closest branch to them.
+  if (!compareLastGeo && navigator.geolocation) {
+    if (status) status.textContent = t('compareLocating');
+    navigator.geolocation.getCurrentPosition(
+      pos => {
+        compareLastGeo = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+        if (status) status.textContent = '';
+        renderCompareTable(compareLastGeo);
+      },
+      () => {
+        if (status) status.textContent = '';
+        renderCompareTable(null);
+      },
+      { timeout: 10000, maximumAge: 60000 }
+    );
+  } else {
+    renderCompareTable(compareLastGeo);
+  }
+}
+
+function closeCompareModal() {
+  const modal = document.getElementById('compareModal');
+  if (!modal) return;
+  modal.classList.remove('active');
+  modal.setAttribute('aria-hidden', 'true');
+}
+
+function handleCompareLocation() {
+  const status = document.getElementById('compareLocationStatus');
+  if (!status) return;
+  status.textContent = t('compareLocating');
+
+  if (!navigator.geolocation) {
+    status.textContent = t('compareLocError');
+    compareLastGeo = { lat: 30.0444, lng: 31.2357 };
+    renderCompareTable(compareLastGeo);
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+    pos => {
+      compareLastGeo = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+      status.textContent = '';
+      renderCompareTable(compareLastGeo);
+    },
+    () => {
+      status.textContent = t('compareLocError');
+      compareLastGeo = { lat: 30.0444, lng: 31.2357 };
+      renderCompareTable(compareLastGeo);
+    },
+    { timeout: 10000, maximumAge: 60000 }
+  );
+}
+/* ===== /COMPARE FEATURE ===== */
+
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('englishBtn')?.addEventListener('click', () => applyLanguage('en'));
   document.getElementById('arabicBtn')?.addEventListener('click', () => applyLanguage('ar'));
@@ -751,28 +1145,61 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+// Replace the existing budgetForm submit handler with this:
+
 document.getElementById('budgetForm')?.addEventListener('submit', e => {
   e.preventDefault();
+
+  // 1. Blur the active input to dismiss the mobile keyboard
+  if (document.activeElement && document.activeElement.blur) {
+    document.activeElement.blur();
+  }
+
+  // 2. Do the budget calculations
   userPeopleCount = parseInt(document.getElementById('people').value, 10) || 1;
-  
-  // Read directly from the total budget input field (update 'totalBudget' if your HTML uses a different ID)
-  const exactTotal = parseInt(document.getElementById('totalBudget')?.value || document.getElementById('perPerson').value, 10) || 1000;
-  
-  // Calculate the average budget per person by dividing total budget by the number of people
+  const exactTotal = parseInt(
+    document.getElementById('totalBudget')?.value || document.getElementById('perPerson').value,
+    10
+  ) || 1000;
   userTargetBudget = Math.round(exactTotal / userPeopleCount);
 
   visibleOutingsCount = 15;
   visiblePackagesCount = 15;
 
   document.getElementById('resultsTitle').innerHTML = t('resultsTitleSub').replace('{budget}', money(userTargetBudget));
-  document.getElementById('resultsSub').innerHTML = t('resultsSubDynamic').replace('{people}', userPeopleCount).replace('{total}', money(exactTotal));
+  document.getElementById('resultsSub').innerHTML = t('resultsSubDynamic')
+    .replace('{people}', userPeopleCount)
+    .replace('{total}', money(exactTotal));
 
   renderOutings();
   renderPackages();
 
-  document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+  // 3. Scroll after the keyboard has closed and layout is stable
+  const scrollToResults = () => {
+    const resultsEl = document.getElementById('results');
+    if (!resultsEl) return;
+
+    // Mobile-friendly offset: 12px on small screens, 24px on larger ones
+    const offset = window.innerWidth <= 900 ? 12 : 24;
+    const top = resultsEl.getBoundingClientRect().top + window.pageYOffset - offset;
+
+    window.scrollTo({ top, behavior: 'smooth' });
+  };
+
+  // If the keyboard is open, give it time to close; otherwise scroll right away
+  const isMobileKeyboardOpen = window.innerWidth <= 900 && document.activeElement !== document.body;
+  if (isMobileKeyboardOpen) {
+    setTimeout(() => {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(scrollToResults);
+      });
+    }, 320);
+  } else {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(scrollToResults);
+    });
+  }
 });
-  
   document.getElementById('moreBtn')?.addEventListener('click', () => {
     visibleOutingsCount += 15;
     renderOutings();
@@ -789,7 +1216,10 @@ document.getElementById('budgetForm')?.addEventListener('submit', e => {
   });
 
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeKhroogaModal();
+    if (e.key === 'Escape') {
+      closeKhroogaModal();
+      closeCompareModal();
+    }
   });
 
   document.getElementById('modalLocBtn')?.addEventListener('click', () => {
@@ -819,6 +1249,27 @@ document.getElementById('budgetForm')?.addEventListener('submit', e => {
       { timeout: 10000, maximumAge: 60000 }
     );
   });
+
+  /* ===== COMPARE FEATURE (ADDED) : all compare event listeners ===== */
+  document.getElementById('compareToggleBtn')?.addEventListener('click', () => {
+    if (compareMode) exitCompareMode();
+    else enterCompareMode();
+  });
+
+  document.getElementById('compareCancelBtn')?.addEventListener('click', () => {
+    exitCompareMode();
+  });
+
+  document.getElementById('compareConfirmBtn')?.addEventListener('click', () => {
+    if (compareSelection.length < 2) return;
+    openCompareModal();
+  });
+
+  document.getElementById('compareModalCloseBtn')?.addEventListener('click', closeCompareModal);
+  document.getElementById('compareModal')?.addEventListener('click', e => {
+    if (e.target.id === 'compareModal') closeCompareModal();
+  });
+  /* ===== /COMPARE FEATURE ===== */
 
   renderOutings();
   renderPackages();
