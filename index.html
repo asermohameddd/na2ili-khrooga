@@ -118,6 +118,21 @@
       <button class="more-btn" id="moreBtn" hidden>
         <span data-i18n="showMore">Show 15 more</span> <span>＋</span>
       </button>
+
+      <div class="compare-bar-wrap">
+        <div class="compare-action-bar" id="compareActionBar" hidden>
+          <span class="compare-count" id="compareCount">0 selected</span>
+          <span class="compare-hint" id="compareHint" data-i18n="compareMinHint">Select at least 2 outings</span>
+          <div class="compare-bar-actions">
+            <button class="compare-cancel-btn" id="compareCancelBtn" type="button" data-i18n="compareCancel">Cancel</button>
+            <button class="compare-confirm-btn" id="compareConfirmBtn" type="button" data-i18n="compareConfirm" disabled>Confirm compare</button>
+          </div>
+        </div>
+        <button class="compare-toggle-btn" id="compareToggleBtn" type="button">
+          <span class="cmp-ico">⚖️</span>
+          <span data-i18n="compareBtn">Compare hangouts</span>
+        </button>
+      </div>
     </section>
 
     <section class="packages-section" id="packages">
@@ -224,6 +239,28 @@
           <div id="locationStatus" class="location-status"></div>
           <div class="maps-grid" id="modalNearPlacesGrid" style="display:none;"></div>
         </section>
+      </div>
+    </div>
+  </div>
+
+  <div id="compareModal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="compareModalTitle">
+    <div class="modal-card compare-modal-card">
+      <button class="modal-close" id="compareModalCloseBtn" aria-label="Close modal">&times;</button>
+      <div class="modal-header">
+        <span class="modal-emoji">⚖️</span>
+        <div>
+          <div class="modal-tags">
+            <span class="tag" data-i18n="compareTag">COMPARISON</span>
+          </div>
+          <h2 id="compareModalTitle" data-i18n="compareTitle">Compare your outings</h2>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="compare-toolbar">
+          <p class="modal-subtext" style="margin:0;" data-i18n="compareSub">Category, average budget, nearest branch and top-rated places — side by side.</p>
+        </div>
+        <div id="compareLocationStatus" class="location-status"></div>
+        <div class="compare-table-wrap" id="compareTableWrap"></div>
       </div>
     </div>
   </div>
